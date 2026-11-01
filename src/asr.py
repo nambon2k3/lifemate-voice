@@ -12,27 +12,63 @@ from pathlib import Path
 
 
 def cache_path(cache_dir: Path, sample_id: str, wav_path: str) -> Path:
+    """Build the cache file path for one wav.
+
+    Input:
+        cache_dir (Path): directory such as cache/transcripts.
+        sample_id (str): sample id, such as ``public_0002``.
+        wav_path (str): audio path relative to the split, such as ``audio/public_0002/public_0002.wav``.
+
+    Output:
+        Path: ``<cache_dir>/<sample_id>__<wav stem>.txt``.
+    """
     stem = Path(wav_path).stem
     return cache_dir / f"{sample_id}__{stem}.txt"
 
 
 def read_cache(path: Path) -> str | None:
+    """Read a cached transcript if it exists.
+
+    Input:
+        path (Path): file returned by ``cache_path``.
+
+    Output:
+        str: transcript text when the file exists.
+        None: when the file is missing.
+    """
     if not path.is_file():
         return None
     return path.read_text(encoding="utf-8")
 
 
 def write_cache(path: Path, text: str) -> None:
+    """Store a transcript so the next run skips the speech model.
+
+    Input:
+        path (Path): destination from ``cache_path``. Parent directories are created.
+        text (str): transcript to save as UTF-8.
+
+    Output:
+        None. Writes ``path``.
+    """
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8")
 
 
 def transcribe(sample: dict, wav_path: str, settings: dict) -> str:
-    """Return the transcript for ``wav_path``.
+    """Return the transcript for one wav.
 
-    Order: on-disk cache, then train ``audio_text`` when ``use_gold_transcript``
-    is set and this wav is the latest request. Loading PhoWhisper is the next
-    step; until then a missing cache raises ``NotImplementedError``.
+    Tries the on-disk cache first. On train, uses ``audio_text`` when
+    ``use_gold_transcript`` is set and ``wav_path`` is the latest request.
+    A missing cache raises ``NotImplementedError`` until PhoWhisper is wired in.
+
+    Input:
+        sample (dict): one JSONL row. Uses ``id``, ``audio``, and maybe ``audio_text``.
+        wav_path (str): wav to transcribe, relative to the split directory.
+        settings (dict): must include ``cache_dir`` (str). ``use_gold_transcript`` (bool) is optional.
+
+    Output:
+        str: the transcript.
     """
     cache_dir = Path(settings["cache_dir"])
     cached = read_cache(cache_path(cache_dir, sample["id"], wav_path))

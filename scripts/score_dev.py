@@ -16,6 +16,15 @@ HOLDOUT_PATH = Path(__file__).with_name("holdout_ids.txt")
 
 
 def load_ids(path: Path) -> list[str]:
+    """Read the holdout sample ids.
+
+    Input:
+        path (Path): text file such as scripts/holdout_ids.txt. Blank lines and
+        '#' comments are ignored. A missing file is treated as empty.
+
+    Output:
+        list[str]: sample ids in file order, such as ``train_0001``.
+    """
     ids = []
     if not path.is_file():
         return ids
@@ -27,6 +36,14 @@ def load_ids(path: Path) -> list[str]:
 
 
 def load_jsonl(path: Path) -> dict[str, dict]:
+    """Load a JSONL file and index its rows by sample id.
+
+    Input:
+        path (Path): train.jsonl or a submission.jsonl. Each line must contain ``id``.
+
+    Output:
+        dict[str, dict]: sample id to the parsed row. A later line with the same id replaces the earlier one.
+    """
     rows = {}
     with path.open(encoding="utf-8") as handle:
         for line in handle:
@@ -39,6 +56,16 @@ def load_jsonl(path: Path) -> dict[str, dict]:
 
 
 def tag_miss(gold_calls: list, pred_calls: list) -> str:
+    """Name the first way a prediction disagrees with the gold calls.
+
+    Input:
+        gold_calls (list[dict]): ``label.tool_calls``. Each item has ``name`` and ``arguments``.
+        pred_calls (list[dict]): ``tool_calls`` from the submission line, same shape.
+
+    Output:
+        str: ``extra_call``, ``missing_call``, ``wrong_tool``, ``bad_argument``, or ``hash_mismatch``.
+        ``hash_mismatch`` means the call lists match, so a future hash check is what failed.
+    """
     if not gold_calls and pred_calls:
         return "extra_call"
     if gold_calls and not pred_calls:
@@ -53,6 +80,17 @@ def tag_miss(gold_calls: list, pred_calls: list) -> str:
 
 
 def score(gold_rows: dict[str, dict], pred_rows: dict[str, dict], ids: list[str]) -> dict:
+    """Compare predicted tool calls with train labels for the given ids.
+
+    Input:
+        gold_rows (dict[str, dict]): train rows keyed by id, including ``label.tool_calls``.
+        pred_rows (dict[str, dict]): submission rows keyed by id, including ``tool_calls``.
+        ids (list[str]): holdout ids to score. Ids missing from either map are counted, not scored.
+
+    Output:
+        dict: ``n`` (int, holdout size), ``scored`` (int), ``call_match`` (int, exact call-list matches),
+        ``missing_prediction`` (int), and ``tags`` (dict[str, int] of miss reasons).
+    """
     matched = 0
     tags: dict[str, int] = {}
     missing_pred = 0
@@ -79,6 +117,14 @@ def score(gold_rows: dict[str, dict], pred_rows: dict[str, dict], ids: list[str]
 
 
 def main() -> None:
+    """Score a submission on the holdout ids and write the report.
+
+    Input:
+        none. Reads ``sys.argv``: ``--submission``, ``--holdout``, ``--train``, and ``--report`` (all Path).
+
+    Output:
+        None. Writes the score dict as JSON to ``--report`` and prints the same object.
+    """
     parser = argparse.ArgumentParser(description="Score a train submission on the holdout ids")
     parser.add_argument("--submission", type=Path, default=REPO_ROOT / "outputs" / "submission.jsonl")
     parser.add_argument("--holdout", type=Path, default=HOLDOUT_PATH)

@@ -11,6 +11,15 @@ from datetime import datetime, timedelta
 
 
 def index_catalog(catalog: dict) -> dict[str, dict]:
+    """Index every tool in a split catalog by its full name.
+
+    Input:
+        catalog (dict): parsed ``<split>_tools_catalog.json``, with an ``apps`` list.
+
+    Output:
+        dict[str, dict]: tool name such as ``alarm.list`` to that tool's schema
+        (``kind``, ``description``, ``parameters``, and the rest).
+    """
     tools: dict[str, dict] = {}
     for app in catalog.get("apps", []):
         for tool in app.get("tools", []):
@@ -19,6 +28,15 @@ def index_catalog(catalog: dict) -> dict[str, dict]:
 
 
 def installed_tool_names(sample: dict) -> list[str]:
+    """List the tools this sample is allowed to call.
+
+    Input:
+        sample (dict): one JSONL row. Reads ``context.installed_apps``.
+
+    Output:
+        list[str]: ``sys.ask_missing_info`` plus each installed app's tool names,
+        in catalog order within each app, with duplicates removed.
+    """
     names = ["sys.ask_missing_info"]
     apps = sample.get("context", {}).get("installed_apps", {})
     for info in apps.values():
@@ -29,6 +47,16 @@ def installed_tool_names(sample: dict) -> list[str]:
 
 
 def _parse_now(current_time: str) -> datetime | None:
+    """Parse the sample clock into a timezone-aware datetime.
+
+    Input:
+        current_time (str): ISO time from ``context.current_time``, such as
+        ``2026-11-28T07:10:00+07:00``. A trailing ``Z`` is accepted.
+
+    Output:
+        datetime: the parsed instant.
+        None: when the string is not a valid ISO time.
+    """
     text = current_time.strip()
     if text.endswith("Z"):
         text = text[:-1] + "+00:00"
@@ -39,7 +67,16 @@ def _parse_now(current_time: str) -> datetime | None:
 
 
 def render(sample: dict, tools_by_name: dict[str, dict], transcript: str) -> str:
-    """Plain-text block: clock, profile, installed tools, history, latest request."""
+    """Build the plain-text block the planner reads. Writes nothing.
+
+    Input:
+        sample (dict): one JSONL row. Uses ``id``, ``context``, and ``history``.
+        tools_by_name (dict[str, dict]): catalog index from ``index_catalog``.
+        transcript (str): text of the latest user request.
+
+    Output:
+        str: clock, today, tomorrow, profile, installed tools, history, and the request.
+    """
     context = sample.get("context", {})
     profile = context.get("user_profile") or {}
     location = context.get("location") or {}

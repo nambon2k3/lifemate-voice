@@ -19,9 +19,20 @@ def run(
     tools_by_name: dict[str, dict],
     settings: dict,
 ) -> None:
-    """Execute the step loop on the one session created for ``sample``.
+    """Run the one-call-per-step loop on the session created for this sample.
 
-    ``transcript`` and ``context_text`` are ready for the planner. ``settings``
-    supplies ``planner_model``, ``temperature``, and ``max_steps``.
+    Placeholder: records no calls. ``transcript`` and ``context_text`` are ready
+    for the planner. ``settings`` supplies ``planner_model``, ``temperature``, and ``max_steps``.
+
+    Input:
+        sample (dict): one JSONL row.
+        env (Session): the only ToolEnv session for this sample. Calls made here are recorded.
+        transcript (str): text of the latest user request.
+        context_text (str): prompt block from ``context.render``.
+        tools_by_name (dict[str, dict]): catalog index for the active split.
+        settings (dict): runtime config, including the planner model and ``max_steps``.
+
+    Output:
+        None. The submission fields stay on ``env`` via ``get_tool_calls`` and ``get_state_hash``.
     """
     del sample, env, transcript, context_text, tools_by_name, settings
