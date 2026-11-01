@@ -1,0 +1,2 @@
+# One train sample id per line. Lines starting with # are ignored.
+# score_dev.py scores only these ids, so the same slice is reused every day.

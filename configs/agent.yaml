@@ -1,0 +1,11 @@
+# Fixed between a local score and a submission. See STRUCTURE.md.
+
+asr_model: vinai/PhoWhisper-large
+planner_model: Qwen/Qwen3-4B-Instruct-2507-FP8
+temperature: 0
+max_steps: 8
+split: public_test
+kit_root: train+public_test
+cache_dir: cache/transcripts
+output_path: outputs/submission.jsonl
+use_gold_transcript: false

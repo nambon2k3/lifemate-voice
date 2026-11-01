@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+__MACOSX/
+
+# Local weights and generated artifacts. See STRUCTURE.md.
+models/*
+!models/.gitkeep
+cache/transcripts/*
+!cache/transcripts/.gitkeep
+outputs/*
+!outputs/.gitkeep
+train*
