@@ -118,6 +118,28 @@ def write_state(sample_id: str, env, output: Path) -> Path:
     return path
 
 
+def write_tool_results(sample_id: str, env, output: Path) -> Path:
+    """Write the result of every tool call in this session.
+
+    Input:
+        sample_id (str): sample id, used as the file name.
+        env (Session): the session after the agent has finished. ``env.log`` holds
+        each call's name, arguments, and result, in the same order as ``get_tool_calls``.
+        output (Path): submission JSONL path. The folder is created beside it.
+
+    Output:
+        Path: ``<output dir>/tool_results/<sample_id>.json``.
+    """
+    folder = output.parent / "tool_results"
+    folder.mkdir(parents=True, exist_ok=True)
+    path = folder / f"{sample_id}.json"
+    path.write_text(
+        json.dumps(env.log, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    return path
+
+
 def submission_line(sample_id: str, env) -> dict:
     """Build one submission record from the session the agent just used.
 
@@ -179,6 +201,7 @@ def run_split(settings: dict, sample_id: str | None, limit: int | None) -> int:
                 json.dumps(submission_line(sample["id"], env), ensure_ascii=False) + "\n"
             )
             write_state(sample["id"], env, output)
+            write_tool_results(sample["id"], env, output)
             count += 1
     print(f"{count} lines -> {output}")
     return count
