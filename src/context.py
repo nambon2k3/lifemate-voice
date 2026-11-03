@@ -1,6 +1,7 @@
 """Render sample context and history as the planner text block.
 
-Reads ``context``, ``history``, and the split catalog. Writes nothing.
+Reads ``context`` and ``history``. Writes nothing. Tool schemas are bound
+on the model separately, so this text does not list tools.
 ``current_time`` is parsed so today and tomorrow are explicit in the prompt.
 """
 
@@ -69,14 +70,17 @@ def _parse_now(current_time: str) -> datetime | None:
 def render(sample: dict, tools_by_name: dict[str, dict], transcript: str) -> str:
     """Build the plain-text block the planner reads. Writes nothing.
 
+    Tool names and parameter schemas are not included. ``bind_tools`` supplies them.
+
     Input:
         sample (dict): one JSONL row. Uses ``id``, ``context``, and ``history``.
-        tools_by_name (dict[str, dict]): catalog index from ``index_catalog``.
+        tools_by_name (dict[str, dict]): unused. Kept so existing callers stay valid.
         transcript (str): text of the latest user request.
 
     Output:
-        str: clock, today, tomorrow, profile, installed tools, history, and the request.
+        str: clock, today, tomorrow, profile, history, and the request.
     """
+    del tools_by_name
     context = sample.get("context", {})
     profile = context.get("user_profile") or {}
     location = context.get("location") or {}
@@ -97,12 +101,6 @@ def render(sample: dict, tools_by_name: dict[str, dict], transcript: str) -> str
     lines.append(f"home_address: {profile.get('home_address', '')}")
     lines.append(f"work_address: {profile.get('work_address', '')}")
     lines.append(f"city: {profile.get('city', '')}")
-    lines.append("installed_tools:")
-    for name in installed_tool_names(sample):
-        tool = tools_by_name.get(name) or {}
-        kind = tool.get("kind", "meta" if name.startswith("sys.") else "")
-        description = tool.get("description", "")
-        lines.append(f"- {name} [{kind}] {description}".rstrip())
     lines.append("history:")
     history = sample.get("history") or []
     if not history:

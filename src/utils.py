@@ -97,6 +97,27 @@ def load_tool_env(kit_root: Path, split: str):
     return ToolEnv
 
 
+def write_state(sample_id: str, env, output: Path) -> Path:
+    """Write the session state that ``get_state_hash`` hashes.
+
+    Input:
+        sample_id (str): sample id, used as the file name.
+        env (Session): the session after the agent has finished.
+        output (Path): submission JSONL path. The state folder is created beside it.
+
+    Output:
+        Path: ``<output dir>/states/<sample_id>.json``, the app state from ``env.get_state()``.
+    """
+    folder = output.parent / "states"
+    folder.mkdir(parents=True, exist_ok=True)
+    path = folder / f"{sample_id}.json"
+    path.write_text(
+        json.dumps(env.get_state(), ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    return path
+
+
 def submission_line(sample_id: str, env) -> dict:
     """Build one submission record from the session the agent just used.
 
@@ -157,6 +178,7 @@ def run_split(settings: dict, sample_id: str | None, limit: int | None) -> int:
             handle.write(
                 json.dumps(submission_line(sample["id"], env), ensure_ascii=False) + "\n"
             )
+            write_state(sample["id"], env, output)
             count += 1
     print(f"{count} lines -> {output}")
     return count
