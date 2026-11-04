@@ -85,8 +85,7 @@ def audio_file(wav_path: str, settings: dict) -> Path:
 def parse_transcript(raw: str) -> str:
     """Pull the transcript out of a Qwen3-ASR completion.
 
-    Prefers ``qwen_asr.parse_asr_output``. Without that package, splits on
-    ``<asr_text>`` and keeps the text after the tag.
+    Splits on ``<asr_text>`` and keeps the text after the tag.
 
     Input:
         raw (str): ``choices[0].message.content`` from the ASR server.
@@ -94,13 +93,6 @@ def parse_transcript(raw: str) -> str:
     Output:
         str: transcript text, stripped. Empty when the server returned nothing.
     """
-    try:
-        from qwen_asr import parse_asr_output
-    except ImportError:
-        parse_asr_output = None
-    if parse_asr_output is not None:
-        _language, text = parse_asr_output(raw)
-        return (text or "").strip()
     text = "" if raw is None else str(raw)
     if _ASR_TEXT_TAG in text:
         text = text.split(_ASR_TEXT_TAG, 1)[1]
