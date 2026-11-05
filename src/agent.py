@@ -38,17 +38,15 @@ _CHAT_KEY: tuple | None = None
 
 
 class AgentState(TypedDict):
-    """Conversation, recorded calls, and agent turns for a single sample."""
+    """Conversation and agent turns for a single sample."""
 
     messages: Annotated[list, add_messages]
-    steps: int
     turns: int
 
 
 def run(
     sample: dict,
     env,
-    transcript: str,
     context_text: str,
     tools_by_name: dict[str, dict],
     settings: dict,
@@ -60,15 +58,13 @@ def run(
         by earlier turns. The latest request is already inside ``context_text``.
         env (Session): the only ToolEnv session for this sample. Accepted calls
         are recorded here. Refused calls are not.
-        transcript (str): text of the latest request. Already included in ``context_text``.
-        context_text (str): prompt block from ``context.render``.
+        context_text (str): prompt block from ``context.render``, including the latest request.
         tools_by_name (dict[str, dict]): catalog index used by ``reject_reason``.
         settings (dict): ``planner_model``, ``temperature``, and ``max_steps``.
 
     Output:
         None. Submission fields stay on ``env`` via ``get_tool_calls`` and ``get_state_hash``.
     """
-    del transcript
     definitions = tool_definitions(env)
     llm = _chat_model(settings).bind_tools(definitions)
     max_steps = int(settings["max_steps"])
@@ -89,7 +85,7 @@ def run(
             messages.append(
                 ToolMessage(content=_NOT_RUN, tool_call_id=extra["id"], name=extra["name"])
             )
-        return {"messages": messages, "steps": len(env.get_tool_calls())}
+        return {"messages": messages}
 
     def _execute_one(call: dict) -> ToolMessage:
         name = call["name"]
@@ -131,7 +127,6 @@ def run(
     app.invoke(
         {
             "messages": [SystemMessage(content=_RULES + "\n" + context_text)],
-            "steps": 0,
             "turns": 0,
         },
         config={"recursion_limit": max_turns * 2 + 4},
