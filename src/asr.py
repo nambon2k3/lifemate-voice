@@ -9,14 +9,15 @@ scored apart from speech errors.
 
 from __future__ import annotations
 
+import base64
+import mimetypes
 from pathlib import Path
 
 import requests
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_ASR_URL = "http://localhost:2043/v1/audio/transcriptions"
+DEFAULT_ASR_URL = "http://localhost:2043/v1/chat/completions"
 _ASR_TEXT_TAG = "<asr_text>"
-_LANG_CODES = {"vietnamese": "vi", "vi": "vi"}
 
 
 def cache_path(cache_dir: Path, sample_id: str, wav_path: str) -> Path:
@@ -99,40 +100,42 @@ def parse_transcript(raw: str) -> str:
 
 
 def call_asr(audio_path: Path, settings: dict) -> str:
-    """Send one wav to the ASR server and return its text.
-
-    PhoWhisper is served with the OpenAI transcription route, not chat
-    completions. The decoder length cap is 448 tokens.
+    """Send one wav to the Qwen3-ASR server and return its text.
 
     Input:
         audio_path (Path): local wav file.
-        settings (dict): optional         ``asr_url`` (str, default
-        ``http://localhost:2043/v1/audio/transcriptions``), ``asr_served_model``
-        (str, the vLLM served name, default ``qwen3-asr``), and
-        ``asr_language`` (str, default ``Vietnamese``, sent as ``vi``).
+        settings (dict): optional ``asr_url`` (str, default
+        ``http://localhost:2043/v1/chat/completions``) and ``asr_language``
+        (str, default ``Vietnamese``). An empty ``asr_language`` leaves
+        language detection to the server.
 
     Output:
         str: transcript text.
     """
-    language = str(settings.get("asr_language", "Vietnamese") or "")
-    form = {
-        "model": str(settings.get("asr_served_model") or "qwen3-asr"),
-        "response_format": "json",
-        "temperature": "0",
-    }
-    code = _LANG_CODES.get(language.strip().lower())
-    if code:
-        form["language"] = code
-    with audio_path.open("rb") as handle:
-        response = requests.post(
-            settings.get("asr_url", DEFAULT_ASR_URL),
-            data=form,
-            files={"file": (audio_path.name, handle, "audio/wav")},
-            timeout=300,
+    mime_type = mimetypes.guess_type(str(audio_path))[0] or "audio/wav"
+    audio_base64 = base64.b64encode(audio_path.read_bytes()).decode("utf-8")
+    content: list[dict] = [
+        {
+            "type": "audio_url",
+            "audio_url": {"url": f"data:{mime_type};base64,{audio_base64}"},
+        }
+    ]
+    language = settings.get("asr_language", "Vietnamese")
+    if language:
+        content.append(
+            {"type": "text", "text": f"Please transcribe the audio in {language}."}
         )
+    response = requests.post(
+        settings.get("asr_url", DEFAULT_ASR_URL),
+        json={
+            "messages": [{"role": "user", "content": content}],
+            "temperature": 0.0,
+            "max_tokens": 4096,
+        },
+        timeout=300,
+    )
     response.raise_for_status()
-    body = response.json()
-    raw = body.get("text") if isinstance(body, dict) else body
+    raw = response.json()["choices"][0]["message"]["content"]
     return parse_transcript(raw)
 
 
@@ -147,8 +150,7 @@ def transcribe(sample: dict, wav_path: str, settings: dict) -> str:
         sample (dict): one JSONL row. Uses ``id``, ``audio``, and maybe ``audio_text``.
         wav_path (str): wav to transcribe, relative to the split directory.
         settings (dict): must include ``cache_dir`` (str). ``use_gold_transcript``
-        (bool), ``asr_url`` (str), ``asr_served_model`` (str), and
-        ``asr_language`` (str) are optional.
+        (bool), ``asr_url`` (str), and ``asr_language`` (str) are optional.
 
     Output:
         str: the transcript.

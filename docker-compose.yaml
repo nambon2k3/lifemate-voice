@@ -42,7 +42,7 @@ services:
     ports:
       - "2043:8000"
     volumes:
-      - ./models/PhoWhisper-large:/model:ro
+      - ./models/Qwen3-ASR-1.7B:/model:ro
     ipc: host
     command:
       - --model
@@ -54,11 +54,9 @@ services:
       - --port
       - "8000"
       - --max-model-len
-      - "448"
+      - "8096"
       - --max-num-seqs
       - "1"
-      - --max-num-batched-tokens
-      - "2048"
       - --gpu-memory-utilization
       - "0.90"
       - --limit-mm-per-prompt

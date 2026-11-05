@@ -20,15 +20,41 @@ def tool_definitions(env) -> list[dict]:
         spec = env.tools.get(name)
         if not spec:
             continue
-        parameters = spec.get("parameters") or {"type": "object", "properties": {}}
         definitions.append(
             {
                 "type": "function",
                 "function": {
                     "name": spec.get("name") or name,
                     "description": spec.get("description") or name,
-                    "parameters": parameters,
+                    "parameters": _compact_parameters(spec.get("parameters")),
                 },
             }
         )
     return definitions
+
+
+def _compact_parameters(parameters: dict | None) -> dict:
+    """Keep the fields the model must fill, and drop catalog prose.
+
+    Input:
+        parameters (dict | None): JSON Schema from the tool catalog. None becomes
+        an empty object schema.
+
+    Output:
+        dict: schema with ``type``, ``properties`` (``type`` and ``enum`` only),
+        and ``required``. Descriptions and vendor keys are left out so the
+        bound tools stay inside the planner context.
+    """
+    parameters = parameters or {}
+    properties = {}
+    for key, spec in (parameters.get("properties") or {}).items():
+        if not isinstance(spec, dict):
+            continue
+        prop = {"type": spec.get("type", "string")}
+        if spec.get("enum"):
+            prop["enum"] = spec["enum"]
+        properties[key] = prop
+    compact = {"type": "object", "properties": properties}
+    if parameters.get("required"):
+        compact["required"] = parameters["required"]
+    return compact
