@@ -28,25 +28,6 @@ def index_catalog(catalog: dict) -> dict[str, dict]:
     return tools
 
 
-def installed_tool_names(sample: dict) -> list[str]:
-    """List the tools this sample is allowed to call.
-
-    Input:
-        sample (dict): one JSONL row. Reads ``context.installed_apps``.
-
-    Output:
-        list[str]: ``sys.ask_missing_info`` plus each installed app's tool names,
-        in catalog order within each app, with duplicates removed.
-    """
-    names = ["sys.ask_missing_info"]
-    apps = sample.get("context", {}).get("installed_apps", {})
-    for info in apps.values():
-        for name in info.get("tools", []):
-            if name not in names:
-                names.append(name)
-    return names
-
-
 def _parse_now(current_time: str) -> datetime | None:
     """Parse the sample clock into a timezone-aware datetime.
 
@@ -67,20 +48,18 @@ def _parse_now(current_time: str) -> datetime | None:
         return None
 
 
-def render(sample: dict, tools_by_name: dict[str, dict], transcript: str) -> str:
+def render(sample: dict, transcript: str) -> str:
     """Build the plain-text block the planner reads. Writes nothing.
 
     Tool names and parameter schemas are not included. ``bind_tools`` supplies them.
 
     Input:
         sample (dict): one JSONL row. Uses ``id``, ``context``, and ``history``.
-        tools_by_name (dict[str, dict]): unused. Kept so existing callers stay valid.
         transcript (str): text of the latest user request.
 
     Output:
         str: clock, today, tomorrow, profile, history, and the request.
     """
-    del tools_by_name
     context = sample.get("context", {})
     profile = context.get("user_profile") or {}
     location = context.get("location") or {}

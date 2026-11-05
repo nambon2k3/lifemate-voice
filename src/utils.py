@@ -194,9 +194,9 @@ def run_split(settings: dict, sample_id: str | None, limit: int | None) -> int:
     with output.open("w", encoding="utf-8") as handle:
         for sample in rows:
             transcript = transcribe(sample, sample["audio"], settings)
-            context_text = render(sample, tools_by_name, transcript)
+            context_text = render(sample, transcript)
             env = tool_env(split, sample["id"], root=kit_root)
-            run_agent(sample, env, transcript, context_text, tools_by_name, settings)
+            run_agent(sample, env, context_text, tools_by_name, settings)
             handle.write(
                 json.dumps(submission_line(sample["id"], env), ensure_ascii=False) + "\n"
             )

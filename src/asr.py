@@ -1,4 +1,4 @@
-"""Transcribe a sample wav and cache the text.
+"""Transcribe a sample wav from a cached text file.
 
 Reads audio from the active split. A cache miss is sent to the ASR server
 on vLLM. Writes one UTF-8 file per wav under
