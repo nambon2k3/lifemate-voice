@@ -3,6 +3,7 @@ __pycache__/
 .venv/
 .DS_Store
 __MACOSX/
+.env
 
 # Local weights and generated artifacts. See STRUCTURE.md.
 models/*

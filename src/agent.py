@@ -21,6 +21,7 @@ from langchain_openai import ChatOpenAI
 from langgraph.graph import END, START, StateGraph
 from langgraph.graph.message import add_messages
 
+from env import env_value
 from tool_defs import tool_definitions
 from validate import collect_ids, reject_reason
 
@@ -1926,22 +1927,28 @@ def _chat_model(settings: dict):
     """Connect to the local vLLM server and reuse the client across samples.
 
     Input:
-        settings (dict): ``planner_model`` (served name), ``planner_base_url``, and ``temperature``.
+        settings (dict): ``planner_model`` (served name), ``planner_base_url``,
+        ``planner_api_key``, and ``temperature``. Missing values fall back to
+        ``PLANNER_MODEL``, ``PLANNER_BASE_URL``, ``PLANNER_API_KEY``, and ``TEMPERATURE``.
 
     Output:
         ChatOpenAI: unbound chat model. Callers bind tools per sample.
     """
     global _CHAT, _CHAT_KEY
-    model_name = str(settings.get("planner_model") or "qwen-4b")
-    base_url = str(settings.get("planner_base_url") or "http://127.0.0.1:8001/v1")
-    temperature = float(settings.get("temperature") or 0)
-    key = (model_name, base_url, temperature)
+    model_name = str(settings.get("planner_model") or env_value("PLANNER_MODEL", "qwen-4b"))
+    base_url = str(settings.get("planner_base_url") or env_value("PLANNER_BASE_URL", "http://127.0.0.1:8001/v1"))
+    api_key = str(settings.get("planner_api_key") or env_value("PLANNER_API_KEY", "not-needed"))
+    if settings.get("temperature") is None:
+        temperature = float(env_value("TEMPERATURE", "0"))
+    else:
+        temperature = float(settings["temperature"])
+    key = (model_name, base_url, api_key, temperature)
     if _CHAT is not None and _CHAT_KEY == key:
         return _CHAT
     _CHAT = ChatOpenAI(
         model=model_name,
         base_url=base_url,
-        api_key="not-needed",
+        api_key=api_key,
         temperature=temperature,
     )
     _CHAT_KEY = key

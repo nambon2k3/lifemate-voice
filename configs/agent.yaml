@@ -1,4 +1,4 @@
-# Fixed between a local score and a submission. See STRUCTURE.md.
+# Defaults. A matching name in .env overrides the line. See .env.example.
 
 asr_model: vinai/PhoWhisper-large
 planner_model: qwen-4b

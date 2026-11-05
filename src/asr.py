@@ -15,8 +15,9 @@ from pathlib import Path
 
 import requests
 
+from env import env_value
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_ASR_URL = "http://localhost:2043/v1/chat/completions"
 _ASR_TEXT_TAG = "<asr_text>"
 
 
@@ -78,7 +79,7 @@ def audio_file(wav_path: str, settings: dict) -> Path:
     path = Path(wav_path)
     if path.is_file():
         return path
-    kit_root = REPO_ROOT / settings.get("kit_root", "train+public_test")
+    kit_root = REPO_ROOT / (settings.get("kit_root") or env_value("KIT_ROOT", "train+public_test"))
     return kit_root / settings.get("split", "") / wav_path
 
 
@@ -104,10 +105,10 @@ def call_asr(audio_path: Path, settings: dict) -> str:
 
     Input:
         audio_path (Path): local wav file.
-        settings (dict): optional ``asr_url`` (str, default
+        settings (dict): optional ``asr_url`` (str, default ``ASR_URL`` or
         ``http://localhost:2043/v1/chat/completions``) and ``asr_language``
-        (str, default ``Vietnamese``). An empty ``asr_language`` leaves
-        language detection to the server.
+        (str, default ``ASR_LANGUAGE`` or ``Vietnamese``). An empty
+        ``asr_language`` leaves language detection to the server.
 
     Output:
         str: transcript text.
@@ -120,13 +121,16 @@ def call_asr(audio_path: Path, settings: dict) -> str:
             "audio_url": {"url": f"data:{mime_type};base64,{audio_base64}"},
         }
     ]
-    language = settings.get("asr_language", "Vietnamese")
+    if "asr_language" in settings:
+        language = settings["asr_language"]
+    else:
+        language = env_value("ASR_LANGUAGE", "Vietnamese")
     if language:
         content.append(
             {"type": "text", "text": f"Please transcribe the audio in {language}."}
         )
     response = requests.post(
-        settings.get("asr_url", DEFAULT_ASR_URL),
+        settings.get("asr_url") or env_value("ASR_URL", "http://localhost:2043/v1/chat/completions"),
         json={
             "messages": [{"role": "user", "content": content}],
             "temperature": 0.0,

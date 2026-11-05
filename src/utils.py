@@ -9,12 +9,16 @@ from pathlib import Path
 from agent import run as run_agent
 from asr import transcribe
 from context import index_catalog, render
+from env import ENV_KEYS, apply_env
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
 def load_config(path: Path) -> dict:
     """Read a flat YAML config into a settings dict.
+
+    A matching variable in ``.env`` or the process environment replaces the
+    yaml value. See ``env.ENV_KEYS``.
 
     Input:
         path (Path): file such as configs/agent.yaml. '#' comments and blank lines are ignored.
@@ -30,6 +34,10 @@ def load_config(path: Path) -> dict:
             continue
         key, value = line.split(":", 1)
         settings[key.strip()] = _coerce(value.strip())
+    apply_env(settings)
+    for setting_key in ENV_KEYS.values():
+        if isinstance(settings.get(setting_key), str):
+            settings[setting_key] = _coerce(settings[setting_key])
     return settings
 
 
