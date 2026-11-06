@@ -9,6 +9,7 @@ from pathlib import Path
 from agent import run as run_agent
 from asr import transcribe
 from context import index_catalog, render
+from correct import correct_slots
 from env import ENV_KEYS, apply_env
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -148,6 +149,23 @@ def write_tool_results(sample_id: str, env, output: Path) -> Path:
     return path
 
 
+def _using_gold(settings: dict, sample: dict, transcript: str) -> bool:
+    """Return whether this transcript is the train gold sentence.
+
+    Input:
+        settings (dict): ``use_gold_transcript`` selects the gold sentence for
+        the latest request.
+        sample (dict): one JSONL row. ``audio_text`` is that gold sentence.
+        transcript (str): the text ``transcribe`` just returned.
+
+    Output:
+        bool: True when the planner was given the gold sentence, so slot
+        correction must not edit it.
+    """
+    gold = sample.get("audio_text")
+    return bool(settings.get("use_gold_transcript") and isinstance(gold, str) and transcript == gold)
+
+
 def submission_line(sample_id: str, env) -> dict:
     """Build one submission record from the session the agent just used.
 
@@ -167,14 +185,24 @@ def submission_line(sample_id: str, env) -> dict:
     }
 
 
-def run_split(settings: dict, sample_id: str | None, limit: int | None) -> int:
+def run_split(
+    settings: dict,
+    sample_id: str | None,
+    begin: int = 1,
+    end: int | None = None,
+) -> int:
     """Transcribe each selected sample, run the agent, and write submission.jsonl.
+
+    An ASR transcript is passed through ``correct_slots`` before ``render``.
+    A gold sentence selected with ``use_gold_transcript`` is left unchanged.
+    ``begin`` and ``end`` count rows in the split file, starting at 1.
 
     Input:
         settings (dict): config from ``load_config``, including ``split``, ``kit_root``,
         ``cache_dir``, and ``output_path``.
-        sample_id (str | None): run only this id, or every row in the split when None.
-        limit (int | None): keep only the first N selected rows. None means no cap.
+        sample_id (str | None): run only this id, or the selected rows when None.
+        begin (int): first row to run. 1 is the first row in the file.
+        end (int | None): last row to run, inclusive. None runs through the last row.
 
     Output:
         int: number of JSONL lines written to ``settings["output_path"]``.
@@ -187,8 +215,12 @@ def run_split(settings: dict, sample_id: str | None, limit: int | None) -> int:
         rows = [row for row in rows if row["id"] == sample_id]
         if not rows:
             raise SystemExit(f"no sample {sample_id} in {split}")
-    if limit is not None:
-        rows = rows[:limit]
+    else:
+        if begin < 1:
+            raise SystemExit("--begin must be at least 1")
+        if end is not None and end < begin:
+            raise SystemExit("--end must be at least --begin")
+        rows = rows[begin - 1:end]
 
     catalog = json.loads(
         (kit_root / split / f"{split}_tools_catalog.json").read_text(encoding="utf-8")
@@ -202,6 +234,8 @@ def run_split(settings: dict, sample_id: str | None, limit: int | None) -> int:
     with output.open("w", encoding="utf-8") as handle:
         for sample in rows:
             transcript = transcribe(sample, sample["audio"], settings)
+            if not _using_gold(settings, sample, transcript):
+                transcript = correct_slots(transcript, sample)
             context_text = render(sample, transcript)
             env = tool_env(split, sample["id"], root=kit_root)
             run_agent(sample, env, context_text, tools_by_name, settings)

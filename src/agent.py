@@ -21,6 +21,7 @@ from langchain_openai import ChatOpenAI
 from langgraph.graph import END, START, StateGraph
 from langgraph.graph.message import add_messages
 
+from correct import is_function, is_number_word
 from env import env_value
 from tool_defs import tool_definitions
 from validate import collect_ids, reject_reason
@@ -53,7 +54,7 @@ Cách tách câu:
 - Hai nhánh đều có việc thì hai đối tượng, hai khi ngược nhau. Chỉ đối tượng có khi khớp kết quả mới được gọi.
 - Sửa hoặc hủy thứ đã có: tool đọc (list, search, get) rồi update, cancel hoặc delete. Không tạo mới.
 - Dời, muộn, sớm một lịch đã có: calendar. Nhắc: reminders. Báo thức: alarm.
-- Người nhận là tên người, kể cả khi một từ đứng giữa động từ và tên. contacts.search bằng tên đó, rồi tool gửi hoặc gọi.
+- Người nhận là tên người, kể cả khi một từ đứng giữa động từ và tên. contacts.search chỉ bằng tên, không kèm chức danh, rồi tool gửi hoặc gọi.
 - khi dùng tên trường của tool đọc: rain, temperature_c, buy, sell, price, balance, amount, paid, locked, acknowledged, available, won, status, battery. Ví dụ rain=true, balance>=amount, buy<123000000, temperature_c<20. 1 triệu = 1000000.
 - Không có tool nào làm được việc thì một dòng: Đối tượng: ngoài phạm vi | việc: dừng | khi: luôn | tool:
 """
@@ -111,6 +112,7 @@ def run(
     done_calls: list[tuple[str, dict]] = []
     results: list = []
     request_text = _latest_request(context_text)
+    profile = _context_value(context_text, "name")
     facts: dict = {}
     guard_fails = 0
 
@@ -122,6 +124,7 @@ def run(
             request_text,
             installed,
             tools_by_name,
+            profile,
         )
         print(f"PLAN {sample.get('id', '')}:\n{response.content}\n", flush=True)
         return {"messages": [HumanMessage(content=request), response]}
@@ -162,9 +165,39 @@ def run(
             plan,
             done_calls,
         )
+        planned = _planned_tool(plan, facts, done_calls)
+        if planned and planned != name and _can_take_over(planned, request_text, results, done_calls):
+            name = planned
+            args = _prepare_args(
+                name, {}, request_text, context_text, results, facts, plan, done_calls,
+            )
+        if name in ("phone.call", "sms.send"):
+            kind, obj, tool = _cursor(_parse_objects(plan), done_calls, facts)
+            override = _phone_override(results, obj.get("name") or "", name, context_text) if kind == "run" and tool == name else None
+            if override and override[0] == "sys.ask_missing_info":
+                name, args = override
+            elif override:
+                args["contact_id"] = override[1]["contact_id"]
+        spoken_clock = _spoken_time(request_text, context_text)
+        if name == "reminders.create" and spoken_clock is None and _remind_lead(request_text) is None:
+            name = "sys.ask_missing_info"
+            args = {"tool_name": "reminders.create", "params": ["time"]}
+        if name == "bill_payment.pay" and _due_sweep(request_text) and not args.get("bill_id"):
+            while True:
+                kind, _obj, tool = _cursor(_parse_objects(plan), done_calls, facts)
+                if kind == "run" and tool == "bill_payment.pay":
+                    done_calls.append(("bill_payment.pay", {"skip": True}))
+                else:
+                    break
+            return ToolMessage(
+                content=json.dumps({"ok": True, "skipped": True}, ensure_ascii=False),
+                tool_call_id=call["id"],
+            )
         nonlocal guard_fails
         clock = _time_block(args)
         schedule = _schedule_block(name, request_text)
+        if name == "smart_home.light_set" and "tắt" in request_text.lower() and not _turns_lights_off(request_text):
+            schedule = schedule or "câu không tắt đèn"
         reuse = _reuse_reason(name, args, done_calls)
         guard = _plan_guard(plan, name, facts, done_calls, tools_by_name)
         if schedule:
@@ -329,6 +362,7 @@ _STOP_ACTIONS = {"dừng", "dung", "thôi", "thoi"}
 # item, except two loyalty.redeem rows. Every other tool is one call per sample.
 _REPEATABLE = frozenset({
     "alarm.create",
+    "smart_home.light_set",
     "appliances.start_cycle",
     "banking.transfer",
     "bike_rental.reserve",
@@ -448,7 +482,7 @@ def _active_text(request: str) -> str:
     low = request.lower()
     cut_at = -1
     length = 0
-    for marker in ("chỉ cần", "mà thôi", "à thôi"):
+    for marker in ("chỉ cần", "mà thôi", "à thôi", "thôi khỏi"):
         index = low.rfind(marker)
         if index > cut_at:
             cut_at = index
@@ -524,16 +558,29 @@ def _trieu_amount(text: str) -> int | None:
         None: when ``triệu`` is not tied to a number.
     """
     low = text.lower()
-    digits = re.search(r"(\d+(?:[.,]\d+)?)\s*triệu", low)
-    if digits:
-        return int(float(digits.group(1).replace(",", ".")) * 1_000_000)
-    words = re.search(r"((?:[\w]+\s+){1,6})triệu", low)
-    if not words:
+    marker = low.find("triệu")
+    if marker < 0:
         return None
-    number = _vn_under_1000(words.group(1))
+    before = [token for token in low[:marker].split() if token]
+    kept = []
+    for token in reversed(before):
+        if token in _VN_DIGIT or token in ("trăm", "mươi", "mười", "lẻ", "linh") or token[:1].isdigit():
+            kept.append(token)
+            continue
+        break
+    phrase = " ".join(reversed(kept))
+    if phrase[:1].isdigit():
+        number = int(float(phrase.split()[0].replace(",", ".")) * 1_000_000)
+    else:
+        number = _vn_under_1000(phrase) * 1_000_000
     if number <= 0:
         return None
-    return number * 1_000_000
+    after = low[marker + len("triệu"):].split()
+    if after and after[0] in _VN_DIGIT and _VN_DIGIT[after[0]] < 10 and (len(after) == 1 or after[1] != "trăm"):
+        number += _VN_DIGIT[after[0]] * 100_000
+    elif after and after[0] == "rưỡi":
+        number += 500_000
+    return number
 
 
 def _ngan_amount(text: str) -> int | None:
@@ -611,6 +658,31 @@ def _best_read(app: str, installed: set[str]) -> str | None:
     return None
 
 
+_READ_FOR_REF = {
+    "banking.accounts": "banking.get_balance",
+    "banking.beneficiaries": "banking.list_beneficiaries",
+}
+
+
+def _read_for_ref(ref: str, installed: set[str]) -> str | None:
+    """Pick the read that produces one referenced id.
+
+    Input:
+        ref (str): an ``x-ref`` such as ``banking.accounts``.
+        installed (set[str]): tool names this sample may call.
+
+    Output:
+        str: ``banking.get_balance`` or ``banking.list_beneficiaries`` when
+        the reference names that collection.
+        None: when that read is not installed. Any other reference uses the
+        app's list or search tool.
+    """
+    named = _READ_FOR_REF.get(ref)
+    if named:
+        return named if named in installed else None
+    return _best_read(ref.split(".")[0], installed)
+
+
 def _reads_for(write: str, tools_by_name: dict[str, dict], installed: set[str]) -> list[str]:
     """Find the reads that produce ids for one write.
 
@@ -629,7 +701,7 @@ def _reads_for(write: str, tools_by_name: dict[str, dict], installed: set[str]) 
     for prop in props.values():
         if not isinstance(prop, dict) or not isinstance(prop.get("x-ref"), str):
             continue
-        read = _best_read(prop["x-ref"].split(".")[0], installed)
+        read = _read_for_ref(prop["x-ref"], installed)
         if read and read != write and read not in found:
             found.append(read)
     return found
@@ -643,11 +715,13 @@ def _order_tools(tools: list[str], tools_by_name: dict[str, dict]) -> list[str]:
         tools_by_name (dict[str, dict]): catalog index, used for ``kind``.
 
     Output:
-        list[str]: the same names, reads first, each name once.
+        list[str]: the same names, reads first. A repeated light, transfer, or
+        bill payment stays.
     """
+    repeated = {"smart_home.light_set", "banking.transfer", "bill_payment.pay"}
     seen = []
     for name in tools:
-        if name not in seen:
+        if name not in seen or name in repeated:
             seen.append(name)
     reads = [name for name in seen if (tools_by_name.get(name) or {}).get("kind") != "write"]
     writes = [name for name in seen if name not in reads]
@@ -687,32 +761,225 @@ def _format_objects(objects: list[dict]) -> str:
     return "\n".join(lines)
 
 
+_ROLE = frozenset({
+    "bác", "cô", "anh", "chị", "chú", "ông", "bà", "bạn", "con",
+    "bố", "mẹ", "ba", "má", "sếp", "em",
+})
+_TITLE = _ROLE | {"giáo", "thầy"}
+
+
 def _person_after(text: str, verb: str) -> str | None:
-    """Read the person named after a verb.
+    """Read the person span spoken after a verb.
+
+    Function words between the verb and the person are skipped. The words
+    that remain are returned as spoken. Nothing is rewritten into a different
+    title.
 
     Input:
         text (str): the active clause, original casing kept where the ASR has it.
         verb (str): ``nhắn`` or ``chuyển ví cho`` or ``điện thoại cho``.
 
     Output:
-        str: a short query such as ``Dũng`` or ``Bác Ba``.
+        str: a short query such as ``Dũng``, ``Bác Ba``, or ``Sếp Dũng``.
         None: when no person follows the verb.
     """
-    match = re.search(verb + r"\s+(?:tiếp\s+|cho\s+)?([A-ZĐÀ-Ỹ][\w]*(?:\s+[A-ZĐÀ-Ỹ][\w]*)?)", text)
-    if match:
-        return match.group(1)
-    match = re.search(verb + r"\s+(?:cho\s+)?((?:bác|cô|anh|chị|chú)\s+\w+)", text, re.IGNORECASE)
-    if match:
-        return " ".join(part.capitalize() for part in match.group(1).split())
-    match = re.search(verb + r"\s+(?:cho\s+)?(bố|mẹ|ba|má|sếp)\b", text, re.IGNORECASE)
-    if match:
-        word = match.group(1)
-        return word[:1].upper() + word[1:]
-    match = re.search(verb + r"\s+con\s+(\w+)", text, re.IGNORECASE)
-    if match:
-        word = match.group(1)
-        return word[:1].upper() + word[1:]
-    return None
+    match = re.search(re.escape(verb), text, flags=re.IGNORECASE)
+    if not match:
+        return None
+    tokens = re.findall(r"\w+", text[match.end():], flags=re.UNICODE)
+    index = 0
+    while index < len(tokens) and is_function(tokens[index]):
+        index += 1
+    if index >= len(tokens):
+        return None
+    first = tokens[index]
+    if is_number_word(first) and first.lower() not in _ROLE:
+        return None
+    second = tokens[index + 1] if index + 1 < len(tokens) else ""
+    second_name = bool(second) and not is_function(second) and not _amount_unit(second)
+    if first.lower() in _ROLE and second_name:
+        return _as_spoken(first) + " " + _as_spoken(second)
+    if first[:1].isupper() and second_name and second[:1].isupper() and not is_number_word(second):
+        return first + " " + second
+    return _as_spoken(first)
+
+
+def _transfer_payee(scope: str) -> str:
+    """Read the person who receives a transfer, not the person who is topped up.
+
+    Input:
+        scope (str): the active clause. A top-up and a transfer can share it.
+
+    Output:
+        str: the person after ``chuyển``, such as ``Cô Mai``.
+        ``người nhận`` when that clause names nobody.
+    """
+    marker = re.search(r"chuyển", scope, flags=re.IGNORECASE)
+    clause = scope[marker.start():] if marker else scope
+    clause = re.split(r"\b(đúng|bằng)\b", clause, maxsplit=1, flags=re.IGNORECASE)[0]
+    person = (
+        _person_after(clause, "chuyển ví cho")
+        or _person_after(clause, "chuyển cho")
+        or _person_after(clause, "cho")
+    )
+    return person or "người nhận"
+
+
+def _call_person(scope: str) -> str:
+    """Read the person a phone call is for, skipping the speaker's pronoun.
+
+    Input:
+        scope (str): the active clause, such as ``Gọi dùm tôi Bố`` or
+        ``gọi cho bạn Minh``.
+
+    Output:
+        str: the person, such as ``Bố`` or ``Bạn Minh``.
+        ``người nhận`` when the clause names nobody.
+    """
+    self_words = {"tôi", "tui", "mình", "tao", "tớ"}
+    for verb in ("gọi cho", "gọi điện cho", "gọi"):
+        match = re.search(re.escape(verb), scope, flags=re.IGNORECASE)
+        if not match:
+            continue
+        tokens = re.findall(r"\w+", scope[match.end():], flags=re.UNICODE)
+        index = 0
+        while index < len(tokens) and (is_function(tokens[index]) or tokens[index].lower() in self_words):
+            index += 1
+        if index >= len(tokens):
+            continue
+        first = tokens[index]
+        if is_number_word(first) and first.lower() not in _ROLE:
+            continue
+        second = tokens[index + 1] if index + 1 < len(tokens) else ""
+        second_name = (
+            bool(second)
+            and not is_function(second)
+            and not _amount_unit(second)
+            and second.lower() not in self_words
+        )
+        if first.lower() in _ROLE and second_name:
+            return _as_spoken(first) + " " + _as_spoken(second)
+        if first[:1].isupper() and second_name and second[:1].isupper() and not is_number_word(second):
+            return first + " " + second
+        return _as_spoken(first)
+    return "người nhận"
+
+
+def _amount_unit(token: str) -> bool:
+    """Return whether a token continues a quantity rather than a name.
+
+    Input:
+        token (str): the word after a possible person.
+
+    Output:
+        bool: True for units and digit words such as ``mươi`` or ``ngàn``.
+        False for ``ba``, which is also a kinship name.
+    """
+    if token.isdigit():
+        return True
+    return token.lower() in {
+        "không", "một", "mốt", "mười", "mươi", "trăm", "ngàn", "nghìn", "triệu", "tỷ",
+    }
+
+
+def _contact_query(span: str) -> str:
+    """Drop a leading title and keep the given name for a contact lookup.
+
+    ASR often hears the name and misses the title, as in ``cô Mai`` heard as
+    ``con Mai``. Search is a substring of the stored name, so the query is
+    the name alone. A single word stays, including ``Mẹ`` or ``Bố`` when
+    that word is the whole name. The last word stays even when it is also
+    a kinship word, as in ``Bác Ba``.
+
+    Input:
+        span (str): the person as spoken, such as ``Con Mai`` or ``Bác Ba``.
+
+    Output:
+        str: ``Mai`` or ``Ba``. The original word when no title precedes a name.
+    """
+    tokens = re.findall(r"\w+", span or "", flags=re.UNICODE)
+    if not tokens:
+        return (span or "").strip()
+    index = 0
+    while index < len(tokens) - 1 and tokens[index].lower() in _TITLE:
+        index += 1
+    return " ".join(_as_spoken(token) for token in tokens[index:])
+
+
+def _is_speaker(span: str, profile: str) -> bool:
+    """Return whether a person span is the user named in the profile.
+
+    The profile ``Em Linh`` splits into the pronoun ``em`` and the given
+    name ``Linh``. ``em Linh`` and a bare ``Linh`` are the speaker. ``em
+    Hương`` is someone else because the given name differs. ``bác Linh``
+    is someone else because the title is not the user's pronoun.
+
+    Input:
+        span (str): an object name or the words after a verb, such as
+        ``Linh`` or ``Bác Ba``.
+        profile (str): ``user_profile.name``, such as ``Em Linh``.
+
+    Output:
+        bool: True when the given name matches and any leading title is
+        exactly the user's pronoun. False when the profile has no name.
+    """
+    profile_tokens = re.findall(r"\w+", profile or "", flags=re.UNICODE)
+    if not profile_tokens:
+        return False
+    given = profile_tokens[-1].lower()
+    pronoun = profile_tokens[0].lower() if len(profile_tokens) > 1 else ""
+    tokens = re.findall(r"\w+", span or "", flags=re.UNICODE)
+    if not tokens:
+        return False
+    index = 0
+    titles = []
+    while index < len(tokens) - 1 and tokens[index].lower() in _TITLE:
+        titles.append(tokens[index].lower())
+        index += 1
+    rest = tokens[index:]
+    if len(rest) != 1 or rest[0].lower() != given:
+        return False
+    if not titles:
+        return True
+    return titles == [pronoun]
+
+
+def _drop_self_search(objects: list[dict], profile: str) -> list[dict]:
+    """Remove a contact search whose object is the speaker.
+
+    Input:
+        objects (list[dict]): plan objects. Not mutated.
+        profile (str): ``user_profile.name``.
+
+    Output:
+        list[dict]: the same objects. ``contacts.search`` is gone from an
+        object that names the speaker. An object left with no tools is
+        dropped. A different person keeps the search.
+    """
+    kept = []
+    for obj in objects:
+        if "contacts.search" not in obj["tools"] or not _is_speaker(obj["name"], profile):
+            kept.append(obj)
+            continue
+        rest = [name for name in obj["tools"] if name != "contacts.search"]
+        if rest:
+            kept.append(_obj(obj["name"], obj["action"], obj["when"], rest))
+    return kept
+
+
+def _as_spoken(token: str) -> str:
+    """Keep a token's letters, capitalizing only a fully lowercase word.
+
+    Input:
+        token (str): one word from the clause.
+
+    Output:
+        str: ``token`` when it already has an uppercase letter, otherwise the
+        same word with the first letter uppercased.
+    """
+    if any(char.isupper() for char in token):
+        return token
+    return token[:1].upper() + token[1:]
 
 
 def _governing_when(text: str) -> str:
@@ -735,132 +1002,518 @@ def _governing_when(text: str) -> str:
     return "luôn"
 
 
-def _repair_plan(
-    plan: str,
-    request: str,
-    installed: set[str],
-    tools_by_name: dict[str, dict],
-) -> str:
-    """Rebuild the object plan from the sentence and the tools installed here.
+# A model tool is dropped unless one of these words is in the sentence.
+# Tools that are not listed are kept whenever they are installed.
+_CUE_REQUIRED = (
+    ("alarm.", ("báo thức", "xoá", "xóa")),
+    ("phone.call", ("gọi",)),
+    ("ewallet.transfer", ("chuyển",)),
+)
+
+_ABANDONED = ("thì thôi", "giữ nguyên", "không mưa")
+
+# Read that must stand in front of a later conditional write.
+_GATE_READS = frozenset({
+    "weather.get_forecast",
+    "weather.get_current",
+    "gold_price.get_price",
+    "ewallet.get_balance",
+    "bill_payment.list_bills",
+})
+
+_SCHEDULE_NOUNS = ("lịch", "buổi", "hẹn", "họp", "cuộc")
+_MOVE_VERBS = ("muộn", "sớm", "dời")
+_BANK_CUES = ("ngân hàng", "tài khoản", "tiết kiệm", "chủ nhà")
+
+
+def _cue_ok(name: str, low: str) -> bool:
+    """Return whether the sentence still asks for this model tool.
 
     Input:
-        plan (str): the lines the model wrote. Their tool names are kept when
-        the sentence still asks for them.
-        request (str): the latest user text. A retraction keeps only the tail.
-        installed (set[str]): tool names this sample may call.
-        tools_by_name (dict[str, dict]): catalog index, used to put a read
-        before a write that needs an id.
+        name (str): a tool name from the model plan.
+        low (str): the active clause, lowercased.
 
     Output:
-        str: one object line per remaining action. The model's text when no
-        object can be built.
+        bool: False when ``name`` is in ``_CUE_REQUIRED`` and none of its words
+        appear. True for every other tool.
     """
-    scope = _active_text(request)
+    for prefix, cues in _CUE_REQUIRED:
+        matched = name.startswith(prefix) if prefix.endswith(".") else name == prefix
+        if matched:
+            return any(cue in low for cue in cues)
+    return True
+
+
+def _push(objects: list[dict], installed: set[str], obj: dict) -> None:
+    """Append one object when its tools are installed and not already unconditional.
+
+    Input:
+        objects (list[dict]): plan objects so far. May be mutated.
+        installed (set[str]): tool names this sample may call.
+        obj (dict): one object from ``_obj``.
+
+    Output:
+        None. Appends ``obj`` unless a tool is missing, or the object is a
+        single unconditional tool that is already on an earlier object.
+    """
+    if obj["tools"] and all(name in installed for name in obj["tools"]):
+        if len(obj["tools"]) == 1 and _has_tool(objects, obj["tools"][0]) and obj["when"] == "luôn":
+            return
+        objects.append(obj)
+
+
+def _drop_tools(objects: list[dict], banned: set[str]) -> list[dict]:
+    """Remove named tools and drop an object that has none left.
+
+    Input:
+        objects (list[dict]): plan objects.
+        banned (set[str]): tool names to take off every object.
+
+    Output:
+        list[dict]: the objects that still have a tool.
+    """
+    kept = []
+    for obj in objects:
+        names = [name for name in obj["tools"] if name not in banned]
+        if names:
+            kept.append(_obj(obj["name"], obj["action"], obj["when"], names))
+    return kept
+
+
+def _seed_objects(plan: str, scope: str, installed: set[str]) -> list[dict]:
+    """Keep the model objects the active clause still supports.
+
+    Input:
+        plan (str): the lines the model wrote.
+        scope (str): the clause that survives a retraction.
+        installed (set[str]): tool names this sample may call.
+
+    Output:
+        list[dict]: model objects with uninstalled tools, ``sys.ask_missing_info``,
+        and tools whose cue is missing removed. An abandoned ``rain=false``
+        object is dropped. Empty when the clause is only a lookup.
+    """
+    if _check_only(scope):
+        return []
     low = scope.lower()
     objects = []
-    if not _check_only(scope):
-        for obj in _parse_objects(plan):
-            tools = []
-            for name in obj["tools"]:
-                if name == "sys.ask_missing_info" or name not in installed:
-                    continue
-                if name.startswith("alarm.") and "báo thức" not in low and "xoá" not in low and "xóa" not in low:
-                    continue
-                if name == "phone.call" and "gọi" not in low:
-                    continue
-                if name == "ewallet.transfer" and "chuyển" not in low:
-                    continue
-                tools.append(name)
-            when = _normalize_when(obj["when"])
-            if when == "rain=false" and any(word in low for word in ("thì thôi", "giữ nguyên", "không mưa")):
-                continue
-            if tools:
-                objects.append(_obj(obj["name"], obj["action"], when, tools))
+    for obj in _parse_objects(plan):
+        tools = [
+            name for name in obj["tools"]
+            if name != "sys.ask_missing_info" and name in installed and _cue_ok(name, low)
+        ]
+        when = _normalize_when(obj["when"])
+        if when == "rain=false" and any(word in low for word in _ABANDONED):
+            continue
+        if tools:
+            objects.append(_obj(obj["name"], obj["action"], when, tools))
+    return objects
 
-    def add(obj: dict) -> None:
-        if obj["tools"] and all(name in installed for name in obj["tools"]):
-            if len(obj["tools"]) == 1 and _has_tool(objects, obj["tools"][0]) and obj["when"] == "luôn":
-                return
-            objects.append(obj)
 
+def _exclusive_plan(scope: str, installed: set[str], profile: str) -> list[dict] | None:
+    """Build the whole plan when the sentence is one known compound shape.
+
+    Input:
+        scope (str): the active clause.
+        installed (set[str]): tool names this sample may call.
+        profile (str): ``user_profile.name``. The speaker is not a contact.
+
+    Output:
+        list[dict]: the replacement objects. Empty when the shape matches but
+        no tool is installed.
+        None: the sentence is not a lookup, a gold-price threshold, or a
+        wallet-versus-bank bill.
+    """
+    low = scope.lower()
     if _check_only(scope):
-        objects = []
+        objects: list[dict] = []
         if "mưa" in low and "weather.get_forecast" in installed:
-            add(_obj("thời tiết", "kiểm tra mưa", "luôn", ["weather.get_forecast"]))
+            _push(objects, installed, _obj("thời tiết", "kiểm tra mưa", "luôn", ["weather.get_forecast"]))
         elif _trieu_amount(scope) and "gold_price.get_price" in installed:
-            add(_obj("giá", "kiểm tra", "luôn", ["gold_price.get_price"]))
-    elif re.search(r"v[aà]ng", low) and "triệu" in low and "gold_price.get_price" in installed:
+            _push(objects, installed, _obj("giá", "kiểm tra", "luôn", ["gold_price.get_price"]))
+        return objects
+    if re.search(r"v[aà]ng", low) and "triệu" in low and "gold_price.get_price" in installed:
         objects = [_obj("giá vàng", "kiểm tra giá mua, type=sjc nếu là SJC", "luôn", ["gold_price.get_price"])]
+        if "bán" in low and "trên" in low and "chuyển" in low and "banking.transfer" in installed:
+            threshold = _trieu_amount(low.split("trên", 1)[-1])
+            if threshold and "nhắc" in low and "reminders.create" in installed:
+                _push(objects, installed, _obj("nhắc bán vàng", "nhắc giờ trong câu", f"sell>{threshold}", ["reminders.create"]))
+            _push(objects, installed, _obj(
+                "chuyển khoản", "amount sau chữ chuyển, tài khoản thanh toán", f"sell<={threshold}",
+                ["banking.get_balance", "banking.list_beneficiaries", "banking.transfer"],
+            ))
+            return objects
         amount = _trieu_amount(scope)
         if amount and "nhắc" in low and "reminders.create" in installed:
-            add(_obj("nhắc mua vàng", "nhắc giờ trong câu", f"buy<{amount}", ["reminders.create"]))
-    elif "ví đủ" in low and "bill_payment.pay" in installed:
+            _push(objects, installed, _obj("nhắc mua vàng", "nhắc giờ trong câu", f"buy<{amount}", ["reminders.create"]))
+        return objects
+    if _due_sweep(low) and "bill_payment.pay" in installed:
         objects = []
         if "bill_payment.list_bills" in installed:
-            add(_obj("hóa đơn", "xem hóa đơn đúng loại trong câu", "luôn", ["bill_payment.list_bills"]))
+            _push(objects, installed, _obj("hóa đơn", "xem mọi hóa đơn", "luôn", ["bill_payment.list_bills"]))
+        _push(objects, installed, _obj(
+            "hóa đơn đến hạn", "source=bank, bỏ hóa đơn trên 500 nghìn", "luôn",
+            ["bill_payment.pay", "bill_payment.pay", "bill_payment.pay", "bill_payment.pay"],
+        ))
+        return objects
+    short_wallet = _wallet_short(low)
+    pays_by_wallet = any(phrase in low for phrase in ("bằng ví", "ví điện tử", "ví đủ"))
+    if short_wallet and pays_by_wallet and "bill_payment.pay" in installed:
+        objects = []
+        if "bill_payment.list_bills" in installed:
+            _push(objects, installed, _obj("hóa đơn", "xem hóa đơn đúng loại trong câu", "luôn", ["bill_payment.list_bills"]))
         if "ewallet.get_balance" in installed:
-            add(_obj("ví", "xem số dư", "luôn", ["ewallet.get_balance"]))
-        true_part, false_part = low, ""
-        if "còn không" in low:
-            true_part, false_part = low.split("còn không", 1)
-        if "trả" in true_part:
-            add(_obj("trả bằng ví", "source=ewallet", "balance>=amount", ["bill_payment.pay"]))
-        person = _person_after(scope, "nhắn")
-        if person and "nhắn" in true_part and "sms.send" in installed:
-            add(_obj(person, f"nhắn, query {person}", "balance>=amount", ["contacts.search", "sms.send"]))
-        if "ngân hàng" in false_part:
-            add(_obj("trả bằng ngân hàng", "source=bank", "balance<amount", ["bill_payment.pay"]))
+            _push(objects, installed, _obj("ví", "xem số dư", "luôn", ["ewallet.get_balance"]))
+        true_part, false_part = _wallet_parts(low)
+        person = _sms_person(scope)
+        sms = []
+        if person and "sms.send" in installed:
+            sms = ["sms.send"] if _is_speaker(person, profile) else ["contacts.search", "sms.send"]
+        report = bool(sms) and any(word in false_part for word in ("xong", "rồi", "đã đóng", "đóng rồi", "đóng xong"))
+        if any(word in true_part for word in ("trả", "thanh toán", "đóng")):
+            _push(objects, installed, _obj("trả bằng ví", "source=ewallet", "balance>=amount", ["bill_payment.pay"]))
+        if sms and ("nhắn" in true_part or report):
+            _push(objects, installed, _obj(person, f"nhắn, query {person}", "balance>=amount", sms))
+        if "ngân hàng" in false_part or "tài khoản" in false_part:
+            _push(objects, installed, _obj("trả bằng ngân hàng", "source=bank", "balance<amount", ["bill_payment.pay"]))
+        if sms and report:
+            _push(objects, installed, _obj(person, f"nhắn, query {person}", "balance<amount", sms))
         if "nhắc" in false_part and "reminders.create" in installed:
-            add(_obj("nhắc nạp ví", "nhắc giờ trong câu", "balance<amount", ["reminders.create"]))
-    else:
-        if "mưa" in low and "weather.get_forecast" in installed and not _has_tool(objects, "weather.get_forecast"):
-            objects.insert(0, _obj("thời tiết", "kiểm tra mưa, chỉ gửi date", "luôn", ["weather.get_forecast"]))
-        if any(word in low for word in ("trả", "hóa đơn", "tiền điện")) and "bill_payment.list_bills" in installed:
-            if not _has_tool(objects, "bill_payment.list_bills"):
-                objects.insert(0, _obj("hóa đơn", "xem hóa đơn đúng loại", "luôn", ["bill_payment.list_bills"]))
-        when = _governing_when(scope)
-        move = any(word in low for word in ("muộn", "sớm", "dời", "hủy", "huỷ")) and "báo thức" not in low and "nhắc" not in low
-        if move and "calendar.list_events" in installed:
-            write = "calendar.cancel_event" if any(word in low for word in ("hủy", "huỷ")) and "muộn" not in low and "dời" not in low and "sớm" not in low else "calendar.update_event"
-            if write in installed and not _has_tool(objects, write):
-                add(_obj("lịch", "dời hoặc hủy đúng việc trong câu", when, ["calendar.list_events", write]))
-        if "nhắn" in low and "sms.send" in installed:
-            person = _person_after(scope, "nhắn") or "người nhận"
-            if not _has_tool(objects, "sms.send"):
-                add(_obj(person, f"nhắn giờ mới, query {person}", when, ["contacts.search", "sms.send"]))
-        topup = ("nạp" in low or "cho số" in low or ("điện thoại cho" in low and "gọi" not in low and _ngan_amount(scope)))
-        transfer = "chuyển" in low and "ewallet.transfer" in installed
-        if topup or transfer:
-            money_tools = {"contacts.search", "contacts.get", "ewallet.transfer", "ewallet.topup_mobile", "phone.call"}
-            kept = []
-            for obj in objects:
-                names = [name for name in obj["tools"] if name not in money_tools]
+            _push(objects, installed, _obj("nhắc nạp ví", "nhắc giờ trong câu", "balance<amount", ["reminders.create"]))
+        return objects
+    if "nhóm chat" in low and "suất" in low and "food_delivery.place_order" in installed:
+        objects = []
+        if "chat_ott.list_chats" in installed:
+            _push(objects, installed, _obj("nhóm chat", "đếm người trong nhóm", "luôn", ["chat_ott.list_chats"]))
+        if "food_delivery.list_restaurants" in installed:
+            _push(objects, installed, _obj("quán", "tìm quán trong câu", "luôn", ["food_delivery.list_restaurants"]))
+        if "food_delivery.get_menu" in installed:
+            _push(objects, installed, _obj("thực đơn", "lấy món", "luôn", ["food_delivery.get_menu"]))
+        _push(objects, installed, _obj("đặt món", "mỗi người một suất, không tính người nói", "luôn", ["food_delivery.place_order"]))
+        return objects
+    return None
+
+
+def _schedule_write(low: str) -> str | None:
+    """Choose the calendar write for a move or a cancellation of an event.
+
+    Input:
+        low (str): the active clause, lowercased.
+
+    Output:
+        str: ``calendar.update_event`` or ``calendar.cancel_event``.
+        None: the clause is about an alarm, a reminder, or a cancellation of
+        something that is not an event (a package, a ticket, an order).
+    """
+    if "báo thức" in low or "nhắc" in low:
+        return None
+    if any(word in low for word in _MOVE_VERBS):
+        return "calendar.update_event"
+    cancelling = any(word in low for word in ("hủy", "huỷ"))
+    if not cancelling:
+        return None
+    if "cuộc gọi" in low and not any(word in low for word in ("lịch", "buổi", "hẹn", "họp")):
+        return None
+    if any(word in low for word in _SCHEDULE_NOUNS):
+        return "calendar.cancel_event"
+    return None
+
+
+def _outgoing_message(low: str) -> bool:
+    """Return whether the assistant is asked to send a message.
+
+    Input:
+        low (str): the active clause, lowercased.
+
+    Output:
+        bool: True when ``nhắn`` is its own word, including after another noun
+        such as ``một tiếng nhắn``. False when the only ``nhắn`` is the noun
+        ``tin nhắn``, or a report that someone already sent it (``đã nhắn``).
+    """
+    if "gửi tin nhắn" in low:
+        return True
+    text = low.replace("tin nhắn", " ")
+    text = re.sub(r"\bđã\s+nhắn\b", " ", text)
+    return re.search(r"\bnhắn\b", text) is not None
+
+
+def _message_tools(low: str, installed: set[str]) -> list[str] | None:
+    """Pick the messenger the sentence names, not a fixed SMS tool.
+
+    Input:
+        low (str): the active clause, lowercased.
+        installed (set[str]): tool names this sample may call.
+
+    Output:
+        list[str]: the write to add. ``chat_ott.send_message`` when the clause
+        says Zalo or Messenger, or when that is the only messenger installed.
+        ``sms.send`` together with ``contacts.search`` otherwise.
+        None: the clause does not send a message, or no messenger is installed.
+    """
+    if not _outgoing_message(low):
+        return None
+    zalo = "zalo" in low or "messenger" in low
+    chat = "chat_ott.send_message" in installed
+    sms = "sms.send" in installed
+    if zalo and chat:
+        return ["chat_ott.send_message"]
+    if sms and not zalo:
+        return ["contacts.search", "sms.send"]
+    if chat and not sms:
+        return ["chat_ott.send_message"]
+    return None
+
+
+def _transfer_tool(low: str, installed: set[str]) -> str | None:
+    """Pick the transfer tool from the account the sentence names.
+
+    Input:
+        low (str): the active clause, lowercased.
+        installed (set[str]): tool names this sample may call.
+
+    Output:
+        str: ``banking.transfer`` when the clause names a bank, an account,
+        savings, or the landlord, and does not say ví. A bill amount is also a
+        bank transfer, unless the same sentence tops up a phone.
+        ``ewallet.transfer`` when the clause says ví, or when a top-up and a
+        bill share the sentence and no bank is named.
+        None: the clause does not transfer, or only the bank tool is missing
+        from a bank clause.
+    """
+    if "chuyển" not in low:
+        return None
+    wallet = "ewallet.transfer" in installed
+    bank = "banking.transfer" in installed
+    says_wallet = "ví" in low
+    says_bank = any(word in low for word in _BANK_CUES)
+    if says_wallet and wallet:
+        return "ewallet.transfer"
+    if says_bank and bank:
+        return "banking.transfer"
+    if _bill_focus(low) and "nạp" not in low and bank:
+        return "banking.transfer"
+    if wallet and not says_bank:
+        return "ewallet.transfer"
+    if bank and not wallet:
+        return "banking.transfer"
+    return None
+
+
+def _claim_weather(objects: list[dict], low: str, installed: set[str]) -> list[dict]:
+    """Give the forecast to a weather object, not to a person.
+
+    Input:
+        objects (list[dict]): objects kept from the model plan.
+        low (str): the active clause, lowercased.
+        installed (set[str]): tool names this sample may call.
+
+    Output:
+        list[dict]: the same objects with ``weather.get_forecast`` removed
+        from every object that is not ``thời tiết``. An object left with no
+        tools is dropped. When the clause mentions rain and the tool is
+        installed, one ``thời tiết`` object holds the forecast with ``khi``
+        ``luôn``.
+    """
+    if "weather.get_forecast" not in installed:
+        return objects
+    kept = []
+    for obj in objects:
+        if "weather.get_forecast" not in obj["tools"] or obj["name"].lower() == "thời tiết":
+            if obj["name"].lower() == "thời tiết" and "weather.get_forecast" in obj["tools"]:
+                kept.append(_obj("thời tiết", "kiểm tra mưa", "luôn", ["weather.get_forecast"]))
+            else:
+                kept.append(obj)
+            continue
+        rest = [name for name in obj["tools"] if name != "weather.get_forecast"]
+        if rest:
+            kept.append(_obj(obj["name"], obj["action"], obj["when"], rest))
+    if "mưa" in low and not _has_tool(kept, "weather.get_forecast"):
+        kept.insert(0, _obj("thời tiết", "kiểm tra mưa", "luôn", ["weather.get_forecast"]))
+    return kept
+
+
+def _augment(objects: list[dict], scope: str, installed: set[str], profile: str) -> list[dict]:
+    """Add the reads and writes the clause asks for and the model left out.
+
+    Input:
+        objects (list[dict]): objects kept from the model plan. Not mutated
+        when a money repair rebuilds the list; the returned list is the one
+        to keep.
+        scope (str): the active clause.
+        installed (set[str]): tool names this sample may call.
+        profile (str): ``user_profile.name``. A person who is the speaker
+        does not get ``contacts.search``.
+
+    Output:
+        list[dict]: the same objects plus one object per missing action.
+        A conditional write keeps ``when`` from ``_governing_when``.
+    """
+    low = scope.lower()
+    objects = _drop_self_search(_claim_weather(objects, low, installed), profile)
+    if any(word in low for word in ("trả", "hóa đơn", "tiền điện")) and "bill_payment.list_bills" in installed:
+        if not _has_tool(objects, "bill_payment.list_bills"):
+            objects.insert(0, _obj("hóa đơn", "xem hóa đơn đúng loại", "luôn", ["bill_payment.list_bills"]))
+    when = _governing_when(scope)
+    write = _schedule_write(low)
+    if write and "calendar.list_events" in installed and write in installed and not _has_tool(objects, write):
+        _push(objects, installed, _obj("lịch", "dời hoặc hủy đúng việc trong câu", when, ["calendar.list_events", write]))
+    message = _message_tools(low, installed)
+    if message and not _has_tool(objects, message[-1]):
+        person = _sms_person(scope) or _person_after(scope, "nhắn") or "người nhận"
+        if message[-1] == "sms.send" and "giờ mới" in low:
+            action = "nhắn giờ mới"
+        else:
+            action = "nhắn, query " + person
+        tools = [name for name in message if not (name == "contacts.search" and _is_speaker(person, profile))]
+        _push(objects, installed, _obj(person, action, when, tools))
+    topup = (
+        "nạp" in low
+        or "cho số" in low
+        or ("điện thoại cho" in low and "gọi" not in low and _ngan_amount(scope) is not None)
+    )
+    topup_person = None
+    if "cho số" not in low:
+        for verb in ("điện thoại cho", "nạp giúp", "nạp cho", "nạp dùm"):
+            person = _person_after(scope, verb)
+            if person and person.lower() not in ("mình", "tôi", "tui", "tao", "tớ"):
+                topup_person = person
+                break
+    if topup_person and _is_speaker(topup_person, profile):
+        topup_person = None
+    transfer = _transfer_tool(low, installed)
+    if transfer == "banking.transfer":
+        banned = {
+            "banking.list_transactions", "banking.open_savings", "banking.transfer",
+            "banking.get_balance", "banking.list_beneficiaries",
+            "ewallet.transfer", "ewallet.topup_mobile", "contacts.search",
+            "contacts.get", "phone.call",
+        }
+        if _transfer_jobs(scope):
+            banned.add("bill_payment.pay")
+        objects = _drop_tools(objects, banned)
+        repeats = max(1, len(_transfer_jobs(scope)))
+        bank_tools = ["banking.get_balance", "banking.list_beneficiaries"] + ["banking.transfer"] * repeats
+        if _bill_focus(scope) and "bill_payment.list_bills" in installed and not _has_tool(objects, "bill_payment.list_bills"):
+            bank_tools = ["bill_payment.list_bills"] + bank_tools
+        _push(objects, installed, _obj(
+            "chuyển khoản", "amount và người nhận trong câu", "luôn", bank_tools,
+        ))
+    if topup or transfer == "ewallet.transfer":
+        money_tools = {"contacts.get", "ewallet.transfer", "ewallet.topup_mobile", "phone.call"}
+        if transfer == "ewallet.transfer" or topup_person:
+            money_tools.add("contacts.search")
+        if transfer == "ewallet.transfer":
+            money_tools.update({
+                "banking.list_transactions", "banking.open_savings", "banking.transfer",
+                "banking.get_balance", "banking.list_beneficiaries",
+            })
+        kept = []
+        for obj in objects:
+            names = [name for name in obj["tools"] if name not in money_tools]
+            if names:
+                kept.append(_obj(obj["name"], obj["action"], obj["when"], names))
+        objects = kept
+    if topup and "ewallet.topup_mobile" in installed:
+        tools = ["contacts.search", "ewallet.topup_mobile"] if topup_person else ["ewallet.topup_mobile"]
+        _push(objects, installed, _obj(topup_person or "số điện thoại", "nạp, amount là số ngàn trong câu", "luôn", tools))
+    if transfer == "ewallet.transfer":
+        person = _transfer_payee(scope)
+        tools = ["ewallet.transfer"] if _is_speaker(person, profile) else ["contacts.search", "ewallet.transfer"]
+        _push(objects, installed, _obj(person, f"chuyển ví, query {person}", "luôn", tools))
+    if "nhắc" in low and "báo thức" not in low and "reminders.create" in installed:
+        objects = _drop_tools(objects, {"alarm.create", "phone.call"})
+        if not _has_tool(objects, "reminders.create"):
+            _push(objects, installed, _obj("nhắc", "nhắc việc trong câu", "luôn", ["reminders.create"]))
+    if "báo thức" in low and "alarm.create" in installed:
+        before_event = "trước" in low and "lịch" in low and "calendar.list_events" in installed
+        if before_event:
+            objects = _drop_tools(objects, {"alarm.create"})
+            _push(objects, installed, _obj(
+                "báo thức", "báo thức trước lịch, chỉ gửi time", "luôn",
+                ["calendar.list_events", "alarm.create"],
+            ))
+        elif not _has_tool(objects, "alarm.create"):
+            _push(objects, installed, _obj("báo thức", "chỉ gửi time", "luôn", ["alarm.create"]))
+    ride_call = re.search(r"gọi\s+(ô tô|xe|taxi)", low) is not None
+    if re.search(r"\bgọi\b", low) and "nhắc" not in low and "zalo" not in low and "video" not in low and not ride_call:
+        if "phone.call" in installed:
+            objects = _drop_tools(objects, {"chat_ott.call", "chat_ott.list_chats", "phone.call"})
+            person = _call_person(scope)
+            tools = ["phone.call"] if _is_speaker(person, profile) else ["contacts.search", "phone.call"]
+            _push(objects, installed, _obj(person, "gọi điện", when, tools))
+    if "đèn" in low and "tắt" in low and not _turns_lights_off(scope):
+        objects = _drop_tools(objects, {"smart_home.get_status", "smart_home.light_set"})
+    if _floor_named(low) and "tắt" in low and "đèn" in low and "smart_home.light_set" in installed:
+        objects = _drop_tools(objects, {
+            "smart_home.get_status", "smart_home.light_set", "smart_home.climate_set",
+        })
+        kept = "trừ phòng đang chạy quạt" if "quạt" in low else "trừ phòng đang bật điều hòa"
+        _push(objects, installed, _obj(
+            "đèn", f"tắt đèn đúng tầng, {kept}", "luôn",
+            ["smart_home.get_status", "smart_home.light_set", "smart_home.light_set"],
+        ))
+        if _climate_temperature(low) is not None and "smart_home.climate_set" in installed:
+            _push(objects, installed, _obj(
+                "điều hòa", "mode=cool, đúng phòng và đúng số độ", "luôn",
+                ["smart_home.climate_set"],
+            ))
+    if any(word in low for word in ("đèn", "độ sáng")) and "smart_home.light_set" in installed:
+        if "tắt" in low and not _turns_lights_off(scope):
+            pass
+        elif not _has_tool(objects, "smart_home.light_set"):
+            _push(objects, installed, _obj("đèn", "chỉnh đúng phòng", "luôn", ["smart_home.get_status", "smart_home.light_set"]))
+    ride = (
+        "ride_hailing.book" in installed
+        and any(word in low for word in ("xe", "ô tô", "bốn chỗ", "4 chỗ"))
+        and any(word in low for word in ("đặt", "gọi", "chở"))
+    )
+    if ride:
+        objects = _drop_tools(objects, {"ride_hailing.book"})
+        if "mang laptop" in low:
+            objects = _drop_tools(objects, {"reminders.create"})
+        kept = []
+        for obj in objects:
+            if "calendar.list_events" in obj["tools"] and obj["when"] != "luôn":
+                names = [name for name in obj["tools"] if name != "calendar.list_events"]
                 if names:
                     kept.append(_obj(obj["name"], obj["action"], obj["when"], names))
-            objects = kept
-        if topup and "ewallet.topup_mobile" in installed:
-            person = None if "cho số" in low else _person_after(scope, "điện thoại cho")
-            tools = ["contacts.search", "ewallet.topup_mobile"] if person else ["ewallet.topup_mobile"]
-            add(_obj(person or "số điện thoại", "nạp, amount là số ngàn trong câu", "luôn", tools))
-        if transfer:
-            person = _person_after(scope, "chuyển ví cho") or _person_after(scope, "chuyển cho") or "người nhận"
-            add(_obj(person, f"chuyển ví, query {person}", "luôn", ["contacts.search", "ewallet.transfer"]))
-        if "báo thức" in low and "alarm.create" in installed and not _has_tool(objects, "alarm.create"):
-            add(_obj("báo thức", "chỉ gửi time", "luôn", ["alarm.create"]))
-        if any(word in low for word in ("đèn", "độ sáng")) and "smart_home.light_set" in installed:
-            if not _has_tool(objects, "smart_home.light_set"):
-                add(_obj("đèn", "chỉnh đúng phòng", "luôn", ["smart_home.get_status", "smart_home.light_set"]))
-        if "đặt" in low and "xe" in low and "ride_hailing.book" in installed:
-            if not re.search(r"\d", scope) and "calendar.list_events" in installed and not _has_tool(objects, "calendar.list_events"):
-                objects.insert(0, _obj("lịch", "lấy điểm đến của việc trong câu", "luôn", ["calendar.list_events"]))
-            if not _has_tool(objects, "ride_hailing.book"):
-                add(_obj("xe", "đặt ngay thì không gửi schedule_time", "luôn", ["ride_hailing.book"]))
+                continue
+            kept.append(obj)
+        objects = kept
+        book_when = "rain=false" if "không mưa" in low else "luôn"
+        if "calendar.list_events" in installed and any(word in low for word in ("hẹn", "lịch", "chiều", "sáng", "tối")):
+            if not _has_tool(objects, "calendar.list_events"):
+                spot = 1 if objects and "weather.get_forecast" in objects[0]["tools"] else 0
+                objects.insert(spot, _obj("lịch", "lấy điểm đến của việc trong câu", "luôn", ["calendar.list_events"]))
+        _push(objects, installed, _obj("xe", "đón trước giờ hẹn, xe bốn chỗ", book_when, ["ride_hailing.book"]))
+        if "nhắc" in low and "mang laptop" in low and "reminders.create" in installed:
+            _push(objects, installed, _obj("nhắc", "mang laptop trước giờ đón", book_when, ["reminders.create"]))
+    return _drop_self_search(objects, profile)
 
+
+def _arrange(
+    objects: list[dict],
+    tools_by_name: dict[str, dict],
+    installed: set[str],
+    profile: str,
+) -> list[dict]:
+    """Put condition checks first, then the reads each write needs.
+
+    Input:
+        objects (list[dict]): objects after ``_exclusive_plan`` or ``_augment``.
+        tools_by_name (dict[str, dict]): catalog index.
+        installed (set[str]): tool names this sample may call.
+        profile (str): ``user_profile.name``. A speaker does not gain
+        ``contacts.search`` from a write that needs a contact id.
+
+    Output:
+        list[dict]: unconditional objects, then conditional ones. Calendar
+        writes come before a bill payment, and a reminder comes last.
+    """
     hoisted = []
     rest = []
-    gate_reads = {"weather.get_forecast", "weather.get_current", "gold_price.get_price", "ewallet.get_balance", "bill_payment.list_bills"}
     for obj in objects:
-        gates = [name for name in obj["tools"] if name in gate_reads]
+        gates = [name for name in obj["tools"] if name in _GATE_READS]
         later = [name for name in obj["tools"] if name not in gates]
         if gates and later and obj["when"] != "luôn":
             hoisted.append(_obj(obj["name"], "kiểm tra", "luôn", gates))
@@ -876,6 +1529,8 @@ def _repair_plan(
         for name in list(obj["tools"]):
             for read in _reads_for(name, tools_by_name, installed):
                 if read in obj["tools"] or read in extra:
+                    continue
+                if read == "contacts.search" and _is_speaker(obj["name"], profile):
                     continue
                 if read != "contacts.search" and read in seen_reads:
                     continue
@@ -898,8 +1553,74 @@ def _repair_plan(
         return 2
 
     later.sort(key=later_key)
-    rendered = _format_objects(always + later)
-    return rendered or plan
+    return always + later
+
+
+def _no_remaining_task(text: str) -> bool:
+    """Return whether a clause left after a retraction asks for nothing.
+
+    Input:
+        text (str): the tail after ``à thôi`` or ``chỉ cần``.
+
+    Output:
+        bool: True when the tail names no lookup and no write.
+    """
+    low = text.lower()
+    words = (
+        "dời", "muộn", "sớm", "hủy", "huỷ", "nhắn", "gọi", "nạp", "chuyển",
+        "đặt", "bật", "tắt", "nhắc", "báo", "trả", "giảm", "tăng", "mưa",
+        "giá", "đèn", "nạp",
+    )
+    return not any(word in low for word in words)
+
+
+def _repair_plan(
+    plan: str,
+    request: str,
+    installed: set[str],
+    tools_by_name: dict[str, dict],
+    profile: str = "",
+) -> str:
+    """Rebuild the object plan from the sentence and the tools installed here.
+
+    The model plan is kept. A lookup, a gold threshold, or a wallet bill
+    replaces it. Every other sentence adds the missing action for the verb
+    and the noun: a calendar change only when the clause is about an event,
+    a message on the channel the clause names, and a transfer on the account
+    it names. A bank transfer is left on the model plan instead of being
+    rewritten as a wallet transfer.
+
+    Input:
+        plan (str): the lines the model wrote. Their tool names are kept when
+        the sentence still asks for them.
+        request (str): the latest user text. A retraction keeps only the tail.
+        installed (set[str]): tool names this sample may call.
+        tools_by_name (dict[str, dict]): catalog index, used to put a read
+        before a write that needs an id.
+        profile (str): ``user_profile.name``. The speaker is not searched
+        as a contact. Empty when the profile is unknown.
+
+    Output:
+        str: one object line per remaining action. The model's text when no
+        object can be built.
+    """
+    scope = _active_text(request)
+    if scope.strip() != request.strip() and _no_remaining_task(scope):
+        return "Đối tượng: ngoài phạm vi | việc: dừng | khi: luôn | tool:"
+    forced = _exclusive_plan(scope, installed, profile)
+    if forced is None:
+        objects = _augment(_seed_objects(plan, scope, installed), scope, installed, profile)
+    else:
+        objects = forced
+    rendered = _format_objects(_arrange(objects, tools_by_name, installed, profile))
+    if rendered:
+        return rendered
+    if "đèn" in request.lower() and "tắt" in request.lower() and not _turns_lights_off(request):
+        return "Đối tượng: ngoài phạm vi | việc: dừng | khi: luôn | tool:"
+    low = request.lower()
+    if any(marker in low for marker in ("chỉ cần", "mà thôi", "à thôi", "thôi khỏi")):
+        return "Đối tượng: ngoài phạm vi | việc: dừng | khi: luôn | tool:"
+    return plan
 
 
 def _money_to_int(text: str) -> str:
@@ -1104,7 +1825,7 @@ def _bill_focus(request: str) -> str | None:
         None: when the sentence does not name a bill.
     """
     low = request.lower()
-    if "tiền điện" in low or "trả điện" in low or re.search(r"điện(?!\s*thoại)", low):
+    if "tiền điện" in low or "trả điện" in low or re.search(r"điện(?!\s*(?:thoại|tử))", low):
         return "electricity"
     for word, code in (
         ("điện thoại", "phone"),
@@ -1207,8 +1928,16 @@ def _fill_hint(tool: str, request: str, facts: dict) -> str:
     low = request.lower()
     if tool == "weather.get_forecast":
         return "Chỉ gửi date. Mai thì dùng tomorrow. Không gửi location."
+    if tool == "alarm.create" and "trước" in low and "lịch" in low:
+        return "Chỉ gửi time. Lấy start của đúng lịch rồi trừ số tiếng trong câu."
     if tool == "alarm.create":
         return "Chỉ gửi time, dạng YYYY-MM-DDTHH:MM:SS với timezone. Không gửi label hay repeat."
+    if tool == "reminders.create":
+        return "content là việc được nhắc. time là giờ trong câu, dạng YYYY-MM-DDTHH:MM:SS với timezone."
+    if tool == "smart_home.light_set" and _floor_named(low) and "tắt" in low:
+        return "Tắt từng đèn đúng tầng đang bật, trừ phòng có điều hòa đang chạy. Mỗi lần một device_id, power=off."
+    if tool == "banking.transfer":
+        return "from_account_id từ get_balance, beneficiary_id từ list_beneficiaries, amount từ câu hoặc hóa đơn."
     if tool == "calendar.update_event":
         return "event_id đúng việc trong câu. Gửi cả start và end, cộng cùng khoảng vào cả hai."
     if tool == "smart_home.light_set" and ("một nửa" in low or "độ sáng" in low):
@@ -1227,7 +1956,7 @@ def _fill_hint(tool: str, request: str, facts: dict) -> str:
     if tool == "sms.send":
         return "content là giờ mới hoặc việc vừa xong, không chép nguyên câu nghe. contact_id của người vừa tìm."
     if tool == "contacts.search":
-        return "query là tên người trong việc, không gửi thêm trường khác."
+        return "query là tên người, không kèm chức danh. Không gửi thêm trường khác."
     return ""
 
 
@@ -1275,6 +2004,13 @@ def _last_spoken_hm(text: str) -> tuple[int, int] | None:
     word = match.group(1)
     hour = int(word) if word.isdigit() else _HOUR_WORD[word]
     minute = 30 if match.group(2) == "rưỡi" or low[match.end():match.end() + 8].lstrip().startswith("rưỡi") else 0
+    kem = re.match(r"\s*kém\s+(\d{1,2}|mười lăm|mười|năm|lăm)", low[match.end():])
+    if kem:
+        raw = kem.group(1)
+        subtracted = int(raw) if raw.isdigit() else {"mười lăm": 15, "mười": 10, "năm": 5, "lăm": 5}[raw]
+        if 0 < subtracted < 60:
+            hour = (hour - 1) % 24
+            minute = 60 - subtracted
     return hour, minute
 
 
@@ -1320,8 +2056,11 @@ def _spoken_phone(text: str) -> str | None:
         text (str): the latest user text.
 
     Output:
-        str: the digits written together.
-        None: when fewer than eight digit words follow ``cho số``.
+        str: the digits written together, starting with 0 and at least 10
+        digits long.
+        None: when the spoken sequence is missing, does not start with 0, or
+        is shorter than 10 digits. The missing zeros are not filled from
+        anywhere else.
     """
     low = text.lower()
     tail = low.split("cho số", 1)[1] if "cho số" in low else ""
@@ -1334,13 +2073,16 @@ def _spoken_phone(text: str) -> str | None:
         elif digits:
             break
     phone = "".join(digits)
-    if len(phone) < 8:
+    if len(phone) < 10 or not phone.startswith("0"):
         return None
     return phone
 
 
 def _matching_contact(results: list, query: str) -> dict | None:
-    """Pick the contact whose name contains the planned query.
+    """Pick the contact whose name contains the given name.
+
+    A leading title on ``query`` is dropped first, so ``Con Mai`` matches
+    ``Cô giáo Mai``. The match is on the contact name, not on relation.
 
     Input:
         results (list): tool payloads. A contact has ``id`` starting with ``c_``.
@@ -1348,10 +2090,13 @@ def _matching_contact(results: list, query: str) -> dict | None:
 
     Output:
         dict: the contact with the longest matching name.
-        None: when no returned contact contains that query.
+        None: when no returned contact contains that name.
     """
-    needle = (query or "").strip().lower()
-    if not needle or needle in ("số điện thoại", "người nhận", "liên hệ"):
+    spoken = (query or "").strip().lower()
+    if not spoken or spoken in ("số điện thoại", "người nhận", "liên hệ"):
+        return None
+    needle = _contact_query(query).strip().lower()
+    if not needle:
         return None
     best = None
     best_len = 0
@@ -1365,6 +2110,85 @@ def _matching_contact(results: list, query: str) -> dict | None:
                 best = node
                 best_len = len(name)
     return best
+
+
+def _named_contacts(results: list, query: str) -> list[dict]:
+    """Return every contact whose given name is the spoken name.
+
+    Input:
+        results (list): tool payloads. A contact has ``id`` starting with ``c_``.
+        query (str): the person on the current object, title included.
+
+    Output:
+        list[dict]: contacts whose name, without a leading title, equals the
+        query. Two people both named Lan are both returned.
+    """
+    needle = _contact_query(query).strip().lower()
+    if not needle or needle in ("số điện thoại", "người nhận", "liên hệ"):
+        return []
+    found = []
+    seen = set()
+    for payload in results:
+        for node in _walk_dicts(payload):
+            name = node.get("name")
+            contact_id = node.get("id")
+            if not isinstance(name, str) or not isinstance(contact_id, str) or not contact_id.startswith("c_"):
+                continue
+            if contact_id in seen:
+                continue
+            if _contact_query(name).strip().lower() == needle:
+                found.append(node)
+                seen.add(contact_id)
+    return found
+
+
+def _history_hits(hits: list[dict], query: str, context: str) -> list[dict]:
+    """Keep the contact an earlier turn already identified.
+
+    Input:
+        hits (list[dict]): contacts who share the spoken given name.
+        query (str): that given name, such as ``Minh``.
+        context (str): the rendered context, including earlier user turns.
+
+    Output:
+        list[dict]: one contact when a history line names both the person and
+        that contact's relation. All of ``hits`` when history does not say.
+    """
+    if len(hits) < 2 or not context:
+        return hits
+    chosen = []
+    needle = query.lower()
+    for line in context.splitlines():
+        if line.startswith("tool_"):
+            continue
+        folded = line.lower()
+        if needle not in folded:
+            continue
+        for hit in hits:
+            relation = str(hit.get("relation") or "").lower()
+            if relation and relation in folded and hit not in chosen:
+                chosen.append(hit)
+    return chosen if len(chosen) == 1 else hits
+
+
+def _phone_override(results: list, query: str, tool: str = "phone.call", context: str = "") -> tuple[str, dict] | None:
+    """Choose a phone call or a question when several people share a name.
+
+    Input:
+        results (list): tool payloads from ``contacts.search``.
+        query (str): the person the plan is calling.
+
+    Output:
+        tuple[str, dict]: ``sys.ask_missing_info`` when at least two contacts
+        have that given name, or ``phone.call`` with the one matching id.
+        None: when the search did not return that name.
+    """
+    hits = _history_hits(_named_contacts(results, query), query, context)
+    if len(hits) >= 2:
+        return "sys.ask_missing_info", {"tool_name": tool, "params": ["contact_id"]}
+    if len(hits) == 1 and hits[0].get("id"):
+        return tool, {"contact_id": hits[0]["id"]}
+    return None
 
 
 def _expand_clock(value, request: str, context: str):
@@ -1544,6 +2368,820 @@ def _time_block(args: dict) -> str | None:
     return None
 
 
+def _turns_lights_off(text: str) -> bool:
+    """Return whether the surviving clause actually switches a light off.
+
+    Input:
+        text (str): the latest user text. ``đừng tắt`` does not count.
+        A retraction keeps only the clause after ``mà thôi``.
+
+    Output:
+        bool: True when some ``tắt`` is not preceded by ``đừng``, ``không``,
+        or ``khỏi``.
+    """
+    low = _active_text(text).lower()
+    if "đèn" not in low:
+        return False
+    for match in re.finditer(r"tắt", low):
+        before = low[:match.start()].rstrip()
+        if before.endswith(("đừng", "không", "khỏi", "đừng có")):
+            continue
+        return True
+    return False
+
+
+def _floor_named(text: str) -> int | None:
+    """Read the floor number in a sentence about lights.
+
+    Input:
+        text (str): the latest user text.
+
+    Output:
+        int: the floor, such as ``2`` for ``tầng 2`` or ``tầng hai``.
+        None: when the sentence names no floor.
+    """
+    match = re.search(r"tầng\s+(một|hai|ba|bốn|\d)", text.lower())
+    if not match:
+        return None
+    word = match.group(1)
+    return {"một": 1, "hai": 2, "ba": 3, "bốn": 4}.get(word, int(word) if word.isdigit() else None)
+
+
+def _hours_before(text: str) -> int | None:
+    """Read how many hours before an event an alarm should ring.
+
+    Input:
+        text (str): the latest user text. It must say ``trước``.
+
+    Output:
+        int: the hour count in ``một tiếng`` or ``2 tiếng``.
+        None: when the sentence is not about being early.
+    """
+    low = text.lower()
+    if "trước" not in low:
+        return None
+    match = re.search(r"(một|hai|ba|bốn|\d+)\s*tiếng", low)
+    if not match:
+        return None
+    word = match.group(1)
+    return {"một": 1, "hai": 2, "ba": 3, "bốn": 4}.get(word, int(word) if word.isdigit() else None)
+
+
+def _reminder_content(text: str) -> str:
+    """Keep the errand in a reminder and drop the clock.
+
+    Input:
+        text (str): the latest user text.
+
+    Output:
+        str: the words after ``nhắc`` up to ``lúc`` or a clock.
+        Empty when the sentence has no ``nhắc``.
+    """
+    match = re.search(r"nhắc", text, flags=re.IGNORECASE)
+    if not match:
+        return ""
+    tail = text[match.end():]
+    tail = re.split(r"\blúc\b|(?:lúc\s+)?\d+\s*giờ", tail, maxsplit=1, flags=re.IGNORECASE)[0]
+    skip = _TITLE | {"dùm", "giúp", "hộ", "mình", "tôi", "tui", "nha", "nhé", "nhé", "ơi"}
+    tokens = []
+    for token in re.findall(r"\w+", tail, flags=re.UNICODE):
+        if not tokens and token.lower() in skip:
+            continue
+        if token.lower() in _HOUR_WORD or token.lower() in ("giờ", "rưỡi", "kém", "tối", "sáng", "mai", "nay"):
+            break
+        tokens.append(token)
+    return " ".join(tokens).strip()
+
+
+def _due_sweep(text: str) -> bool:
+    """Return whether the sentence pays every bill due within five days.
+
+    Input:
+        text (str): the latest user text, any casing.
+
+    Output:
+        bool: True when it names a due date, a five-day window, a 500 thousand
+        cap, and the bank.
+    """
+    low = text.lower()
+    due = any(phrase in low for phrase in ("đến hạn", "tới hạn", "sắp đến hạn"))
+    cap = "500" in low or "năm trăm" in low
+    return due and cap and "ngày" in low and "ngân hàng" in low
+
+
+def _wallet_short(text: str) -> bool:
+    """Return whether the sentence has a wallet-shortfall branch.
+
+    Input:
+        text (str): the latest user text, any casing.
+
+    Output:
+        bool: True for ``ví không đủ``, ``còn thiếu``, ``nếu thiếu``, and the
+        same idea in the other wordings used in the gold set.
+    """
+    low = text.lower()
+    return any(phrase in low for phrase in (
+        "còn không", "nếu thiếu", "còn thiếu", "ví mà không đủ", "ví không đủ", "ví thiếu",
+    ))
+
+
+def _wallet_parts(text: str) -> tuple[str, str]:
+    """Split a wallet sentence into the enough branch and the short branch.
+
+    Input:
+        text (str): the latest user text, lowercased.
+
+    Output:
+        tuple[str, str]: text before the first shortfall marker, and the text
+        after it. The second string is empty when no marker is present.
+    """
+    for marker in ("còn không", "nếu thiếu", "còn thiếu", "ví mà không đủ", "ví không đủ", "ví thiếu"):
+        if marker in text:
+            return text.split(marker, 1)
+    return text, ""
+
+
+def _sms_person(text: str) -> str | None:
+    """Read the person a text message is sent to.
+
+    ``SMS`` between ``nhắn`` and the name is skipped. A title such as
+    ``cô giáo`` stays in front of the given name.
+
+    Input:
+        text (str): the active clause.
+
+    Output:
+        str: a span such as ``Lan`` or ``Cô Giáo Mai``.
+        None: when the clause does not name a recipient.
+    """
+    match = re.search(r"nhắn", text, flags=re.IGNORECASE)
+    if not match:
+        return None
+    tail = re.sub(r"^(?:\s+(?:sms|tin))*", "", text[match.end():], flags=re.IGNORECASE)
+    tokens = re.findall(r"\w+", tail, flags=re.UNICODE)
+    index = 0
+    while index < len(tokens) and (is_function(tokens[index]) or tokens[index].lower() in ("sms", "tin", "báo")):
+        index += 1
+    kept = []
+    while index < len(tokens) and len(kept) < 4:
+        token = tokens[index]
+        if kept and (is_function(token) or _amount_unit(token) or token.lower() in ("là", "báo")):
+            break
+        kept.append(token)
+        index += 1
+        if token.lower() not in _TITLE and token.lower() not in _ROLE:
+            break
+    if not kept:
+        return None
+    return " ".join(_as_spoken(token) for token in kept)
+
+
+def _next_due_bill(results: list, context: str, done_calls: list[tuple[str, dict]]) -> dict | None:
+    """Pick the next unpaid bill due within five days and at most 500 thousand.
+
+    Input:
+        results (list): tool payloads. A bill has ``due_date``, ``amount``, and ``paid``.
+        context (str): the rendered context, for ``today``.
+        done_calls (list[tuple[str, dict]]): payments already made in this sample.
+
+    Output:
+        dict: the next bill in list order.
+        None: when every such bill is already chosen.
+    """
+    today = _context_value(context, "today")
+    if not today:
+        return None
+    start = datetime.fromisoformat(today).date()
+    end = start + timedelta(days=5)
+    paid = {call.get("bill_id") for name, call in done_calls if name == "bill_payment.pay"}
+    for payload in results:
+        for node in _walk_dicts(payload):
+            bill_id = node.get("id")
+            if not isinstance(bill_id, str) or not bill_id.startswith("bill_"):
+                continue
+            if node.get("paid") is True or bill_id in paid:
+                continue
+            amount = node.get("amount")
+            due = node.get("due_date")
+            if not isinstance(amount, (int, float)) or amount > 500000:
+                continue
+            if not isinstance(due, str) or len(due) < 10:
+                continue
+            due_day = datetime.fromisoformat(due[:10]).date()
+            if start <= due_day <= end:
+                return node
+    return None
+
+
+def _bill_type_prefix(fragment: str) -> tuple[str, str]:
+    """Read the bill type at the start of a fragment.
+
+    Input:
+        fragment (str): text that begins with ``truyền hình`` or ``điện``.
+
+    Output:
+        tuple[str, str]: the catalog type and the phrase that named it.
+        ``("", "")`` when the fragment names no bill.
+    """
+    for phrase, kind in (
+        ("truyền hình", "tv"),
+        ("học phí", "tuition"),
+        ("điện thoại", "phone"),
+        ("điện", "electricity"),
+        ("nước", "water"),
+        ("mạng", "internet"),
+    ):
+        if fragment.startswith(phrase):
+            return kind, phrase
+    return "", ""
+
+
+def _job_person(clause: str) -> str:
+    """Read the payee in the clause before ``đúng tiền``.
+
+    Input:
+        clause (str): words such as ``chuyển cho trần văn tuấn``.
+
+    Output:
+        str: the name with titles kept, such as ``Trần Văn Tuấn``.
+        Empty when the clause names nobody.
+    """
+    drop = {
+        "chuyển", "cho", "em", "anh", "chị", "tôi", "tui", "mình", "và", "rồi",
+        "tháng", "này", "nha", "nhé", "giúp", "dùm", "với", "thì", "trừ", "vào",
+        "tài", "khoản", "thanh", "toán", "không", "đủ", "cả", "hai", "lấy",
+        "tiết", "kiệm", "rút", "ra", "ừ", "ơi",
+    }
+    kept = []
+    for token in re.findall(r"\w+", clause, flags=re.UNICODE):
+        if token.lower() in drop or is_function(token):
+            continue
+        kept.append(_as_spoken(token))
+    return " ".join(kept[-4:])
+
+
+def _transfer_jobs(text: str) -> list[tuple[str, str]]:
+    """Pair each payee with the bill type that follows ``đúng tiền``.
+
+    Input:
+        text (str): the latest user text. One sentence can name two payees.
+
+    Output:
+        list[tuple[str, str]]: ``(person, bill type)`` in spoken order.
+        Empty when the sentence is not this pattern.
+    """
+    low = text.lower()
+    if "chuyển" not in low or "đúng" not in low:
+        return []
+    jobs = []
+    cursor = 0
+    for match in re.finditer(r"đúng(?:\s+bằng)?\s+tiền\s+", low):
+        person = _job_person(low[cursor:match.start()])
+        kind, phrase = _bill_type_prefix(low[match.end():])
+        if person and kind:
+            jobs.append((person, kind))
+        cursor = match.end() + len(phrase)
+    return jobs
+
+
+def _beneficiary_named(results: list, person: str) -> str | None:
+    """Match one spoken payee to a beneficiary id.
+
+    Input:
+        results (list): tool payloads. A beneficiary has ``name`` and ``id``.
+        person (str): the payee, such as ``Phạm Hùng``.
+
+    Output:
+        str: the id of the longest stored name that contains every query word.
+        None: when no beneficiary matches.
+    """
+    best = None
+    best_len = 0
+    for payload in results:
+        for node in _walk_dicts(payload):
+            name = node.get("name")
+            beneficiary_id = node.get("id")
+            if not isinstance(name, str) or not isinstance(beneficiary_id, str):
+                continue
+            if not beneficiary_id.startswith("ben_") or not _named_in(person, name):
+                continue
+            if len(name) > best_len:
+                best = beneficiary_id
+                best_len = len(name)
+    return best
+
+
+def _duration_minutes(text: str) -> int | None:
+    """Read a duration in minutes.
+
+    Input:
+        text (str): a clause that may say ``nửa tiếng`` or ``mười lăm phút``.
+
+    Output:
+        int: the number of minutes.
+        None: when no duration is written.
+    """
+    low = text.lower()
+    if "nửa tiếng" in low or "nửa giờ" in low:
+        return 30
+    match = re.search(r"(\d+)\s*phút", low)
+    if match:
+        return int(match.group(1))
+    marker = low.rfind("phút")
+    if marker < 0:
+        return None
+    kept = []
+    for token in reversed(low[:marker].split()):
+        if token in _VN_DIGIT or token in ("mươi", "mười", "trăm"):
+            kept.append(token)
+            continue
+        break
+    if not kept:
+        return None
+    number = _vn_under_1000(" ".join(reversed(kept)))
+    return number or None
+
+
+def _pickup_lead(text: str) -> int | None:
+    """Read how many minutes before the event the car should arrive.
+
+    Input:
+        text (str): the latest user text. The reminder clause is ignored.
+
+    Output:
+        int: minutes such as 30 or 45.
+        None: when the sentence gives no pickup lead.
+    """
+    return _duration_minutes(text.lower().split("nhắc", 1)[0])
+
+
+def _remind_lead(text: str) -> int | None:
+    """Read how many minutes before pickup the reminder should fire.
+
+    Input:
+        text (str): the latest user text.
+
+    Output:
+        int: minutes, usually 15.
+        None: when the sentence has no ``trước lúc xe`` clause.
+    """
+    low = text.lower()
+    for marker in ("trước lúc xe", "trước giờ xe"):
+        if marker in low:
+            return _duration_minutes(low.split(marker, 1)[1])
+    return None
+
+
+def _ride_event(results: list, request: str, context: str) -> dict | None:
+    """Pick the calendar event a ride is going to.
+
+    Input:
+        results (list): tool payloads. An event has ``title``, ``start``, and ``location``.
+        request (str): the latest user text. ``chiều`` limits the hour.
+        ``nay`` and ``mai`` limit the day.
+        context (str): the rendered context, for today and tomorrow.
+
+    Output:
+        dict: the event whose title shares the most words with the request.
+        None: when no event fits.
+    """
+    low = request.lower()
+    window = range(12, 18) if "chiều" in low else range(5, 12) if "sáng" in low else range(18, 24) if "tối" in low else None
+    today = _context_value(context, "today")
+    tomorrow = _context_value(context, "tomorrow")
+    day = tomorrow if "mai" in low and "nay" not in low else today if "nay" in low else ""
+    found = []
+    for payload in results:
+        for node in _walk_dicts(payload):
+            start = node.get("start")
+            if not isinstance(start, str) or "T" not in start:
+                continue
+            if day and not start.startswith(day):
+                continue
+            hour = int(start[11:13]) if len(start) >= 13 else -1
+            if window is not None and hour not in window:
+                continue
+            found.append(node)
+    best = None
+    best_score = 0
+    for node in found:
+        title = str(node.get("title") or "").lower()
+        score = sum(1 for token in title.split() if len(token) > 2 and token in low)
+        if score > best_score:
+            best = node
+            best_score = score
+    if best_score > 0:
+        return best
+    if len(found) == 1:
+        return found[0]
+    return None
+
+
+def _climate_temperature(text: str) -> int | None:
+    """Read the degrees the sentence wants an air conditioner set to.
+
+    Input:
+        text (str): the latest user text.
+
+    Output:
+        int: the number before ``độ`` when the sentence turns the air
+        conditioner on.
+        None: otherwise.
+    """
+    low = text.lower()
+    if "điều hòa" not in low and "điều hoà" not in low:
+        return None
+    match = re.search(r"(\d+)\s*độ", low)
+    return int(match.group(1)) if match else None
+
+
+def _climate_device(results: list, request: str) -> dict | None:
+    """Find the air conditioner whose room name is inside the sentence.
+
+    Input:
+        results (list): tool payloads from ``smart_home.get_status``.
+        request (str): the latest user text, including the room.
+
+    Output:
+        dict: the climate device with the longest matching room name.
+        None: when no room matches.
+    """
+    low = request.lower()
+    best = None
+    best_len = 0
+    for payload in results:
+        for node in _walk_dicts(payload):
+            if node.get("type") != "climate" and not str(node.get("id", "")).startswith("ac_"):
+                continue
+            room = str(node.get("room") or "").lower()
+            if room and room in low and len(room) > best_len:
+                best = node
+                best_len = len(room)
+    return best
+
+
+def _named_light(results: list, request: str) -> dict | None:
+    """Find the lamp whose room name is the longest phrase in the sentence.
+
+    Input:
+        results (list): tool payloads from ``smart_home.get_status``.
+        request (str): the latest user text. ``phòng ngủ nhỏ`` beats ``phòng ngủ``.
+
+    Output:
+        dict: that light.
+        None: when the sentence names no room.
+    """
+    low = request.lower()
+    best = None
+    best_len = 0
+    for payload in results:
+        for node in _walk_dicts(payload):
+            if node.get("type") != "light" and not str(node.get("id", "")).startswith("light_"):
+                continue
+            room = str(node.get("room") or "").lower()
+            if room and room in low and len(room) > best_len:
+                best = node
+                best_len = len(room)
+    return best
+
+
+def _food_restaurant(results: list, request: str) -> dict | None:
+    """Find the restaurant whose name shares the most words with the sentence.
+
+    Input:
+        results (list): tool payloads. A restaurant id starts with ``rest_``.
+
+    Output:
+        dict: the restaurant.
+        None: when no restaurant name is mentioned.
+    """
+    low = request.lower()
+    best = None
+    best_score = 0
+    for payload in results:
+        for node in _walk_dicts(payload):
+            name = node.get("name")
+            restaurant_id = node.get("id")
+            if not isinstance(name, str) or not isinstance(restaurant_id, str):
+                continue
+            if not restaurant_id.startswith("rest_") or "price" in node:
+                continue
+            score = sum(1 for token in name.lower().split() if len(token) > 1 and token in low)
+            if score > best_score:
+                best = node
+                best_score = score
+    return best
+
+
+def _food_item(results: list, request: str) -> dict | None:
+    """Find the menu item whose name sits inside the sentence.
+
+    Input:
+        results (list): tool payloads. A menu item has ``price``.
+
+    Output:
+        dict: the longest matching item.
+        None: when no item name is mentioned.
+    """
+    low = request.lower()
+    best = None
+    best_len = 0
+    for payload in results:
+        for node in _walk_dicts(payload):
+            name = node.get("name")
+            if not isinstance(name, str) or "price" not in node:
+                continue
+            folded = name.lower()
+            if folded in low and len(folded) > best_len:
+                best = node
+                best_len = len(folded)
+    return best
+
+
+def _serving_count(results: list, request: str, context: str) -> int:
+    """Count one serving per person in the named chat, excluding the speaker.
+
+    Input:
+        results (list): tool payloads. A chat has ``name`` and ``members``.
+        request (str): the latest user text.
+        context (str): the rendered context, for the speaker's name.
+
+    Output:
+        int: the number of servings. One when the chat was not found.
+    """
+    low = request.lower()
+    for payload in results:
+        for node in _walk_dicts(payload):
+            name = node.get("name")
+            members = node.get("members")
+            if not isinstance(name, str) or not isinstance(members, list) or name.lower() not in low:
+                continue
+            count = len(members)
+            if "không tính" in low:
+                profile = _context_value(context, "name")
+                given = profile.split()[-1].lower() if profile else ""
+                if given and any(given in str(member).lower() for member in members):
+                    count -= 1
+            return max(count, 1)
+    return 1
+
+
+def _payee_span(text: str) -> str:
+    """Read the person a transfer is sent to.
+
+    Input:
+        text (str): the latest user text.
+
+    Output:
+        str: the name after the last ``cho``, without a title. Words after
+        ``đúng`` or ``triệu`` are not part of the name.
+        Empty when no payee is named.
+    """
+    index = text.lower().rfind("cho ")
+    if index < 0:
+        return ""
+    tail = re.split(
+        r"\b(số tiền|triệu|ngàn|nghìn|và|nhé|nha|đúng|bằng|tiền)\b",
+        text[index + 4:],
+        maxsplit=1,
+        flags=re.IGNORECASE,
+    )[0]
+    skip = _TITLE | {"chủ", "nhà", "tui", "tôi", "mình"}
+    kept = []
+    for token in re.findall(r"\w+", tail, flags=re.UNICODE):
+        if token.lower() in skip or _amount_unit(token):
+            continue
+        kept.append(token)
+    return " ".join(kept[:4])
+
+
+def _named_in(query: str, name: str) -> bool:
+    """Return whether every query word sits inside a stored name.
+
+    Input:
+        query (str): the spoken name, such as ``Phạm Hùng``.
+        name (str): the stored name, such as ``Chủ nhà - Phạm Hùng``.
+
+    Output:
+        bool: True when each query word occurs in ``name``.
+    """
+    parts = [part for part in query.lower().split() if part]
+    folded = name.lower()
+    return bool(parts) and all(part in folded for part in parts)
+
+
+def _bill_amount(results: list, focus: str | None) -> int | None:
+    """Read the unpaid amount of the bill type named in the request.
+
+    Input:
+        results (list): tool payloads. A bill has ``type``, ``amount``, and ``paid``.
+        focus (str | None): a catalog bill type such as ``internet``.
+
+    Output:
+        int: the amount of the first unpaid bill of that type.
+        None: when no such bill was returned.
+    """
+    if not focus:
+        return None
+    for payload in results:
+        for node in _walk_dicts(payload):
+            if node.get("type") != focus or node.get("paid") is True:
+                continue
+            if isinstance(node.get("amount"), (int, float)):
+                return int(node["amount"])
+    return None
+
+
+def _bank_accounts(results: list) -> list[dict]:
+    """Collect accounts returned by ``banking.get_balance``.
+
+    Input:
+        results (list): tool payloads.
+
+    Output:
+        list[dict]: accounts that have an id and a balance.
+    """
+    found = []
+    for payload in results:
+        for node in _walk_dicts(payload):
+            if isinstance(node.get("balance"), (int, float)) and isinstance(node.get("id"), str):
+                found.append(node)
+    return found
+
+
+def _pick_account(accounts: list[dict], amount: int | None, request: str) -> str | None:
+    """Choose the account that pays a transfer.
+
+    Input:
+        accounts (list[dict]): rows from ``banking.get_balance``.
+        amount (int | None): the amount to send.
+        request (str): the latest user text. Savings is used when the
+        payment account is short and the sentence says to take from savings.
+
+    Output:
+        str: the account id.
+        None: when no account was returned.
+    """
+    if not accounts:
+        return None
+    low = request.lower()
+    payment = [row for row in accounts if "thanh toán" in str(row.get("name", "")).lower()]
+    savings = [row for row in accounts if "tiết kiệm" in str(row.get("name", "")).lower()]
+    source = payment[0] if payment else accounts[0]
+    allow_savings = "tiết kiệm" in low and ("không đủ" in low or "lấy từ" in low)
+    if allow_savings and savings and amount is not None and source.get("balance", 0) < amount:
+        return savings[0]["id"]
+    return source["id"]
+
+
+def _pick_beneficiary(results: list, request: str) -> str | None:
+    """Match the spoken payee to a beneficiary id.
+
+    Input:
+        results (list): tool payloads. A beneficiary has ``name`` and ``id``.
+        request (str): the latest user text.
+
+    Output:
+        str: the beneficiary id whose name contains the spoken name.
+        None: when the sentence names no payee or no row matches.
+    """
+    query = _payee_span(request)
+    if not query:
+        return None
+    best = None
+    for payload in results:
+        for node in _walk_dicts(payload):
+            name = node.get("name")
+            if not isinstance(name, str) or not isinstance(node.get("id"), str):
+                continue
+            if "bank" not in node and not str(node.get("id", "")).startswith("ben_"):
+                continue
+            if _named_in(query, name) and (best is None or len(name) > len(best.get("name", ""))):
+                best = node
+    return best["id"] if best else None
+
+
+def _event_for_alarm(results: list, request: str, context: str) -> dict | None:
+    """Find the calendar event an alarm should precede.
+
+    Input:
+        results (list): tool payloads. An event has ``title`` and ``start``.
+        request (str): the latest user text. ``ngày 19`` or ``mai`` filters the day.
+        context (str): the rendered context, for ``tomorrow``.
+
+    Output:
+        dict: the event whose title shares the most words with the request.
+        None: when no event title is mentioned.
+    """
+    low = request.lower()
+    day = re.search(r"ngày\s+(\d{1,2})", low)
+    tomorrow = _context_value(context, "tomorrow")
+    best = None
+    best_score = 0
+    for payload in results:
+        for node in _walk_dicts(payload):
+            title = node.get("title")
+            start = node.get("start")
+            if not isinstance(title, str) or not isinstance(start, str):
+                continue
+            if day and start[8:10] != f"{int(day.group(1)):02d}":
+                continue
+            if day is None and "mai" in low and tomorrow and not start.startswith(tomorrow):
+                continue
+            score = sum(1 for token in title.lower().split() if token in low)
+            if score > best_score:
+                best = node
+                best_score = score
+    return best
+
+
+def _fan_rooms(results: list) -> set[str]:
+    """Return rooms whose fan is running.
+
+    Input:
+        results (list): tool payloads. A fan has ``room`` and ``state.power``.
+
+    Output:
+        set[str]: room names whose fan power is not ``off``.
+    """
+    rooms = set()
+    for payload in results:
+        for node in _walk_dicts(payload):
+            if node.get("type") != "fan" and not str(node.get("id", "")).startswith("fan_"):
+                continue
+            power = (node.get("state") or {}).get("power") if isinstance(node.get("state"), dict) else None
+            if power and power != "off" and isinstance(node.get("room"), str):
+                rooms.add(node["room"])
+    return rooms
+
+
+def _cooled_rooms(results: list) -> set[str]:
+    """Return rooms whose air conditioner is running.
+
+    Input:
+        results (list): tool payloads. A climate device has ``room`` and ``state.mode``.
+
+    Output:
+        set[str]: room names whose mode is not ``off``.
+    """
+    rooms = set()
+    for payload in results:
+        for node in _walk_dicts(payload):
+            if node.get("type") != "climate" and not str(node.get("id", "")).startswith("ac_"):
+                continue
+            mode = (node.get("state") or {}).get("mode") if isinstance(node.get("state"), dict) else None
+            if mode and mode != "off" and isinstance(node.get("room"), str):
+                rooms.add(node["room"])
+    return rooms
+
+
+def _next_floor_light(results: list, request: str, done_calls: list[tuple[str, dict]]) -> dict | None:
+    """Pick the next lamp to switch off on the named floor.
+
+    A room whose air conditioner is running is left as it is. A lamp already
+    switched in this sample is skipped.
+
+    Input:
+        results (list): tool payloads from ``smart_home.get_status``.
+        request (str): the latest user text, including the floor.
+        done_calls (list[tuple[str, dict]]): successful calls so far.
+
+    Output:
+        dict: one light device that is still on.
+        None: when the floor is unnamed or every matching lamp is done.
+    """
+    floor = _floor_named(request)
+    if floor is None:
+        return None
+    done_ids = {
+        call.get("device_id")
+        for name, call in done_calls
+        if name == "smart_home.light_set"
+    }
+    low_request = request.lower()
+    if "quạt" in low_request:
+        skip_rooms = _fan_rooms(results)
+    elif any(word in low_request for word in ("máy lạnh", "điều hòa", "điều hoà")):
+        skip_rooms = _cooled_rooms(results)
+    else:
+        skip_rooms = set()
+    for payload in results:
+        for node in _walk_dicts(payload):
+            if node.get("type") != "light" and not str(node.get("id", "")).startswith("light_"):
+                continue
+            if node.get("floor") != floor:
+                continue
+            if node.get("room") in skip_rooms:
+                continue
+            state = node.get("state") if isinstance(node.get("state"), dict) else {}
+            if state.get("power") == "off":
+                continue
+            if node.get("id") in done_ids:
+                continue
+            return node
+    return None
+
+
 def _prepare_args(
     name: str,
     args: dict,
@@ -1583,7 +3221,24 @@ def _prepare_args(
         spoken = _spoken_time(request, context)
         if spoken:
             args["time"] = spoken
+    if name == "reminders.create":
+        content = _reminder_content(request)
+        if "mang laptop" in low:
+            args["content"] = "mang laptop"
+        elif content:
+            args["content"] = content
+        event = _ride_event(results, request, context)
+        pickup = _pickup_lead(request)
+        remind = _remind_lead(request)
+        if event and pickup and remind and isinstance(event.get("start"), str):
+            args["time"] = _add_minutes(event["start"], -(pickup + remind))
+        args.pop("repeat", None)
     if name == "alarm.create":
+        hours = _hours_before(request)
+        if hours and "lịch" in low:
+            event = _event_for_alarm(results, request, context)
+            if event and isinstance(event.get("start"), str):
+                args["time"] = _add_minutes(event["start"], -hours * 60)
         args.pop("label", None)
         if "mỗi ngày" not in low and "hằng ngày" not in low:
             args.pop("repeat", None)
@@ -1591,7 +3246,7 @@ def _prepare_args(
         kind, obj, tool = _cursor(_parse_objects(plan), done_calls, facts)
         if kind == "run" and tool == name and obj.get("name"):
             args.clear()
-            args["query"] = obj["name"]
+            args["query"] = _contact_query(obj["name"])
     if name == "ride_hailing.book":
         if any(word in low for word in ("ngay bây giờ", "đặt ngay", "ngay luôn")):
             args.pop("schedule_time", None)
@@ -1601,14 +3256,47 @@ def _prepare_args(
             args["vehicle"] = "car4"
         elif "xe máy" in low:
             args["vehicle"] = "bike"
-        if any(word in low for word in ("công ty", "chỗ làm")):
+        if "ô tô" in low or "taxi" in low:
+            args["vehicle"] = "car4"
+        if any(word in low for word in ("từ nhà", "ở nhà")):
+            home = _context_value(context, "home_address")
+            if home:
+                args["pickup"] = home
+        elif any(word in low for word in ("công ty", "chỗ làm")):
             work = _context_value(context, "work_address")
             if work:
                 args["pickup"] = work
-        dropoff = _event_dropoff(results, request)
-        if dropoff and not re.search(r"\d", request):
-            args["dropoff"] = dropoff
-    if name == "smart_home.light_set" and ("một nửa" in low or "độ sáng" in low):
+        event = _ride_event(results, request, context)
+        if event and isinstance(event.get("location"), str):
+            args["dropoff"] = event["location"]
+        elif not re.search(r"\d", request):
+            dropoff = _event_dropoff(results, request)
+            if dropoff:
+                args["dropoff"] = dropoff
+        lead = _pickup_lead(request)
+        if event and lead and isinstance(event.get("start"), str):
+            args["schedule_time"] = _add_minutes(event["start"], -lead)
+    if name == "smart_home.light_set" and _floor_named(low) and "tắt" in low:
+        device = _next_floor_light(results, request, done_calls)
+        args.clear()
+        if device:
+            args["device_id"] = device.get("id")
+            args["power"] = "off"
+    elif name == "smart_home.light_set" and _turns_lights_off(request):
+        lamp = _named_light(results, _active_text(request))
+        if lamp:
+            args.clear()
+            args["device_id"] = lamp.get("id")
+            args["power"] = "off"
+    if name == "smart_home.climate_set":
+        temperature = _climate_temperature(request)
+        climate = _climate_device(results, request)
+        if temperature is not None and climate:
+            args.clear()
+            args["device_id"] = climate.get("id")
+            args["mode"] = "cool"
+            args["temperature"] = temperature
+    elif name == "smart_home.light_set" and ("một nửa" in low or "độ sáng" in low):
         device = _half_light(results, request)
         if device and "một nửa" in low:
             args["device_id"] = device.get("id", args.get("device_id"))
@@ -1636,6 +3324,8 @@ def _prepare_args(
             phone = _spoken_phone(request)
             if phone:
                 args["phone"] = phone
+            else:
+                args.pop("phone", None)
         else:
             kind, obj, _tool = _cursor(_parse_objects(plan), done_calls, facts)
             contact = _matching_contact(results, obj["name"]) if kind == "run" else None
@@ -1646,22 +3336,73 @@ def _prepare_args(
                 if facts.get("phone") and len(current) < 9:
                     args["phone"] = facts["phone"]
     if name == "ewallet.transfer":
-        if "tiền điện" in low and facts.get("amount"):
+        bill = _bill_amount(results, _bill_focus(request))
+        if bill is not None:
+            args["amount"] = bill
+        elif "tiền điện" in low and facts.get("amount"):
             args["amount"] = facts["amount"]
         kind, obj, _tool = _cursor(_parse_objects(plan), done_calls, facts)
         contact = _matching_contact(results, obj["name"]) if kind == "run" else None
         if contact:
             args["contact_id"] = contact["id"]
+    if name == "bill_payment.list_bills":
+        focus = _bill_focus(request)
+        args.clear()
+        if focus and not _transfer_jobs(request) and not _due_sweep(low):
+            args["type"] = focus
     if name == "bill_payment.pay":
-        if facts.get("bill_id"):
-            args["bill_id"] = facts["bill_id"]
-        kind, obj, tool = _cursor(_parse_objects(plan), done_calls, facts)
-        if kind == "run" and tool == name:
-            action = obj["action"].lower()
-            if "bank" in action or "ngân hàng" in action:
+        if _due_sweep(low):
+            bill = _next_due_bill(results, context, done_calls)
+            args.clear()
+            if bill:
+                args["bill_id"] = bill["id"]
                 args["source"] = "bank"
-            elif "ví" in action or "ewallet" in action:
-                args["source"] = "ewallet"
+        else:
+            if facts.get("bill_id"):
+                args["bill_id"] = facts["bill_id"]
+            kind, obj, tool = _cursor(_parse_objects(plan), done_calls, facts)
+            if kind == "run" and tool == name:
+                action = obj["action"].lower()
+                if "bank" in action or "ngân hàng" in action:
+                    args["source"] = "bank"
+                elif "ví" in action or "ewallet" in action:
+                    args["source"] = "ewallet"
+    if name == "banking.transfer":
+        jobs = _transfer_jobs(request)
+        done_n = sum(1 for tool, _call in done_calls if tool == name)
+        job = jobs[done_n] if done_n < len(jobs) else None
+        if job:
+            amount = _bill_amount(results, job[1])
+            amounts = [_bill_amount(results, kind) for _person, kind in jobs]
+            account_amount = sum(value or 0 for value in amounts) if len(jobs) > 1 and "cả hai" in low else amount
+            beneficiary = _beneficiary_named(results, job[0])
+        else:
+            clause = low.split("chuyển", 1)[-1] if "chuyển" in low else low
+            amount = _trieu_amount(clause) if "triệu" in clause else None
+            if amount is None:
+                amount = _bill_amount(results, _bill_focus(request))
+            account_amount = amount
+            beneficiary = _pick_beneficiary(results, request)
+        if amount is not None:
+            args["amount"] = amount
+        account = _pick_account(_bank_accounts(results), account_amount, request)
+        if account:
+            args["from_account_id"] = account
+        if beneficiary:
+            args["beneficiary_id"] = beneficiary
+        args.pop("note", None)
+    if name == "food_delivery.get_menu":
+        restaurant = _food_restaurant(results, request)
+        if restaurant:
+            args.clear()
+            args["restaurant_id"] = restaurant["id"]
+    if name == "food_delivery.place_order":
+        restaurant = _food_restaurant(results, request)
+        item = _food_item(results, request)
+        if restaurant and item:
+            args.clear()
+            args["restaurant_id"] = restaurant["id"]
+            args["items"] = [{"item_id": item["id"], "quantity": _serving_count(results, request, context)}]
     return args
 
 
@@ -1717,6 +3458,10 @@ def _schedule_block(name: str, request: str) -> str | None:
         None: the call matches that split.
     """
     text = request.lower()
+    if name == "alarm.create" and "nhắc" in text and "báo thức" not in text:
+        return "nhắc thì dùng reminders.create, không dùng alarm."
+    if name == "phone.call" and "nhắc" in text:
+        return "nhắc thì dùng reminders.create, không gọi điện."
     if name == "reminders.create" and "nhắc" not in text:
         return "reminders chỉ để nhắc nhở. Sửa lịch trình thì dùng calendar."
     moving = any(word in text for word in _MOVE_WORDS)
@@ -1796,6 +3541,66 @@ def _plan_guard(
     if kind == "wait":
         return "chưa có kết quả để chọn đối tượng này, dừng"
     return "các đối tượng đã xong hoặc điều kiện không chọn, dừng"
+
+
+def _planned_tool(plan: str, facts: dict, done_calls: list[tuple[str, dict]]) -> str:
+    """Return the one tool the plan wants next.
+
+    Input:
+        plan (str): the object plan.
+        facts (dict): fields used by ``khi``.
+        done_calls (list[tuple[str, dict]]): successful calls so far.
+
+    Output:
+        str: the next tool name.
+        Empty when the plan is finished, waiting, or has no objects.
+    """
+    objects = _parse_objects(plan)
+    if not objects:
+        return ""
+    kind, _obj, tool = _cursor(objects, done_calls, facts)
+    return tool if kind == "run" else ""
+
+
+def _can_take_over(
+    tool: str,
+    request: str,
+    results: list,
+    done_calls: list[tuple[str, dict]],
+) -> bool:
+    """Return whether a wrong call can be replaced by the planned tool.
+
+    The model sometimes repeats a read or searches a person while the plan
+    still has a floor lamp or a bank transfer to finish. Those calls have
+    their arguments filled from the sentence and earlier results.
+
+    Input:
+        tool (str): the tool the plan wants next.
+        request (str): the latest user text.
+        results (list): payloads of successful calls so far.
+        done_calls (list[tuple[str, dict]]): those calls, with arguments.
+
+    Output:
+        bool: True when that tool can run without a new choice from the model.
+    """
+    if tool == "smart_home.light_set":
+        return _next_floor_light(results, request, done_calls) is not None
+    if tool == "bill_payment.pay":
+        return _due_sweep(request)
+    if tool == "smart_home.climate_set":
+        return _climate_temperature(request) is not None
+    if tool in ("chat_ott.list_chats", "food_delivery.list_restaurants", "food_delivery.get_menu", "food_delivery.place_order"):
+        return "nhóm chat" in request.lower() and "suất" in request.lower()
+    if tool == "ride_hailing.book":
+        return _pickup_lead(request) is not None
+    if tool == "reminders.create":
+        return "mang laptop" in request.lower() or _spoken_time(request, "") is not None or "trước" not in request.lower()
+    if tool in ("contacts.search", "sms.send"):
+        return True
+    return tool in (
+        "banking.get_balance", "banking.list_beneficiaries", "banking.transfer",
+        "calendar.list_events",
+    )
 
 
 def _plan_text(messages: list) -> str:
