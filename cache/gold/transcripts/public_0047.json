@@ -1,0 +1,35 @@
+{
+  "id": "public_0047",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0047/public_0047_u1.wav",
+      "text": "Tài khoản của mốt nhiêu tiền hả?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0047/public_0047_u2.wav",
+      "text": "Còn vé thì bao nhiêu?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0047/public_0047_u3.wav",
+      "text": "Trợ lý giùm gạch chú đáo lắm."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0047/public_0047_u4.wav",
+      "text": "Đọc cho tôi số điện thoại của bố với."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0047/public_0047_u5.wav",
+      "text": "Có quán pizza nào gần đây không?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0047/public_0047.wav",
+      "text": "Hạ đèn tầng hai xuống 30 phần trăm hết đi, riêng phòng nào đang để hoạt chạy thì để nguyên đèn nhé."
+    }
+  ]
+}

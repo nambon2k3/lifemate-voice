@@ -1,0 +1,30 @@
+{
+  "id": "public_0173",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0173/public_0173_u1.wav",
+      "text": "Gần đây có hàng bún bò nào hông em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0173/public_0173_u2.wav",
+      "text": "Giá vàng SJC hôm nay thế nào em?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0173/public_0173_u3.wav",
+      "text": "Mai 9 giờ sáng nhắc chị lấy đồ giặt."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0173/public_0173_u4.wav",
+      "text": "Chào em nhé, hôm nay em thế nào?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0173/public_0173.wav",
+      "text": "Hóa đơn nào tới hạn trong hai ngày tới thì em trả bằng ngân hàng giúp chị, cái nào từ một triệu trở lên thì để chị tự ra quầy đóng nha."
+    }
+  ]
+}

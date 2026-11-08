@@ -9,8 +9,8 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-JSONL="$ROOT/train+public_test/train/train.jsonl"
-AUDIO_ROOT="$ROOT/train+public_test/train"
+JSONL="$ROOT/train+public_test/public_test/public_test.jsonl"
+AUDIO_ROOT="$ROOT/train+public_test/public_test"
 BEGIN=""
 END=""
 LIMIT=""
@@ -85,8 +85,11 @@ if [[ -n "$END" && "$END" -lt "$BEGIN" ]]; then
 fi
 
 cd "$ROOT"
+
 python3 - "$JSONL" "$AUDIO_ROOT" "$BEGIN" "$END" << 'PY'
+
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -98,37 +101,108 @@ jsonl = Path(sys.argv[1])
 audio_root = Path(sys.argv[2])
 begin = int(sys.argv[3])
 end = int(sys.argv[4]) if sys.argv[4] else None
-if begin < 1:
-    raise SystemExit("--begin must be at least 1")
-if end is not None and end < begin:
-    raise SystemExit("--end must be at least --begin")
 
 settings = {
-    "cache_dir": str(Path("cache/transcripts").resolve()),
+    "cache_dir": str(Path("cache/gold/transcripts").resolve()),
     "kit_root": "train+public_test",
-    "split": "train",
+    "split": "public_test",
     "use_gold_transcript": False,
 }
 apply_env(settings)
-settings["cache_dir"] = str(Path("cache/transcripts").resolve())
-settings["kit_root"] = "train+public_test"
-settings["split"] = "train"
-settings["use_gold_transcript"] = False
-settings["asr_served_model"] = env_value("ASR_SERVED_MODEL", "qwen3-asr")
 
-rows = []
-for line in jsonl.read_text(encoding="utf-8").splitlines():
-    if not line.strip():
-        continue
-    rows.append(json.loads(line))
+settings["cache_dir"] = str(Path("cache/gold/transcripts").resolve())
+settings["kit_root"] = "train+public_test"
+settings["split"] = "public_test"
+settings["use_gold_transcript"] = False
+settings["asr_served_model"] = env_value(
+    "ASR_SERVED_MODEL", "qwen3-asr"
+)
+settings["disable_cache"] = True
+rows = [
+    json.loads(line)
+    for line in jsonl.read_text(encoding="utf-8").splitlines()
+    if line.strip()
+]
 
 rows = rows[begin - 1:end]
-for index, row in enumerate(rows, start=begin):
-    wav = audio_root / row["audio"]
-    if not wav.is_file():
-        raise SystemExit(f"missing wav for {row['id']}: {wav}")
-    text = transcribe(row, row["audio"], settings)
-    print(f"{index:02d} {row['id']}: {text}", flush=True)
 
-print(f"{len(rows)} transcripts -> cache/transcripts", flush=True)
+cache_dir = Path(settings["cache_dir"])
+cache_dir.mkdir(parents=True, exist_ok=True)
+
+for index, row in enumerate(rows, start=begin):
+    base_wav = audio_root / row["audio"]
+
+    if not base_wav.is_file():
+        raise SystemExit(f"Missing wav: {base_wav}")
+
+    pattern = re.compile(
+        re.escape(base_wav.stem) + r"_u(\d+)$"
+    )
+
+    turn_files = []
+
+    for candidate in base_wav.parent.glob(
+        f"{base_wav.stem}_u*.wav"
+    ):
+        match = pattern.fullmatch(candidate.stem)
+        if match:
+            turn_files.append((int(match.group(1)), candidate))
+
+    turn_files.sort(key=lambda item: item[0])
+
+    audio_files = [
+        path for _, path in turn_files
+    ] + [base_wav]
+
+    print(
+        f"\n[{index}] {row['id']}: "
+        f"{len(audio_files)} turns",
+        flush=True,
+    )
+
+    conversation_transcripts = []
+
+    for turn_index, wav in enumerate(audio_files):
+        audio_rel = wav.relative_to(audio_root).as_posix()
+
+        # Keep the original conversation ID.
+        # Disable individual turn cache writes by collecting
+        # results and saving the conversation ourselves.
+        text = transcribe(
+            row,
+            audio_rel,
+            settings,
+        )
+
+        conversation_transcripts.append({
+            "turn": turn_index,
+            "audio": audio_rel,
+            "text": text,
+        })
+
+        print(
+            f"  Turn {turn_index}: {text}",
+            flush=True,
+        )
+
+    output_file = cache_dir / f"{row['id']}.json"
+
+    output_file.write_text(
+        json.dumps(
+            {
+                "id": row["id"],
+                "turns": conversation_transcripts,
+            },
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+
+    print(f"  Saved: {output_file}", flush=True)
+
+print(
+    f"\nCompleted: {len(rows)} conversations",
+    flush=True,
+)
 PY

@@ -1,0 +1,40 @@
+{
+  "id": "public_0086",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0086/public_0086_u1.wav",
+      "text": "Ví điện tử của tôi còn dư bao nhiêu?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0086/public_0086_u2.wav",
+      "text": "Bật điều hoà phòng khách hai sáu độ với."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0086/public_0086_u3.wav",
+      "text": "Nhắc tôi đổi sang lúc chín giờ sáng mai."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0086/public_0086_u4.wav",
+      "text": "Hôm nay vàng SJC thế nào?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0086/public_0086_u5.wav",
+      "text": "Mai trời mưa hay nắng?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0086/public_0086_u6.wav",
+      "text": "Bật tivi kênh HTV7 cho tôi."
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0086/public_0086.wav",
+      "text": "Mai tôi đi khám sớm, đặt báo thức năm giờ mười lăm sáng mai, rồi gọi cho Minh giúp tôi."
+    }
+  ]
+}

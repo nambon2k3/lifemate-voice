@@ -1,0 +1,20 @@
+{
+  "id": "public_0532",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0532/public_0532_u1.wav",
+      "text": "Em ơi xem ghi chú hộ tôi, ông Ba dặn tôi mấy nãy gì ấy nhỉ?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0532/public_0532_u2.wav",
+      "text": "Ờ, cái hai mã ấy phiên hôm qua đóng cửa giá bao nhiêu?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0532/public_0532.wav",
+      "text": "Thế cài cảnh báo cho tôi khi cái máy giặt xuống dưới 20 triệu đồng rồi đặt báo thức 9 giờ sáng mai nhé."
+    }
+  ]
+}

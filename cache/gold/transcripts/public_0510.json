@@ -1,0 +1,15 @@
+{
+  "id": "public_0510",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0510/public_0510_u1.wav",
+      "text": "Em đặt cho chị ít bột mì với ít mật, cuối tuần chị làm bánh cho Hằng anh."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0510/public_0510.wav",
+      "text": "Bọc hơi búp ấy, yên mặc hơi túi, mơ mà mưa thì đặt vô giùm luôn, chị không ra chợ nữa, không mưa thì ghi vô danh sách đi chợ."
+    }
+  ]
+}

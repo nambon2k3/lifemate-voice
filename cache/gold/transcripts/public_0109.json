@@ -1,0 +1,30 @@
+{
+  "id": "public_0109",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0109/public_0109_u1.wav",
+      "text": "Vàng SJC nay báo nhiêu một lượng vậy?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0109/public_0109_u2.wav",
+      "text": "Cho tôi số điện thoại của Minh với."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0109/public_0109_u3.wav",
+      "text": "Thời tiết mai thế nào em?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0109/public_0109_u4.wav",
+      "text": "Đặt báo thức năm rưỡi sáng mai giúp tôi."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0109/public_0109.wav",
+      "text": "Nếu vàng SJC bán ra nay vượt 128 triệu thì chị nhờ sẵn máy nhắc tôi đi bán, còn không thì check tài khoản thanh toán gửi Lê Minh hai triệu góp mua vàng."
+    }
+  ]
+}

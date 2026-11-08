@@ -1,0 +1,30 @@
+{
+  "id": "public_0118",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0118/public_0118_u1.wav",
+      "text": "Cho tôi số của Sếp Dũng coi."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0118/public_0118_u2.wav",
+      "text": "Gon chín năm bữa nay lên nhiêu một lít rồi hen?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0118/public_0118_u3.wav",
+      "text": "Mai trời nắng mưa ra sao hen?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0118/public_0118_u4.wav",
+      "text": "Quanh đây có quán bún bò nào hông?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0118/public_0118.wav",
+      "text": "Tắt hết đèn tầng hai giùm tôi, phòng nào đang mở máy lạnh thì để nguyên đèn nha."
+    }
+  ]
+}

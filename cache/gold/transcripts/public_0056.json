@@ -1,0 +1,30 @@
+{
+  "id": "public_0056",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0056/public_0056_u1.wav",
+      "text": "Mở kênh VTV1 trên tivi giúp mình."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0056/public_0056_u2.wav",
+      "text": "Trợ lý ơi, dạo này khỏe không?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0056/public_0056_u3.wav",
+      "text": "Mở rào giờ nắng hay mát?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0056/public_0056_u4.wav",
+      "text": "Gần đây có chỗ nào bán bún bò không?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0056/public_0056.wav",
+      "text": "Tiền internet tháng này trả bằng ví điện tử nhé, ví thiếu thì chuyển qua ngân hàng, xong nhắn SMS cho mẹ là con đóng tiền mạng rồi."
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "id": "public_0669",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0669/public_0669_u1.wav",
+      "text": "Sáng sớm hồi hè, hôm ni anh có lịch chi không em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0669/public_0669_u2.wav",
+      "text": "Thêm lịch đón khách Emily ở ga Huế mười một giờ chiều ni."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0669/public_0669_u3.wav",
+      "text": "Còn mai anh có chi không hẻ?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0669/public_0669_u4.wav",
+      "text": "À ví anh còn bao nhiêu tiền rứa em?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0669/public_0669_u5.wav",
+      "text": "Chuyển cho Lucas năm trăm nghìn, còn tiền cọc phòng nghe."
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0669/public_0669_u6.wav",
+      "text": "Có tin nhắn nào mới nào không em?"
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0669/public_0669_u7.wav",
+      "text": "Nhắn vợ Hà là trưa ni anh đi đón khách, khỏi đợi cơm nghe."
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0669/public_0669_u8.wav",
+      "text": "Khách Tay bữa qua khen cà phê Muối Huế quá trời luôn em."
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0669/public_0669_u9.wav",
+      "text": "Ừ, cảm ơn em nghe."
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0669/public_0669.wav",
+      "text": "Hôm ni chỗ mình mà mưa thì lưu công thức bánh cake chuối kiểu Bluebird Cafe cho khách, không thì lưu canh chuối cá lóc nghe."
+    }
+  ]
+}

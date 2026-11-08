@@ -1,0 +1,15 @@
+{
+  "id": "public_0325",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0325/public_0325_u1.wav",
+      "text": "Cái chuyến bay Minsan đô thị ở nhà hết lớn ấy bao giờ? Còn từ bốn chỗ trở lên thì em hẳn đặt cho cả nhà chị nhé."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0325/public_0325.wav",
+      "text": "Em xem lại giúp chị các chuyến làm ăn sáng đấy, giờ còn đủ chỗ chưa? Đủ thì lấy luôn bốn vé nha."
+    }
+  ]
+}

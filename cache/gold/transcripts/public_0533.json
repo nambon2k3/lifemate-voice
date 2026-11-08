@@ -1,0 +1,30 @@
+{
+  "id": "public_0533",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0533/public_0533_u1.wav",
+      "text": "Em ơi, coi hóa đơn nào sắp tới hạn hủm?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0533/public_0533_u2.wav",
+      "text": "Ừ, để tính. Tối nay bi quan cơm có công thức trà xà rỡ không?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0533/public_0533_u3.wav",
+      "text": "Nấu cho sáu người thì cần nhiêu gà vậy em?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0533/public_0533_u4.wav",
+      "text": "Sứ thì có đùi gà hông, bỏ một cái vô giỏ dùm anh."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0533/public_0533.wav",
+      "text": "Mai món ngày hôm nay lưu giùm anh nha, à thôi, món đó anh chục rồi, lưu cái canh chua cá lóc đi, đi mấy món đó."
+    }
+  ]
+}

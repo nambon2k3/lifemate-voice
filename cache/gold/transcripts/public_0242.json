@@ -1,0 +1,15 @@
+{
+  "id": "public_0242",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0242/public_0242_u1.wav",
+      "text": "Tối qua mấy rứa bạn sang chơi, mình nấu mì tôm cho chúng nó ăn rồi, trừ bớt trong tủ lạnh đi nhé."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0242/public_0242.wav",
+      "text": "Ba gói, trừ ba gói thôi."
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "public_0508",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0508/public_0508_u1.wav",
+      "text": "Ê, check coi mấy đơn hàng của tôi tới đâu rồi."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0508/public_0508.wav",
+      "text": "Cái sạc trả lại đi, à thôi khỏi, xài được. Huỷ bớt một đơn đang giao đi, cháy túi rồi."
+    }
+  ]
+}

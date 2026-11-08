@@ -1,0 +1,30 @@
+{
+  "id": "public_0553",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0553/public_0553_u1.wav",
+      "text": "Em ơi, tài khoản thanh toán còn bao nhiêu nhỉ?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0553/public_0553_u2.wav",
+      "text": "Chuyển chủ nhà bảy triệu tiền nhà tháng mười hai giúp chị."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0553/public_0553_u3.wav",
+      "text": "Thư truyền Kim Đồng mời họp phụ huynh lúc mấy giờ ấy em?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0553/public_0553_u4.wav",
+      "text": "Ừ, được rồi, cảm ơn em nhé."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0553/public_0553.wav",
+      "text": "Anh ủnghắn Zalo hẹn giờ bến đón chị lúc mấy giờ, có khớp giờ xe thứ tư chị đặt tivi không em?"
+    }
+  ]
+}

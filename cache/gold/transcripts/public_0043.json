@@ -1,0 +1,20 @@
+{
+  "id": "public_0043",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0043/public_0043_u1.wav",
+      "text": "Trợ lý bữa nay làm anh rứa quá hen."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0043/public_0043_u2.wav",
+      "text": "Vàng SJC bữa nay lên tới đâu rồi?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0043/public_0043.wav",
+      "text": "Vàng SJC mà mua vào hôm nay dưới 132 triệu thì sáng mai 9 giờ nhắc tôi đi mua vàng nha."
+    }
+  ]
+}

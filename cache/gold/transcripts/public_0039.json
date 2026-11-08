@@ -1,0 +1,30 @@
+{
+  "id": "public_0039",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0039/public_0039_u1.wav",
+      "text": "Sau của Minh là gì nhỉ?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0039/public_0039_u2.wav",
+      "text": "Hôm nay xăng RON95 bao nhiêu một lít?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0039/public_0039_u3.wav",
+      "text": "Ờ trong ví còn bao nhiêu tiền?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0039/public_0039_u4.wav",
+      "text": "Mai thời tiết ở đây ra sao?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0039/public_0039.wav",
+      "text": "Mai mưa thì hủy cái lịch đá bóng, à mà thôi, coi hủy lúc nãy thì em bảo không mưa đúng hông?"
+    }
+  ]
+}

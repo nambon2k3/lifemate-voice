@@ -1,0 +1,25 @@
+{
+  "id": "public_0425",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0425/public_0425_u1.wav",
+      "text": "Tài khoản điện tử của tôi còn nhiêu tiền vậy?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0425/public_0425_u2.wav",
+      "text": "Nhắn Thanh Tí chiều nay ra mua ở Phố Ba Bốc hàng nha."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0425/public_0425_u3.wav",
+      "text": "Ờ, cảm ơn hen. Sáng nay hàng còn nhiều quá trời."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0425/public_0425.wav",
+      "text": "Cô phí của tôi á, mã Đăng Lũ, à không, mã Đăng Lời, tôi sợ nó rứa, tắt cảnh báo nguyên xuống giùm hen."
+    }
+  ]
+}

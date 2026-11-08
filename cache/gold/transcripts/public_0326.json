@@ -1,0 +1,15 @@
+{
+  "id": "public_0326",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0326/public_0326_u1.wav",
+      "text": "Cái báo phím cơ anh đặt hôm trước về bị liệt mấy phím rồi em ạ, em làm yêu cầu trả hàng giúp anh nhé."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0326/public_0326.wav",
+      "text": "Ừ, thế em thêm vào lịch cho anh việc mang kiện hàng ra chạy, kiện trả bằng phí ra bưu cục nhé, mười giờ sáng thứ sáu tuần sau."
+    }
+  ]
+}

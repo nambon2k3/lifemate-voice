@@ -1,0 +1,20 @@
+{
+  "id": "public_0162",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0162/public_0162_u1.wav",
+      "text": "Tài khoản ngân hàng của em còn bao nhiêu tiền ạ?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0162/public_0162_u2.wav",
+      "text": "Mai em có những lịch gì nhỉ?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0162/public_0162.wav",
+      "text": "Cái thứ hai ấy, huỷ góp giúp em đi nha."
+    }
+  ]
+}

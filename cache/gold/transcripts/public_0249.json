@@ -1,0 +1,15 @@
+{
+  "id": "public_0249",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0249/public_0249_u1.wav",
+      "text": "Đặt giúp mình mấy hộp sữa tươi bên tiệm chở online nha."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0249/public_0249.wav",
+      "text": "À thôi, khoái đặt nữa nha, chiều mình tiện đi đường ghém chưa thấy mô luôn."
+    }
+  ]
+}

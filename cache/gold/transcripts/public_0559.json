@@ -1,0 +1,15 @@
+{
+  "id": "public_0559",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0559/public_0559_u1.wav",
+      "text": "Giữ chỗ taxi gần chợ Cá Răng từ chín giờ tối đến hai giờ nha."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0559/public_0559.wav",
+      "text": "Dọn rồi, bãi rác hai con tắc chứ hổng phải chở cái răng, huy chỗ ở chợ rồi giữ bên kia giờ hồi nãy nghen."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "public_0172",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0172/public_0172_u1.wav",
+      "text": "Giá vàng SJC hôm nay ra sao rồi?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0172/public_0172_u2.wav",
+      "text": "Cho chị số điện thoại của Hân."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0172/public_0172_u3.wav",
+      "text": "Anh đây có bán bún bò nào ngon không?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0172/public_0172_u4.wav",
+      "text": "Mở bài Cô chắc yêu là đây nhé."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0172/public_0172.wav",
+      "text": "Gặp tiền điện với tiền nước tháng này chuyển một lần cho chủ nhà Phạm Hùng, còn Lê Minh thì đúng tiền mạng từ tài khoản thanh toán, không đủ cả hai thì lấy tiết kiệm giúp chị."
+    }
+  ]
+}

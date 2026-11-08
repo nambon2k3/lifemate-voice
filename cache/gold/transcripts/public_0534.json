@@ -1,0 +1,20 @@
+{
+  "id": "public_0534",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0534/public_0534_u1.wav",
+      "text": "Coi bên Thu mua sòi có gửi mail gì cho tôi hông?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0534/public_0534_u2.wav",
+      "text": "Đọc kỹ tôi nghe coi người ta hỏi sao."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0534/public_0534.wav",
+      "text": "Gửi anh Phát đó mail báo giá nghen, xoài loại một bốn lăm nghìn một ký, mai tôi đi khám răng, hẹn anh cái voucher sau giờ đó."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "public_0208",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0208/public_0208_u1.wav",
+      "text": "Ơ, trong tủ bếp còn cháo cua không em? Anh tìm mãi chẳng thấy hộp nào."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0208/public_0208_u2.wav",
+      "text": "Có chứ, mua xăng cho đủ hết tuần này là được."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0208/public_0208.wav",
+      "text": "Ờ, thêm hai hộp vào danh sách đi chợ cho anh nhé."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "public_0350",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0350/public_0350_u1.wav",
+      "text": "Tuần sau anh định thuê kính anh S18 bên Riemisto để rửa đồ, em nhớ giúp anh nhé."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0350/public_0350_u2.wav",
+      "text": "À mà nếu máy không có cái ứng dụng đó thì thôi, đừng có đặt qua chỗ khác nhé."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0350/public_0350.wav",
+      "text": "Rồi, giờ em vào cái ứng dụng thuê kho anh vừa nói, giữ chỗ cái nhanh đó cho anh Tùng Tế đi."
+    }
+  ]
+}

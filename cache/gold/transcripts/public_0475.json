@@ -1,0 +1,25 @@
+{
+  "id": "public_0475",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0475/public_0475_u1.wav",
+      "text": "Em ơi, mai Cần Thơ có mưa hông?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0475/public_0475_u2.wav",
+      "text": "Vậy đặt giùm tôi xe bốn chỗ sáu giờ sáng mai lên bến xe Cần Thơ nha."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0475/public_0475_u3.wav",
+      "text": "Coi giùm tôi cổ phiếu thép Đại Hưng hôm nay bao nhiêu?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0475/public_0475.wav",
+      "text": "Mai mưa thì thôi, huỷ cái xe hồi nãy đi, rồi mua thép đại hưng cho tôi nha."
+    }
+  ]
+}

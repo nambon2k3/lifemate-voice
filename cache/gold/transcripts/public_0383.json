@@ -1,0 +1,15 @@
+{
+  "id": "public_0383",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0383/public_0383_u1.wav",
+      "text": "Mai Hà Nội có mưa không em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0383/public_0383.wav",
+      "text": "Ba mươi ba độ lạnh á, nóng thế thì bật nhỏ chiều sao nổi, thôi huỷ buổi Biz Biz sáng mai dùm em đi."
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "id": "public_0119",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0119/public_0119_u1.wav",
+      "text": "Cảm ơn nhé, nhân thật đấy."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0119/public_0119_u2.wav",
+      "text": "Phát cho tôi bài Nơi này có anh đi."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0119/public_0119_u3.wav",
+      "text": "Gần đây có quán cơm tấm nào không?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0119/public_0119_u4.wav",
+      "text": "Chuyển tivi sang VTV3 giúp tôi."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0119/public_0119_u5.wav",
+      "text": "Mai tôi có kế hoạch gì chưa nhỉ?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0119/public_0119_u6.wav",
+      "text": "Một lít xăng RON95 hôm nay giá bao nhiêu thế?"
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0119/public_0119.wav",
+      "text": "Đặt cho tôi báo thức năm giờ sáng mai, à không, năm rưỡi thôi."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "public_0273",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0273/public_0273_u1.wav",
+      "text": "Tìm cho tôi xem đi xe buýt từ Nhà Ga Bảo tàng Hà Nội thế nào, tôi phải có mặt ở đấy lúc chín giờ sáng."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0273/public_0273_u2.wav",
+      "text": "Tui chưa chốt ngày, nhưng tìm được tuyến rồi đi xe buýt bao lâu, em cứ tính ngược từ chín giờ, nhắc tui đúng giờ phải ra khỏi nhà nhé."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0273/public_0273.wav",
+      "text": "Thế thì chủ nhật này, mùng bốn tháng mười nhé."
+    }
+  ]
+}

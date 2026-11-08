@@ -1,0 +1,20 @@
+{
+  "id": "public_0593",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0593/public_0593_u1.wav",
+      "text": "Em ơi, tối nay nhà mình đang chờ những đơn đồ ăn nào thế?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0593/public_0593_u2.wav",
+      "text": "Thế trong tủ bếp còn sữa tươi với bột mì không em?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0593/public_0593.wav",
+      "text": "Thế em hủy đơn pizza bò đi, tối nay chị tự làm bánh, trừ giùm chị hai hộp sữa tươi nhé."
+    }
+  ]
+}

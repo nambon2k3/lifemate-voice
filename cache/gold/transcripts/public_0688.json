@@ -1,0 +1,55 @@
+{
+  "id": "public_0688",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0688/public_0688_u1.wav",
+      "text": "Mai có tàu nào Hà Nội đi Đà Nẵng không em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0688/public_0688_u2.wav",
+      "text": "Đặt chị hai vé S71 tối nay."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0688/public_0688_u3.wav",
+      "text": "Ờ danh mục cổ phiếu của chị giờ thế nào?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0688/public_0688_u4.wav",
+      "text": "Ờ đặt cảnh báo khi Ví Tắc xong nhớ một trăm hai mươi lăm nghìn giúp chị."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0688/public_0688_u5.wav",
+      "text": "Ừ, chiều rồi, tài khoản ngân hàng của chị còn bao nhiêu?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0688/public_0688_u6.wav",
+      "text": "Chuyển tiền nhà tháng nay cho chủ nhà tám triệu, tôi giao bán hơn toán nha."
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0688/public_0688_u7.wav",
+      "text": "Ừ, thêm năm trăm nghìn cho Trần Văn Quân nữa."
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0688/public_0688_u8.wav",
+      "text": "Lấy hai mươi triệu bên tài khoản tiết kiệm mở sổ sáu tháng."
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0688/public_0688_u9.wav",
+      "text": "Xem lại mấy giao dịch tài khoản thanh toán hôm nay."
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0688/public_0688.wav",
+      "text": "Vặn tivi nhỏ xuống mười lăm, rồi chuyển hai triệu từ tài khoản thanh toán cho Tokyo Garden, ghi nó là đặt phòng tiện nha."
+    }
+  ]
+}

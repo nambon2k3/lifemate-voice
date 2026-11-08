@@ -1,0 +1,15 @@
+{
+  "id": "public_0635",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0635/public_0635_u1.wav",
+      "text": "Sáng nay Peter hay say anh muốn quạt trúng, Oliver Brown uống hai hộp sữa tươi, trời trong tủ bếp giúp anh nghe."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0635/public_0635.wav",
+      "text": "Mà con, mấy quả trứng bữa sáng của Peter Hansen em trừ trong tủ bếp rồi hỉ, chưa thì trừ luôn giùm anh nha."
+    }
+  ]
+}

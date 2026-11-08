@@ -1,0 +1,20 @@
+{
+  "id": "public_0165",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0165/public_0165_u1.wav",
+      "text": "Cảm ơn em nhé, chú đáo thật."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0165/public_0165_u2.wav",
+      "text": "Ví điện tử của chị còn bao nhiêu tiền?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0165/public_0165.wav",
+      "text": "Em đặt giúp chị trà đào cam sả ở quán trà sữa Nhà Mèo nhóm chat phòng cá quán, mỗi người một ly, tính cả chị nữa nhé."
+    }
+  ]
+}

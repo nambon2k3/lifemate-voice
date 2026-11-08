@@ -1,0 +1,20 @@
+{
+  "id": "public_0643",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0643/public_0643_u1.wav",
+      "text": "Em check giùm chị, cái máy bay hôm đi Huế, đi bữa chị book, mấy giờ bay vậy?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0643/public_0643_u2.wav",
+      "text": "Sáng bữa đó gọi xe từ nhà ra sân bay trừ nhiêu tiền em?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0643/public_0643.wav",
+      "text": "Con được về chị đi tàu, em coi giùm chị hộ, hết hạn được mấy đêm vậy?"
+    }
+  ]
+}

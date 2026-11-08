@@ -1,0 +1,40 @@
+{
+  "id": "public_0057",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0057/public_0057_u1.wav",
+      "text": "Xăng 95 hôm nay lên bao nhiêu rồi?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0057/public_0057_u2.wav",
+      "text": "Cho tôi số điện thoại của mẹ đi."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0057/public_0057_u3.wav",
+      "text": "Ở gần đây có chỗ nào bán bún bò không?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0057/public_0057_u4.wav",
+      "text": "Tài khoản thanh toán có bao nhiêu tiền?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0057/public_0057_u5.wav",
+      "text": "Mai thời tiết ra sao ạ?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0057/public_0057_u6.wav",
+      "text": "Bật kênh S+ Sports lên coi."
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0057/public_0057.wav",
+      "text": "Nếu mai mưa thì lùi buổi dã ngoại với lớp của con sang hôm khác, à mà thôi, cô giáo bảo mưa vẫn tổ chức trong nhà, cứ giữ nguyên lịch nhé."
+    }
+  ]
+}

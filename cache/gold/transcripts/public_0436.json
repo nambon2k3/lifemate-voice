@@ -1,0 +1,15 @@
+{
+  "id": "public_0436",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0436/public_0436_u1.wav",
+      "text": "Xin anh hỗ trợ số dư ngân hàng cái."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0436/public_0436.wav",
+      "text": "Ừ đủ đấy, em muốn thêm ZKAN với thế giới số, mỗi mã cho tròn năm trăm cổ, anh đang vội."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "public_0141",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0141/public_0141_u1.wav",
+      "text": "Mở kênh VTV6 giúp mình."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0141/public_0141_u2.wav",
+      "text": "Tạm giao sạc máy, nhắc Minh tự kĩ nha."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0141/public_0141_u3.wav",
+      "text": "Mai Minh có hẹn gì không ạ?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0141/public_0141_u4.wav",
+      "text": "Bật điều hoà phòng khách, hai sáu độ nhé."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0141/public_0141.wav",
+      "text": "Đặt báo thức mười giờ tối nay, nhắc Minh đi ngủ sớm, rồi gửi Vĩ trả Hương tiền ra sữa hôm trước nha."
+    }
+  ]
+}

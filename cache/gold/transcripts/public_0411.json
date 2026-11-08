@@ -1,0 +1,20 @@
+{
+  "id": "public_0411",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0411/public_0411_u1.wav",
+      "text": "Con coi giùm cô tài khoản thanh toán còn nhiêu tiền nha."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0411/public_0411_u2.wav",
+      "text": "Còn sữa mục xanh cô đang giữ bao nhiêu, bao nhiêu cổ với con?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0411/public_0411.wav",
+      "text": "Sữa Mộc Xanh bữa nay mà tăng thì bán bớt một trăm cổ, giảm thì mua thêm một trăm, xong lấy hai chục triệu bên tài khoản thanh toán hồi nãy gửi tiết kiệm ban tháng nha con."
+    }
+  ]
+}

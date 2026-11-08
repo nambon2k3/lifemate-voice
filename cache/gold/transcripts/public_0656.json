@@ -1,0 +1,60 @@
+{
+  "id": "public_0656",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0656/public_0656_u1.wav",
+      "text": "Con ơi, coi giùm cô thịt ba chỉ bao nhiêu một kg?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0656/public_0656_u2.wav",
+      "text": "Bỏ vô giỏ cho cô hai cây."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0656/public_0656_u3.wav",
+      "text": "Còn táo bưởi ni giá ra con?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0656/public_0656_u4.wav",
+      "text": "Thôi, sáng ni có quán mô giao bún bò không con?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0656/public_0656_u5.wav",
+      "text": "Bún bò Cô Ba có món chi?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0656/public_0656_u6.wav",
+      "text": "Đặt vé tàu bốn giờ đặc biệt, trả ban quý nghe con."
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0656/public_0656_u7.wav",
+      "text": "Ờ, cái cọc giữ nhiệt cô đặt bữa qua tới đâu rồi?"
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0656/public_0656_u8.wav",
+      "text": "Từ nhà ra ga Đà Nẵng đi xe bốn chỗ hết bao nhiêu con?"
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0656/public_0656_u9.wav",
+      "text": "Đặt luôn cho ông xe bảy giờ đón ở nha."
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0656/public_0656_u10.wav",
+      "text": "Sáng ni trời mát ghê hè con."
+    },
+    {
+      "turn": 10,
+      "audio": "audio/public_0656/public_0656.wav",
+      "text": "À tao hồi nãy đá con bò vô giá cho cô hai ký luôn nghen."
+    }
+  ]
+}

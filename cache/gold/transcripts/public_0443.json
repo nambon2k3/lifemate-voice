@@ -1,0 +1,20 @@
+{
+  "id": "public_0443",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0443/public_0443_u1.wav",
+      "text": "Dân một cổ phiếu của anh sáng nay thế nào em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0443/public_0443_u2.wav",
+      "text": "Thế Ví Tech hôm nay lên được bao nhiêu?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0443/public_0443.wav",
+      "text": "Thôi, cái mã đang lỗi, bớt mất hai trăm cổ cho anh, nhanh nhanh em."
+    }
+  ]
+}

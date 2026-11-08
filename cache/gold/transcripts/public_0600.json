@@ -1,0 +1,20 @@
+{
+  "id": "public_0600",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0600/public_0600_u1.wav",
+      "text": "Em ơi, kiếm sữa tươi màu xanh, còn đường bỏ ba hộp vô, giao cho anh nha."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0600/public_0600_u2.wav",
+      "text": "Thêm một túi gạo ST25 nữa nha, nhà sắp hết gạo rồi."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0600/public_0600.wav",
+      "text": "Ờ dỡ vậy là đủ rồi em, rồi chốt đơn dùm anh, còn giờ giao thì sớm hơn bữa tối với gia đình một tiếng nha."
+    }
+  ]
+}

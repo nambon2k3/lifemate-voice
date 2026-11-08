@@ -1,0 +1,15 @@
+{
+  "id": "public_0275",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0275/public_0275_u1.wav",
+      "text": "Tìm cho em công thức cháo nấm nấu cho bốn người ăn nha."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0275/public_0275.wav",
+      "text": "Thế thì trừ trong tủ bếp đúng số gạo món đó, cần giúp em nha."
+    }
+  ]
+}

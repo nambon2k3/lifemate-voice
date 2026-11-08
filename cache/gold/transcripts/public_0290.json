@@ -1,0 +1,20 @@
+{
+  "id": "public_0290",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0290/public_0290_u1.wav",
+      "text": "Hồ sơ này em phải trao đổi với đồng bọn pháp lý bên dự án trước đã."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0290/public_0290_u2.wav",
+      "text": "Ờ chủ anh ơi, số của chị ấy là không chín tám tám, bảy bảy, sáu sáu, năm năm, một."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0290/public_0290.wav",
+      "text": "Rồi, gọi luôn cái chị đầu mối đó giúp em nha."
+    }
+  ]
+}

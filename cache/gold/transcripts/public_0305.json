@@ -1,0 +1,15 @@
+{
+  "id": "public_0305",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0305/public_0305_u1.wav",
+      "text": "Lát chị ngồi đọc sách, cái đèn đọc sách mà đang bật thì tăng lên sáu mươi phần trăm, còn tắt thì cứ để yên ấy."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0305/public_0305.wav",
+      "text": "Rồi, em xem cái đèn trong phòng đọc phía đông giúp chị, xong làm đúng như chị dặn lại nha."
+    }
+  ]
+}

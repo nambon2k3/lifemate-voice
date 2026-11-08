@@ -1,0 +1,65 @@
+{
+  "id": "public_0674",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0674/public_0674_u1.wav",
+      "text": "Sáng nay chị qua tòa án kiếm cương bên Phạm Hùng làm hồ sơ, gần đó có bãi ô tô nào không em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0674/public_0674_u2.wav",
+      "text": "Đặt cho chị một chỗ tư bay rồi báo tiện nhé."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0674/public_0674_u3.wav",
+      "text": "Chị lấy xe rồi, kết thúc phiên ghi xe đo giúp chị."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0674/public_0674_u4.wav",
+      "text": "Trả giúp chị xe khách Hà Nội đi Vinh ngày mùng ba rằm mười hai."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0674/public_0674_u5.wav",
+      "text": "À, chị có email nào chưa đọc không em?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0674/public_0674_u6.wav",
+      "text": "Cả lời chị Thu là tối nay em ghi lại bàn có số liệu ngoại nhé."
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0674/public_0674_u7.wav",
+      "text": "Nhắn cho con trai Minh là chiều nay mẹ đón muộn, con chờ con Đường."
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0674/public_0674_u8.wav",
+      "text": "Nhắn luôn cho anh Thành tối nay anh đâu cơm giúp em nghe."
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0674/public_0674_u9.wav",
+      "text": "Có ai nhắn lại chưa em?"
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0674/public_0674_u10.wav",
+      "text": "Trưa nay mệt quá, chẳng biết ăn gì cho nhanh nữa."
+    },
+    {
+      "turn": 10,
+      "audio": "audio/public_0674/public_0674_u11.wav",
+      "text": "Ừ, thôi ăn bữa trưa về, cảm ơn em."
+    },
+    {
+      "turn": 11,
+      "audio": "audio/public_0674/public_0674.wav",
+      "text": "À chị quên xong hồ sơ chị lãi xe V rồi, em kết thúc lượt độ ở bãi, thả hùng giúp chị nha."
+    }
+  ]
+}

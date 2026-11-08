@@ -90,25 +90,35 @@ fi
 if [[ -n "$LIMIT" ]]; then
   END=$((BEGIN + LIMIT - 1))
 elif [[ -z "$END" ]]; then
-  END="$("$PYTHON" -c "from pathlib import Path; print(sum(1 for line in Path('train+public_test/train/train.jsonl').open() if line.strip()))")"
+  END="$("$PYTHON" -c "from pathlib import Path; print(sum(1 for line in Path('train+public_test/public_test/public_test.jsonl').open() if line.strip()))")"
 fi
 
-MAIN="$ROOT/outputs/submission.jsonl"
+MAIN="$ROOT/outputs/public_test/submission.jsonl"
 ONE="$ROOT/outputs/.one_submission.jsonl"
-mkdir -p "$ROOT/outputs"
+mkdir -p "$ROOT/outputs/public_test"
 if [[ "$BEGIN" -eq 1 ]]; then
   : > "$MAIN"
 fi
 skipped=0
 for ((row=BEGIN; row<=END; row++)); do
-  if "$PYTHON" src/run.py --split train --begin "$row" --end "$row" --output "$ONE"; then
-    if [[ -s "$ONE" ]]; then
-      cat "$ONE" >> "$MAIN"
+    rm -f "$ONE"
+
+    if "$PYTHON" src/run.py \
+        --split public_test \
+        --begin "$row" \
+        --end "$row" \
+        --output "$ONE"; then
+
+        if [[ -s "$ONE" ]]; then
+            cat "$ONE" >> "$MAIN"
+        else
+            echo "empty output at row $row" >&2
+            skipped=$((skipped + 1))
+        fi
+    else
+        echo "skip row $row" >&2
+        skipped=$((skipped + 1))
     fi
-  else
-    echo "skip row $row" >&2
-    skipped=$((skipped + 1))
-  fi
 done
 rm -f "$ONE"
 echo "skipped $skipped" >&2

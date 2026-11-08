@@ -1,0 +1,15 @@
+{
+  "id": "public_0468",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0468/public_0468_u1.wav",
+      "text": "Giúp giùm tôi mấy món nấu với cà chua coi."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0468/public_0468.wav",
+      "text": "Căn chưa khởi nhen, cái lốc giờ bắt giữ lắm, lô dùm tôi một món thôi, món chưa nấu tới nửa tiếng á."
+    }
+  ]
+}

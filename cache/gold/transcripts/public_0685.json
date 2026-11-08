@@ -1,0 +1,60 @@
+{
+  "id": "public_0685",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0685/public_0685_u1.wav",
+      "text": "Thứ hai tuần sau còn vé tàu lên Lào Cai không em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0685/public_0685_u2.wav",
+      "text": "Ừ để tính sau thêm việc chín giờ sáng mai họp review thiết kế ở công ty."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0685/public_0685_u3.wav",
+      "text": "Trưa rồi, gọi cho vợ anh cái."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0685/public_0685_u4.wav",
+      "text": "Gọi luôn cho Sếp Dũng giúp anh."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0685/public_0685_u5.wav",
+      "text": "À, đơn mua laptop của anh giờ đến đâu rồi?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0685/public_0685_u6.wav",
+      "text": "Tìm giúp anh cookbook giữ nhiệt dưới ba trăm nghìn."
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0685/public_0685_u7.wav",
+      "text": "Cho hai cái bao giỏ."
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0685/public_0685_u8.wav",
+      "text": "Đặt luôn giao về nhà, trả tiền mặt nhé."
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0685/public_0685_u9.wav",
+      "text": "Chiều nay buồn ngủ ghê em, kể chuyện cười đi."
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0685/public_0685_u10.wav",
+      "text": "Ha ha, được đấy, tôi làm tiếp đây."
+    },
+    {
+      "turn": 10,
+      "audio": "audio/public_0685/public_0685.wav",
+      "text": "Mai anh lái ô tô đi họp review, em tìm bãi đỗ gần công ty rồi giữ chỗ từ tám rưỡi sáng, ba tiếng nhé."
+    }
+  ]
+}

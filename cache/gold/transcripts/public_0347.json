@@ -1,0 +1,20 @@
+{
+  "id": "public_0347",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0347/public_0347_u1.wav",
+      "text": "Thứ năm này tôi đi tàu vào Vinh, em xem buổi sáng có những chuyến nào nhé."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0347/public_0347_u2.wav",
+      "text": "Chuyến SE58 giờ ấy, tôi tự lái xe ra ga, quanh ga có bãi giữ ô tô nào không em?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0347/public_0347.wav",
+      "text": "Thế đặt cho tôi một vé chuyến đó, dựa chỗ ở bãi phía Bắc ga từ bảy giờ sáng hôm ấy, gửi hai ngày rồi thêm việc rời bãi ra tàu trước giờ chạy nửa tiếng nhé."
+    }
+  ]
+}

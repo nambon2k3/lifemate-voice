@@ -1,0 +1,60 @@
+{
+  "id": "public_0675",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0675/public_0675_u1.wav",
+      "text": "Sáng nay đi làm từ nhà lên công ty Sài Gòn Shop, đi xe buýt tiếng nào em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0675/public_0675_u2.wav",
+      "text": "Ờ, nạp vô thẻ xe giùm anh năm chục ngàn luôn đi."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0675/public_0675_u3.wav",
+      "text": "Chiều về thì từ công ty Sài Gòn Shop ra Bến Thành đi tuyến nào?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0675/public_0675_u4.wav",
+      "text": "À mà nạp giùm Nhi một trăm nghìn tiền điện thoại nha."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0675/public_0675_u5.wav",
+      "text": "Trưa rồi, coi giùm anh mấy mã cổ phiếu đang cầm coi sao rồi."
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0675/public_0675_u6.wav",
+      "text": "Đặt cảnh báo khi Ví TIK lên lại một trăm ba mươi lăm ngàn nha."
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0675/public_0675_u7.wav",
+      "text": "Ờ tiện thể, còn hoá đơn nào chưa đóng không em?"
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0675/public_0675_u8.wav",
+      "text": "Đóng luôn cái sao teo bằng ví đi em."
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0675/public_0675_u9.wav",
+      "text": "Chiều nay nóng muốn xỉu luôn em ơi."
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0675/public_0675_u10.wav",
+      "text": "Ừ, cảm ơn em nha, nói chuyện với em vui ghê."
+    },
+    {
+      "turn": 10,
+      "audio": "audio/public_0675/public_0675.wav",
+      "text": "Ờ em, nạp thêm hai trăm ngàn vô thẻ xe buýt hồi sáng, với đóng luôn cái bill truyền hình bằng ví nha."
+    }
+  ]
+}

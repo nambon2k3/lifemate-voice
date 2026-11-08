@@ -1,0 +1,25 @@
+{
+  "id": "public_0619",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0619/public_0619_u1.wav",
+      "text": "Em nghe chị giục em ra sân mấy thì thiên mười phút luôn á."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0619/public_0619_u2.wav",
+      "text": "Cũng tí thì có mấy cái quán cà phê nào mô nghe được không em?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0619/public_0619_u3.wav",
+      "text": "Ngoài trời ra nắng, tối nay có mưa không?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0619/public_0619.wav",
+      "text": "Tối nay chị hẹn với Chris Fieldhouse, cái đối diện quán Mộc Lát, à, em tìm rồi, lưu tên chỗ hẹn tối nay nghe."
+    }
+  ]
+}

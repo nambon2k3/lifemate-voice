@@ -1,0 +1,35 @@
+{
+  "id": "public_0098",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0098/public_0098_u1.wav",
+      "text": "Máy tôi nặng hay mướt còn nhỉ?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0098/public_0098_u2.wav",
+      "text": "Đọc báo thức bảy giờ sáng mai giúp mình nhé."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0098/public_0098_u3.wav",
+      "text": "Tài khoản ngân hàng của Minh còn bao nhiêu tiền?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0098/public_0098_u4.wav",
+      "text": "Bật tivi lên kênh S+ Sport đi."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0098/public_0098_u5.wav",
+      "text": "Cho cầu nha, nay mình chạy vui lắm."
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0098/public_0098.wav",
+      "text": "Mai mai nổ quả ba trăm đô thì hủy buổi chạy sạc mai, gọi cho Tuấn bảo giúp Minh, con không thi thua nhé."
+    }
+  ]
+}

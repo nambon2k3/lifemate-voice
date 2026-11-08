@@ -1,0 +1,25 @@
+{
+  "id": "public_0050",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0050/public_0050_u1.wav",
+      "text": "Bật máy lạnh phòng khách hai mươi sáu độ nha."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0050/public_0050_u2.wav",
+      "text": "Ờ, được rồi em."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0050/public_0050_u3.wav",
+      "text": "Nạn xăng chín lăm lên hay xuống rồi?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0050/public_0050.wav",
+      "text": "Mua đơn điện thoại thì xem ví điện tử có đủ không, đủ thì trả bằng ví, thiếu thì lấy tài khoản ngân hàng, xong nhắn SMS cho Lan là ăn đống rồi nha."
+    }
+  ]
+}

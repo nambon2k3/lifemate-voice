@@ -1,0 +1,15 @@
+{
+  "id": "public_0210",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0210/public_0210_u1.wav",
+      "text": "Em đặt giang về nhà cho anh ít thì báo chị nhé, trưa nay anh tính làm món kho."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0210/public_0210.wav",
+      "text": "À thôi em ơi, khỏi đặt nữa, giao anh Tạ qua chở đồ ngõ Bùi Lương cho nhanh."
+    }
+  ]
+}

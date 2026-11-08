@@ -1217,6 +1217,13 @@ def _wants_task(low: str) -> bool:
     return any(phrase in low for phrase in ("một việc", "cái việc", "thêm việc", "tạo việc"))
 
 
+def _reads_note(low: str) -> bool:
+    """Return whether the sentence reads notes."""
+    return any(
+        phrase in low
+        for phrase in ("đọc ghi chú", "xem ghi chú", "tìm ghi chú")
+    )
+
 def _plain(text: str) -> str:
     """Lowercase and strip accents so a spoken name matches a stored one.
 

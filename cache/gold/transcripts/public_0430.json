@@ -1,0 +1,15 @@
+{
+  "id": "public_0430",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0430/public_0430_u1.wav",
+      "text": "Tối ni anh có lịch gì không em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0430/public_0430.wav",
+      "text": "Thế chiều nay sách có nhắn gì về bữa ăn tối đấy không em?"
+    }
+  ]
+}

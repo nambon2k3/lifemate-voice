@@ -1,0 +1,15 @@
+{
+  "id": "public_0258",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0258/public_0258_u1.wav",
+      "text": "Em ơi, cái máy sạc tóc với cái ba lô du lịch chị mới nhận, bốn cái shop trang nhầm mẫu, một cái chị lại không cần nữa, bằng hôm nay chị làm trả một đơn thôi."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0258/public_0258.wav",
+      "text": "Em ơi, làm đơn máy sấy tóc trước đi, shop giao nhầm mẫu khác rồi."
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "public_0622",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0622/public_0622_u1.wav",
+      "text": "Coi trên app đồ ăn có quán Bia Công Riverside Grill không, tôi đang ngồi đó nè."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0622/public_0622_u2.wav",
+      "text": "Trên thực đơn ghi Grill Snack Headfish là món gì vậy?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0622/public_0622_u3.wav",
+      "text": "Bàn tôi hết ba trăm bốn chục, bàn chú tám bốn trăm hai, ổng quên đem ví."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0622/public_0622_u4.wav",
+      "text": "Ví tôi còn nhiêu rứa em?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0622/public_0622_u5.wav",
+      "text": "Gọi thằng út cho tôi cái coi."
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0622/public_0622.wav",
+      "text": "Ví tôi đủ bảy trăm sáu chục thì ví trả hết cho mấy cô, không thì trả phần tôi nghen."
+    }
+  ]
+}

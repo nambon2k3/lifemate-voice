@@ -1,0 +1,20 @@
+{
+  "id": "public_0360",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0360/public_0360_u1.wav",
+      "text": "Thứ bảy này anh bay vào Đà Nẵng, em xem buổi sáng có nhận chuyến nào?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0360/public_0360_u2.wav",
+      "text": "Ừ, thế ba gửi xe ở nội bài, giờ còn chỗ không?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0360/public_0360.wav",
+      "text": "Ok, live chiến đồng nghiệp EA tốn giờ mười lăm, bảo Minh lên thôi, giữ luôn chỗ ở Bảy Phe Hà từ sáu giờ sáng hôm đó, gửi hàng ngày nhé, à trước giờ bay một tiếng thì nhắc anh rời Bảy Phe luôn, tuỳ."
+    }
+  ]
+}

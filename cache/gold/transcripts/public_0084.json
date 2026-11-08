@@ -1,0 +1,25 @@
+{
+  "id": "public_0084",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0084/public_0084_u1.wav",
+      "text": "Quanh đây có chỗ nào bán cơm tấm không?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0084/public_0084_u2.wav",
+      "text": "Vàng SJC bán ra hôm nay bao nhiêu?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0084/public_0084_u3.wav",
+      "text": "Cho tôi số điện thoại của cô giáo Mai."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0084/public_0084.wav",
+      "text": "Tôi chuẩn bị xem phim, hạ hết đèn từ hai xuống hai mươi phần trăm thôi, phòng nào đang chạy quạt thì kệ nó, rồi mở điều hoà phòng ngủ chế độ hút ẩm."
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "public_0482",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0482/public_0482_u1.wav",
+      "text": "Vừa nhận giao lô giòn chi anh hông em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0482/public_0482.wav",
+      "text": "Rứa hai thằng vừa dàn mua trên app đi chợ hết nhiêu tiền em, ví anh còn đủ trả không?"
+    }
+  ]
+}

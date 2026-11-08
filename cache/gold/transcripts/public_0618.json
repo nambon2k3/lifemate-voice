@@ -1,0 +1,20 @@
+{
+  "id": "public_0618",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0618/public_0618_u1.wav",
+      "text": "Coi mấy mã tôi đang ôm, mã nào lỗ là tôi tính bán bớt nghen."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0618/public_0618_u2.wav",
+      "text": "Quang ạ, hồi sáng tới giờ có ai gọi tôi không?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0618/public_0618.wav",
+      "text": "Mã lỗ nặng nhất đó đặt báo khi nó lên lại giá vốn, rồi gọi Miss Quantibus cho tôi nghe."
+    }
+  ]
+}

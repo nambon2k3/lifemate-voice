@@ -1,0 +1,20 @@
+{
+  "id": "public_0049",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0049/public_0049_u1.wav",
+      "text": "Ok, được gọi em nhé."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0049/public_0049_u2.wav",
+      "text": "Mai anh có hẹn gì trong lịch không?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0049/public_0049.wav",
+      "text": "Tiền điện tháng này anh chia đôi với Lê Minh, chuyển cho Minh một nửa tiền điện, còn Nguyễn Thị Lan thì đủ tiền nước, lấy tài khoản thanh toán, mà không đủ cả hai khoản thì lấy tiết kiệm cho cả hai."
+    }
+  ]
+}

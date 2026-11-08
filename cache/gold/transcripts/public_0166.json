@@ -1,0 +1,20 @@
+{
+  "id": "public_0166",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0166/public_0166_u1.wav",
+      "text": "Tìm giúp em liên hệ tên Minh với."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0166/public_0166_u2.wav",
+      "text": "Bên đồng nghiệp ấy à?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0166/public_0166.wav",
+      "text": "Dán SMS cho người đó là tối nay ăn cơm nhà nhé ạ."
+    }
+  ]
+}

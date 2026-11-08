@@ -1,0 +1,35 @@
+{
+  "id": "public_0120",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0120/public_0120_u1.wav",
+      "text": "Mở tivi kênh SCTV9 cho mình nha."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0120/public_0120_u2.wav",
+      "text": "À, một lít xăng 95 bây giờ bao nhiêu rồi nha?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0120/public_0120_u3.wav",
+      "text": "Hèm mai mình có việc gì cần đi không?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0120/public_0120_u4.wav",
+      "text": "Chỗ ngoài đường mấy giờ nắng, nắng dữ rồi."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0120/public_0120_u5.wav",
+      "text": "Mở bài Bước qua nhau nghe đi."
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0120/public_0120.wav",
+      "text": "Chuyển chị Nguyễn Thị Lan đúng tiền điện thoại tháng này, lên Minh đúng tiền mạng, trừ tài khoản thanh toán, còn không đủ cả hai thì lấy tiết kiệm."
+    }
+  ]
+}

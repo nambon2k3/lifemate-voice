@@ -1,0 +1,20 @@
+{
+  "id": "public_0546",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0546/public_0546_u1.wav",
+      "text": "Coi giùm tôi cổ phiếu Đại Việt bữa giờ."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0546/public_0546_u2.wav",
+      "text": "Còn cái thế giới số thì sao?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0546/public_0546.wav",
+      "text": "Theo dân số mà trên sáu chục nghìn thì mở VOV1, không thì đọc tôi nghe T27 Hoài Lâm cho máy hen."
+    }
+  ]
+}

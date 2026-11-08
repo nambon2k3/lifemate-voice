@@ -1,0 +1,25 @@
+{
+  "id": "public_0023",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0023/public_0023_u1.wav",
+      "text": "Trợ lý ơi, tìm giúp tôi số của cô Lan, khách hàng đặt hàng bên tôi ấy."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0023/public_0023_u2.wav",
+      "text": "Giá xăng hôm nay ở Sài Gòn là bao nhiêu vậy?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0023/public_0023_u3.wav",
+      "text": "Tắt đèn phòng khách giùm tôi nhé."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0023/public_0023.wav",
+      "text": "Gọi luôn cho cô ấy đi, rồi đặt báo thức năm rưỡi chiều nay để tôi nhớ đi gửi hàng nhé."
+    }
+  ]
+}

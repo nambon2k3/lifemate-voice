@@ -1,0 +1,20 @@
+{
+  "id": "public_0349",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0349/public_0349_u1.wav",
+      "text": "Ừ, buổi picnic của nhóm kế toán chiều thứ năm này đang để ở đâu ấy nhỉ?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0349/public_0349_u2.wav",
+      "text": "Mọi người lại muốn ra công viên Yên Sở cho rộn, mà chỗ đấy ít bóng cây, mưa xuống là hỏng mất."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0349/public_0349.wav",
+      "text": "Ừ, em xem hôm đó có mưa không, nếu không mưa thì chuyển chỗ sang công viên yên sở luôn nhé, giờ giấc cứ giữ nguyên."
+    }
+  ]
+}

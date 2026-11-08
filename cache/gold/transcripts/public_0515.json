@@ -1,0 +1,20 @@
+{
+  "id": "public_0515",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0515/public_0515_u1.wav",
+      "text": "Ngoài Cần Thơ giờ có mưa không?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0515/public_0515_u2.wav",
+      "text": "Mưa vậy thôi tối nha, mở tivi kênh VTV1 cho tôi nha."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0515/public_0515.wav",
+      "text": "Bán hàng đang lỗi thì bán WhatsApp đi, khoan đừng bán, chừng nào nó lên lại bằng giá tôi mua thì báo tôi."
+    }
+  ]
+}

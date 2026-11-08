@@ -1,0 +1,15 @@
+{
+  "id": "public_0398",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0398/public_0398_u1.wav",
+      "text": "Coi giùm anh mấy đơn đồ ăn hôm nay sao rồi?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0398/public_0398.wav",
+      "text": "Ờ, huỷ cái đơn bún bò lẻ giùm anh, à mà thôi, đơn nào chưa giao thì hủy hết đi, vợ kêu về ăn cơm rồi."
+    }
+  ]
+}

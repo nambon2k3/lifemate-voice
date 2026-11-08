@@ -1,0 +1,20 @@
+{
+  "id": "public_0606",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0606/public_0606_u1.wav",
+      "text": "Ơi đói quá, quán nào giao nhàn nhã tí không?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0606/public_0606_u2.wav",
+      "text": "Lấy quán nhanh nhất một tô bún bò giò nha."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0606/public_0606.wav",
+      "text": "Nghe hết nhạc trong máy tớ thì có xong trước lúc bốn tối không?"
+    }
+  ]
+}

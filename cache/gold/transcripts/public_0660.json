@@ -1,0 +1,55 @@
+{
+  "id": "public_0660",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0660/public_0660_u1.wav",
+      "text": "Sáng ni mình muốn mua trứng gà với cà chua, coi giá giùm mình."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0660/public_0660_u2.wav",
+      "text": "Cho vô rõ một hộp trứng với một ký cà chua rồi đặt luôn nha."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0660/public_0660_u3.wav",
+      "text": "Từ nhà lên trường đi xe máy mất bao lâu rứa?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0660/public_0660_u4.wav",
+      "text": "À, số của Nhi trong danh bạ là số mô?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0660/public_0660_u5.wav",
+      "text": "Ni đổi số rồi, sửa thành không chín tám bảy một hai ba bốn năm sáu, không giùm mình."
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0660/public_0660_u6.wav",
+      "text": "Mai mình có lịch chi không?"
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0660/public_0660_u7.wav",
+      "text": "Thêm lịch đi thư viện hai giờ chiều mai nghe."
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0660/public_0660_u8.wav",
+      "text": "Sáng ni huế mưa lạnh quá hè."
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0660/public_0660_u9.wav",
+      "text": "Ừ, cảm ơn nha."
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0660/public_0660.wav",
+      "text": "Thầy tiếng Nhật mới gửi mail hẹn buổi review, nếu tối đó miền Rạng thì đặt buổi học luôn, còn bình thì thôi nghe."
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "id": "public_0095",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0095/public_0095_u1.wav",
+      "text": "Mở bài Ngày đầu tiên đi."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0095/public_0095_u2.wav",
+      "text": "Ngoài trời giờ bao nhiêu độ rồi?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0095/public_0095_u3.wav",
+      "text": "Chuyển tivi sang SCTV9 giúp tôi."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0095/public_0095_u4.wav",
+      "text": "Trợ lý làm tốt lắm đấy, tôi thích thật."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0095/public_0095_u5.wav",
+      "text": "Tài khoản ngân hàng của tôi còn bao nhiêu tiền?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0095/public_0095_u6.wav",
+      "text": "Quan SJC hôm nay giá thế nào?"
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0095/public_0095.wav",
+      "text": "Nhắc tôi đổ xăng chín giờ sáng mai, với nhắn SMS cho Minh là mai gửi mình file nhé."
+    }
+  ]
+}

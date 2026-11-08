@@ -1,0 +1,15 @@
+{
+  "id": "public_0243",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0243/public_0243_u1.wav",
+      "text": "Bác sĩ dặn tôi sáng chủ nhật này, đúng bảy giờ phải uống Omega ba, đấy."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0243/public_0243.wav",
+      "text": "Ừ, đặt nhắc cho tôi đi, kẻ tôi lại quên."
+    }
+  ]
+}

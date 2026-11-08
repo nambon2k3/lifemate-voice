@@ -1,0 +1,70 @@
+{
+  "id": "public_0691",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0691/public_0691_u1.wav",
+      "text": "Sáng mai trời Hà Nội thế nào em nhỉ?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0691/public_0691_u2.wav",
+      "text": "Nhắc chị sáu giờ tối nay ghé mua sữa cho con nhé."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0691/public_0691_u3.wav",
+      "text": "À nhắn Zalo cho anh Hùng là chiều nay anh đón con giúp em nhé."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0691/public_0691_u4.wav",
+      "text": "Gọi luôn cho anh ấy qua Zalo giúp chị."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0691/public_0691_u5.wav",
+      "text": "Trưa rồi, em dịch giúp chị câu hạn chót nộp báo cáo quý là thứ sáu này sang tiếng Anh nhé."
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0691/public_0691_u6.wav",
+      "text": "Số của cô Mai, cô giáo con là bao nhiêu em?"
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0691/public_0691_u7.wav",
+      "text": "Ơm bạn chị đổi số rồi, em sửa thành không chín tám bốn hai ba một năm sáu bảy tám nhé."
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0691/public_0691_u8.wav",
+      "text": "Thế số sách Dũng đùi bao nhiêu nhỉ?"
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0691/public_0691_u9.wav",
+      "text": "Bác Ba hàng xóm có trong danh bạ chưa em?"
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0691/public_0691_u10.wav",
+      "text": "Em xem giúp chị số mẹ chồng là số nào nhé."
+    },
+    {
+      "turn": 10,
+      "audio": "audio/public_0691/public_0691_u11.wav",
+      "text": "Hòn sỏi anh Tuấn anh trai chị nữa em."
+    },
+    {
+      "turn": 11,
+      "audio": "audio/public_0691/public_0691_u12.wav",
+      "text": "Cuối năm sổ sách nộp đầu mệt quá em ạ."
+    },
+    {
+      "turn": 12,
+      "audio": "audio/public_0691/public_0691.wav",
+      "text": "Câu deadline báo cáo trưa nay em dịch rồi nhỉ? Thôi khỏi dịch lại, nhắc chị tám giờ sáng thứ sáu nộp báo cáo nhé."
+    }
+  ]
+}

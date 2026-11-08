@@ -1,0 +1,35 @@
+{
+  "id": "public_0536",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0536/public_0536_u1.wav",
+      "text": "Ví còn bao nhiêu?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0536/public_0536_u2.wav",
+      "text": "Gà lán chuyến mai trưa tiếp theo mấy giờ?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0536/public_0536_u3.wav",
+      "text": "Số chị ấy."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0536/public_0536_u4.wav",
+      "text": "Siêu thị có cà chua không?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0536/public_0536_u5.wav",
+      "text": "Tìm món gì nấu với trứng?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0536/public_0536.wav",
+      "text": "Ba giờ mười chị phải đi đón Minh rồi, bốn nào kịp làm xong trước đó thì đọc cách làm cho chị."
+    }
+  ]
+}

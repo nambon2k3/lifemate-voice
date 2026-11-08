@@ -1,0 +1,25 @@
+{
+  "id": "public_0427",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0427/public_0427_u1.wav",
+      "text": "Con ơi, chiều ni cô có việc gì phải làm không?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0427/public_0427_u2.wav",
+      "text": "Rứa con nghe máy thì rứa con."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0427/public_0427_u3.wav",
+      "text": "Ừ, rửa sẵn máy báo thức của đêm mỹ dơ rồi."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0427/public_0427.wav",
+      "text": "Nếu sáng chín lắm mà dỡ hai hai nghìn rưỡi thì mai cô đi đủ sớm, con trỏ cái báo thức sớm hơn trong hai cái nợ ráo sớm thêm nửa tiếng nghe."
+    }
+  ]
+}

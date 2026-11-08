@@ -1,0 +1,20 @@
+{
+  "id": "public_0321",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0321/public_0321_u1.wav",
+      "text": "Ơi, làm giúp em cái yêu cầu trả hàng cho đơn ẩm siêu tốc với."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0321/public_0321_u2.wav",
+      "text": "Ủm sao tới bị móc một bên, cắm điện vào cũng không lên đèn luôn?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0321/public_0321.wav",
+      "text": "Đã đúng rồi, hàng hỏng, gửi yêu cầu luôn giúp em."
+    }
+  ]
+}

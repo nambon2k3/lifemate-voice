@@ -1,0 +1,20 @@
+{
+  "id": "public_0152",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0152/public_0152_u1.wav",
+      "text": "Đặt báo thức năm rưỡi sáng mai nhé."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0152/public_0152_u2.wav",
+      "text": "Năm giờ chiều mai nhắc chị đổ xăng."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0152/public_0152.wav",
+      "text": "Đèp phòng ngủ hạ xuống mười lăm phần trăm thôi, quạt trần bật nhé, điều hoà phòng ngủ chạy hút ẩm, hai mươi lăm độ giúp chị."
+    }
+  ]
+}

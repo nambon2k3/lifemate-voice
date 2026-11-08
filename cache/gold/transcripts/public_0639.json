@@ -1,0 +1,25 @@
+{
+  "id": "public_0639",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0639/public_0639_u1.wav",
+      "text": "Tuần này tôi học Speaking với James Wong bữa nào vậy?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0639/public_0639_u2.wav",
+      "text": "Tối bữa đó tôi có order đồ ăn nữa hông?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0639/public_0639_u3.wav",
+      "text": "Ủa rồi, con máy Happy của tôi, lock tới đâu rồi?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0639/public_0639.wav",
+      "text": "Ghi thói quen đọc với stream của ông cho tối thứ tư đó, rồi đặt lại trang đơn bún bò cô Ba bữa đó nha."
+    }
+  ]
+}

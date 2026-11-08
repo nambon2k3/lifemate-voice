@@ -1,0 +1,20 @@
+{
+  "id": "public_0111",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0111/public_0111_u1.wav",
+      "text": "Giả vang SJC hôm nay sao rồi ạ?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0111/public_0111_u2.wav",
+      "text": "Bật điều hoà phòng khách, hai mươi bốn độ giúp em."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0111/public_0111.wav",
+      "text": "Nếu Vàng SJC bán ra lên quá 131 triệu thì 8 giờ tối nay nhắc em dọn lơi, còn chưa tới thì lấy tài khoản thanh toán chuyển Ngân Trần Văn Tuấn báo chiều rồi, để anh ấy mua chứng khoán cho em nha."
+    }
+  ]
+}

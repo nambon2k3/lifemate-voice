@@ -1,0 +1,20 @@
+{
+  "id": "public_0599",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0599/public_0599_u1.wav",
+      "text": "Em coi giùm anh máy vé số ba anh đặt cho khách với."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0599/public_0599_u2.wav",
+      "text": "Ừ, rồi mua vé M-X bữa ni ra em."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0599/public_0599.wav",
+      "text": "Daniel Lee ở lẹ thêm mấy bữa, em hủy cái bài của anh giùm anh nghe."
+    }
+  ]
+}

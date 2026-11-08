@@ -1,0 +1,30 @@
+{
+  "id": "public_0055",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0055/public_0055_u1.wav",
+      "text": "Cảm ơn nha, được việc lắm."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0055/public_0055_u2.wav",
+      "text": "Bật bài Cô chắc yêu lần này nghe coi."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0055/public_0055_u3.wav",
+      "text": "Chuyển tivi sang SCTV9 đi."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0055/public_0055_u4.wav",
+      "text": "Đặt báo thức bảy rưỡi sáng mai giúp tôi."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0055/public_0055.wav",
+      "text": "Tắt cho tôi một vé đi Hà Nội ngày mười tháng mười hai, đi hãng Jetson, chuyến bay buổi sáng ấy."
+    }
+  ]
+}

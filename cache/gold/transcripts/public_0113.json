@@ -1,0 +1,30 @@
+{
+  "id": "public_0113",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0113/public_0113_u1.wav",
+      "text": "Mở bài Chúng ta của hiện tại nghe nha."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0113/public_0113_u2.wav",
+      "text": "Chấm mau nha, bài này em thích lắm."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0113/public_0113_u3.wav",
+      "text": "Tài SJC nhiêu một lượng nha?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0113/public_0113_u4.wav",
+      "text": "Mai em có lịch gì hông?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0113/public_0113.wav",
+      "text": "Đặt một vé đi Đà Nẵng ngày 28, chuyến rẻ nhất sau 12 giờ trưa, báo thức trước giờ bay ba tiếng, nhắn gia lô cho tống nhà bay."
+    }
+  ]
+}

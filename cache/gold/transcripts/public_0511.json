@@ -1,0 +1,15 @@
+{
+  "id": "public_0511",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0511/public_0511_u1.wav",
+      "text": "Ơi, từ ngõ Cao Kim Mã đi gì nhanh nhất nhỉ?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0511/public_0511.wav",
+      "text": "Mẹ chuyển tiền tháng này chưa, rồi đi nạp thẻ thêm mười lộc Metro kia, xong gọi điện cho mẹ nha."
+    }
+  ]
+}

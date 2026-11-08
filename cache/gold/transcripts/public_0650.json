@@ -1,0 +1,20 @@
+{
+  "id": "public_0650",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0650/public_0650_u1.wav",
+      "text": "Mai em có những nhắc việc chi rứa, đọc em nghe với."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0650/public_0650_u2.wav",
+      "text": "Cái gọi anh Sâm Kim xóa đi, ảnh nghĩ là mua giá rồi."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0650/public_0650.wav",
+      "text": "Cái mã em định hỏi anh Sam Kim đó, trả giá hôm nay dùm em coi."
+    }
+  ]
+}

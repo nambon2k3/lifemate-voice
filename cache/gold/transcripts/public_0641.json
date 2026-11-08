@@ -1,0 +1,20 @@
+{
+  "id": "public_0641",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0641/public_0641_u1.wav",
+      "text": "Coi giùm tôi mấy mã tôi đang cầm, lại lỡ xa rồi."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0641/public_0641_u2.wav",
+      "text": "Thằng út có dán gì cổ phiếu hông?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0641/public_0641.wav",
+      "text": "Ừ, làm yên như thằng út dặn đi, cài xong thì nhắn nó biết mã vé giá em cài nha."
+    }
+  ]
+}

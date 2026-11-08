@@ -1,0 +1,25 @@
+{
+  "id": "public_0580",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0580/public_0580_u1.wav",
+      "text": "Còn sáng mai có mấy cái ôn thi nữa?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0580/public_0580_u2.wav",
+      "text": "Mai chở khách Alessandra ra sân bay năm giờ, đặt báo thức luôn gửi."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0580/public_0580_u3.wav",
+      "text": "Nhắn Zalo anh Sáu mai 4 giờ 45 anh ấy xe."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0580/public_0580.wav",
+      "text": "Rồi sáng mai tắt hết mấy cái báo thức khác đi, chỉ để lại cái chở khách ở Venice thôi."
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "public_0549",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0549/public_0549_u1.wav",
+      "text": "Em coi mấy cái nốt của anh, có cái nào về meeting với khách hông?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0549/public_0549.wav",
+      "text": "Dịch giùm anh nội dung ghi chú Lumina Tech qua tiếng Anh nha, anh gửi cho khách."
+    }
+  ]
+}

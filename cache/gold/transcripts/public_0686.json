@@ -1,0 +1,65 @@
+{
+  "id": "public_0686",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0686/public_0686_u1.wav",
+      "text": "Sáng sớm coi giùm con mấy vé máy bay của Đà Nẵng rồi nha con."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0686/public_0686_u2.wav",
+      "text": "Giá xăng bây giờ là bao nhiêu?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0686/public_0686_u3.wav",
+      "text": "Thứ tư này có xe khách nào đi Phan Thiết cùng con không?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0686/public_0686_u4.wav",
+      "text": "Giá xăng RON95 bữa nay nhiêu con?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0686/public_0686_u5.wav",
+      "text": "Còn cháu đi gián thì sao?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0686/public_0686_u6.wav",
+      "text": "Số anh Lộc giao hàng là số mấy con?"
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0686/public_0686_u7.wav",
+      "text": "Xe bốn chỗ từ nhà ra sân bay Tân Sơn Nhất giá nhiêu?"
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0686/public_0686_u8.wav",
+      "text": "Ờ đặt xe đó đón cô lúc mười giờ rưỡi nha."
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0686/public_0686_u9.wav",
+      "text": "Đặt xong cho con, coi lại dùm cô."
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0686/public_0686_u10.wav",
+      "text": "Trời ơi, sáng chủ nhật mà đổ bùn quá trời luôn."
+    },
+    {
+      "turn": 10,
+      "audio": "audio/public_0686/public_0686_u11.wav",
+      "text": "Thôi để cô đi file đi cà phê đã."
+    },
+    {
+      "turn": 11,
+      "audio": "audio/public_0686/public_0686.wav",
+      "text": "Bên Đà Lạt nhắn khoản chín hàng rồi con, huỷ giùm cô cái vé máy bay qua Bỉ nha."
+    }
+  ]
+}

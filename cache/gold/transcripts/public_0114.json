@@ -1,0 +1,40 @@
+{
+  "id": "public_0114",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0114/public_0114_u1.wav",
+      "text": "Cảm ơn nha, được việc làm đó."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0114/public_0114_u2.wav",
+      "text": "Giá xăng RON95 có thay đổi gì không?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0114/public_0114_u3.wav",
+      "text": "Zem giúp anh giá vàng SJC hôm nay mua bán bao nhiêu?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0114/public_0114_u4.wav",
+      "text": "Ví của anh còn dư bao nhiêu?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0114/public_0114_u5.wav",
+      "text": "Ngoài kia trời thế nào rồi nhỉ?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0114/public_0114_u6.wav",
+      "text": "Cho sáng đèn phòng ngủ nhỏ nha."
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0114/public_0114.wav",
+      "text": "Vàng SJC bán ra hôm nay mà chưa tới 127 triệu thì trích tài khoản thanh toán chuyển chủ nhà Phạm Hùng 5 triệu tiền nhà tháng này, còn quá rồi thì nhắc anh ba giờ chiều nay ra tiền bán vàng."
+    }
+  ]
+}

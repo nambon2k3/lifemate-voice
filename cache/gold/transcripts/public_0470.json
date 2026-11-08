@@ -1,0 +1,15 @@
+{
+  "id": "public_0470",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0470/public_0470_u1.wav",
+      "text": "Em ơi, quanh công viên Thống Nhất có bao nhiêu quán trung quốc, bao nhiêu tiền một giờ?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0470/public_0470.wav",
+      "text": "Vàng nhẫn mà bán ra dưới trăm hai ba triệu thì đặt bảy tuần trước tôi gửi, không thì bảy công viên ấy, hai tiếng từ mười một, à không, mười một rưỡi."
+    }
+  ]
+}

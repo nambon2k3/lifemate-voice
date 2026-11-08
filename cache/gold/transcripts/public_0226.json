@@ -1,0 +1,20 @@
+{
+  "id": "public_0226",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0226/public_0226_u1.wav",
+      "text": "Em ơi, nhóm anh bốn đứa mà chốt hết rồi, cứ tuần này cả bọn đi chơi chung."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0226/public_0226_u2.wav",
+      "text": "Ài, để nhắm cái lế hồi hầm được mọi thu á, em xem còn lế không."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0226/public_0226.wav",
+      "text": "Ừ, thế lấy cho anh bốn vé lễ hội đó luôn nhỉ."
+    }
+  ]
+}

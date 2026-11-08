@@ -1,0 +1,25 @@
+{
+  "id": "public_0051",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0051/public_0051_u1.wav",
+      "text": "Kiểm tra ví điện tử xem còn bao nhiêu."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0051/public_0051_u2.wav",
+      "text": "Con tài khoản ngân hàng thì sao?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0051/public_0051_u3.wav",
+      "text": "Vàng SJC hôm nay bao nhiêu một lượng?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0051/public_0051.wav",
+      "text": "Tắt hết hộ tối, cài đèn phòng làm việc, rồi nhắn SMS cho Hương là tối nay ăn cơm nha nhé."
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "id": "public_0655",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0655/public_0655_u1.wav",
+      "text": "Xong rồi, mở playlist Nhạc chill cho anh nghe."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0655/public_0655_u2.wav",
+      "text": "Giảm xuống mức hai mươi thôi."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0655/public_0655_u3.wav",
+      "text": "Hôm nay Đà Nẵng có mưa không em?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0655/public_0655_u4.wav",
+      "text": "Số anh Bình đồng nghiệp là số mấy?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0655/public_0655_u5.wav",
+      "text": "Dịch cao cho tôi xem tập đơn xong tiếng Hàn giùm anh."
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0655/public_0655_u6.wav",
+      "text": "Bật đèn phòng khách lên."
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0655/public_0655_u7.wav",
+      "text": "Nửa lùn quạt không cách."
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0655/public_0655_u8.wav",
+      "text": "Đang phòng ngủ trên lầu tắt đi, vừa còn ngủ."
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0655/public_0655_u9.wav",
+      "text": "Đang phòng làm việc cũng tắt luôn."
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0655/public_0655.wav",
+      "text": "Anh ra cửa đón khách đây, giùm Nhạc lào với tác đẻ phòng khách luôn, quạt cứ để rứa."
+    }
+  ]
+}

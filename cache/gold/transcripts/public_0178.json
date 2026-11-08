@@ -1,0 +1,15 @@
+{
+  "id": "public_0178",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0178/public_0178_u1.wav",
+      "text": "Kế hoạch thả anh bằng dữ liệu ngày Tam Hải xong mail ấy tổ chức hôm nay em nhỉ?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0178/public_0178.wav",
+      "text": "Ok, ghi thêm buổi đó vào lịch cho anh nhé, hai giờ chiều."
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "id": "public_0529",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0529/public_0529_u1.wav",
+      "text": "Con coi tài khoản thanh toán cô còn nhiêu tiền."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0529/public_0529_u2.wav",
+      "text": "Nhắc cô năm giờ chiều nay gọi anh Lộc lấy hàng nha."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0529/public_0529_u3.wav",
+      "text": "Hôm nay có nhắc gì đó không con?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0529/public_0529.wav",
+      "text": "Ờ, tiền bên thanh toán đâu có đủ gửi hai cái, con mở một cái thôi nha."
+    }
+  ]
+}

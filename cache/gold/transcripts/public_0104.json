@@ -1,0 +1,40 @@
+{
+  "id": "public_0104",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0104/public_0104_u1.wav",
+      "text": "Chào em nhé, chị về tới nhà rồi đây."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0104/public_0104_u2.wav",
+      "text": "Vàng SJC chiều nay giảm bao nhiêu em?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0104/public_0104_u3.wav",
+      "text": "Tắt cái đèn phòng khách đi em."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0104/public_0104_u4.wav",
+      "text": "Số điện thoại của bác Bác là gì nhỉ?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0104/public_0104_u5.wav",
+      "text": "Giá xăng chín lăm hôm nay là bao nhiêu?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0104/public_0104_u6.wav",
+      "text": "Gần đây có tiệm trà sữa nào không em?"
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0104/public_0104.wav",
+      "text": "Chuyển cho Văn Tuấn đủ tiền điện thoại tháng nay, Lê Minh đủ tiền truyền hình, nếu tài khoản thanh toán còn dư ba trăm nghìn thì lại luôn tiết kiệm cho cả hai nhé."
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "public_0146",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0146/public_0146_u1.wav",
+      "text": "Tài khoản ngân hàng của tôi còn bao nhiêu tiền?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0146/public_0146_u2.wav",
+      "text": "Mở bản ngày đầu tiên nghe nhen."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0146/public_0146_u3.wav",
+      "text": "Gần đây có quán chả bò nào không?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0146/public_0146_u4.wav",
+      "text": "Bật điều hoà phòng ngủ 25 độ giùm tôi."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0146/public_0146_u5.wav",
+      "text": "Mở tivi kênh SCTV7 luôn nha."
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0146/public_0146.wav",
+      "text": "Nhắn tin thường cho cô giáo Mai là đến rồi, thì gọi cô nha."
+    }
+  ]
+}

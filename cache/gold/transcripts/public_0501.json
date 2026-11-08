@@ -1,0 +1,15 @@
+{
+  "id": "public_0501",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0501/public_0501_u1.wav",
+      "text": "Ví của em còn bao nhiêu, với cổ phiếu trừ lời lỗ răng rồi hè?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0501/public_0501.wav",
+      "text": "Ví ít rứa, tuần sau còn đóng tiền trợ, bán hết mã đang lười đi, à không, một trăm cổ thôi."
+    }
+  ]
+}

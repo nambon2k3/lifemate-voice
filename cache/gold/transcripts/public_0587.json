@@ -1,0 +1,20 @@
+{
+  "id": "public_0587",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0587/public_0587_u1.wav",
+      "text": "Em coi giùm tui sáng nay có mấy máy của khách nòn hông?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0587/public_0587_u2.wav",
+      "text": "Thứ bảy tôi ra gara há, đưa khách rỡ, mới qua chỗ hẹn Lucas đi biết tiếng mô em?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0587/public_0587.wav",
+      "text": "Tôi đi tuyến mười lăm, nộp vô thẻ đủ vé đi với về, rồi tạo làm email Lucas là tôi đi xe buýt với nghe."
+    }
+  ]
+}

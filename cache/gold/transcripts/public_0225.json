@@ -1,0 +1,20 @@
+{
+  "id": "public_0225",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0225/public_0225_u1.wav",
+      "text": "Số vừa nhắn báo nước máy xanh minimist của anh vẫn còn trong hàng gọi đó em."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0225/public_0225_u2.wav",
+      "text": "Mới tắm dùng đèn đầu mà nói chết nướng luôn, bấm không lên."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0225/public_0225.wav",
+      "text": "Ừ, đúng rồi, làm cho anh các yêu cầu trả đơn đấy luôn đi."
+    }
+  ]
+}

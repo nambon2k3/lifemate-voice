@@ -1,0 +1,55 @@
+{
+  "id": "public_0671",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0671/public_0671_u1.wav",
+      "text": "Sáng nay Hà Nội trời thế nào ạ?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0671/public_0671_u2.wav",
+      "text": "Thế mai có mưa không?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0671/public_0671_u3.wav",
+      "text": "Thêm lịch học nhóm hai giờ chiều mai ở thư viện trường nha."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0671/public_0671_u4.wav",
+      "text": "À, trưa rồi, gần đây có quán Cao Nguyên Coffee nào không?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0671/public_0671_u5.wav",
+      "text": "Từ ký túc xá đi xe máy qua đấy mất bao lâu?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0671/public_0671_u6.wav",
+      "text": "Tối nay nấu gì nhanh nhanh nhỉ, tìm món có trứng đi."
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0671/public_0671_u7.wav",
+      "text": "Lưu công thức đấy lại cho tớ."
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0671/public_0671_u8.wav",
+      "text": "Còn món gà xào sả ớt mất bao lâu?"
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0671/public_0671_u9.wav",
+      "text": "Hôm nay mệt ghê, mai còn học nhóm nữa."
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0671/public_0671.wav",
+      "text": "Tớ với Trang muốn đi Prizza Summer nói chuyện, đặt cho tớ hai vé nhé."
+    }
+  ]
+}

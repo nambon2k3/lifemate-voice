@@ -1,0 +1,20 @@
+{
+  "id": "public_0217",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0217/public_0217_u1.wav",
+      "text": "Tìm giùm em số anh Nam bên đội giao nhận cho trang bảo với."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0217/public_0217_u2.wav",
+      "text": "Đúng mấy giờ rồi, em đang có việc gấp cần trao đổi."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0217/public_0217.wav",
+      "text": "Gọi thẳng vào số đó luôn cho em đi ạ."
+    }
+  ]
+}

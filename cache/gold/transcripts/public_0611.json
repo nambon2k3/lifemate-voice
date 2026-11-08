@@ -1,0 +1,30 @@
+{
+  "id": "public_0611",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0611/public_0611_u1.wav",
+      "text": "Em tìm giúp chị số điện thoại của Hugo Lampard với."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0611/public_0611_u2.wav",
+      "text": "Gọi luôn cho anh ấy giúp chị nhé."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0611/public_0611_u3.wav",
+      "text": "Anh ấy hẹn chị ở Cao Nguyên Coffee, em xem có những quán nào."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0611/public_0611_u4.wav",
+      "text": "Còn bãi đỗ xe quanh Hồ Gươm còn chỗ không em?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0611/public_0611.wav",
+      "text": "Lưu giúp chị cái quán mà Hugo Lam hẹn vào bản đồ nhé, đặt tên là Chỗ gặp Hugo Lam thôi, nhắc lên em."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "public_0574",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0574/public_0574_u1.wav",
+      "text": "Con coi giùm con hôm nay còn việc gì chưa làm ấy?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0574/public_0574_u2.wav",
+      "text": "Ờ, bỏ vô giỏ nước suối cho nhỏ, mỏi người trong buổi đó hai chai nha."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0574/public_0574.wav",
+      "text": "Chốt đơn rã nớ luôn nha con, giao tới tiệm chứ chờ livestream một tiếng, xong gạch việc đặt nước uống luôn."
+    }
+  ]
+}

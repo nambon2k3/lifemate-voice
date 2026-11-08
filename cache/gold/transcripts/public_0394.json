@@ -1,0 +1,20 @@
+{
+  "id": "public_0394",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0394/public_0394_u1.wav",
+      "text": "Bật bài Ngày đầu tiên cho chị nhé."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0394/public_0394_u2.wav",
+      "text": "Chiều nay chị có lịch gì không em?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0394/public_0394.wav",
+      "text": "Học ở công ty thì giùm nhà giúp chị, chị đi luôn, ở nhà thì bật nhỏ số hai mươi nhé."
+    }
+  ]
+}

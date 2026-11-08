@@ -1,0 +1,15 @@
+{
+  "id": "public_0334",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0334/public_0334_u1.wav",
+      "text": "Em ơi, trong tủ bếp còn mấy quả cà chua nhỉ?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0334/public_0334.wav",
+      "text": "Sáng nay chị muốn uống rượu cho bốn người, em tìm cổng khách sạn còn mấy quả táo chua, lấy luôn hai quả táo chua trong tủ ra dùng, còn thiếu bao nhiêu thì ghi vào danh sách đi chợ giúp chị nha."
+    }
+  ]
+}

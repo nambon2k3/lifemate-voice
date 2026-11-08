@@ -1,0 +1,15 @@
+{
+  "id": "public_0369",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0369/public_0369_u1.wav",
+      "text": "Mở cái ghi chú mới cho anh, để anh ghi mấy việc cần dặn trước buổi họp chiều thứ hai."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0369/public_0369.wav",
+      "text": "Thôi khỏi ghi chú nữa em ạ, có mỗi hai bài việc, tự nói được."
+    }
+  ]
+}

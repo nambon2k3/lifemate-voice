@@ -1,0 +1,70 @@
+{
+  "id": "public_0657",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0657/public_0657_u1.wav",
+      "text": "Cô ơi, sáng ni có ai chuyển tiền vô tài khoản không cô?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0657/public_0657_u2.wav",
+      "text": "Trưa rồi, đặt cho cô hai tô bún bò hết, đặt việc bên cô ba nghe."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0657/public_0657_u3.wav",
+      "text": "Thêm một ly trà đạo kem sả bên Nhà Mèo cho cô Thảo nữa."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0657/public_0657_u4.wav",
+      "text": "Mai Đà Nẵng có mưa không con?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0657/public_0657_u5.wav",
+      "text": "À, ngày ba mươi có chuyến bay nào đi Huế không hỉ?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0657/public_0657_u6.wav",
+      "text": "Chiều rồi, cô đang có mấy cái báo thức rứa con?"
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0657/public_0657_u7.wav",
+      "text": "Cái đi tập gym sáu rưỡi gió đi cô không đi nữa."
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0657/public_0657_u8.wav",
+      "text": "Cái đưa con đi học giờ lên sáu giờ bốn lăm nghe."
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0657/public_0657_u9.wav",
+      "text": "Cái đi làm tám giờ của ông Sà Tắc chừng mai ổng nghỉ phép."
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0657/public_0657_u10.wav",
+      "text": "Đặt thêm cái năm rưỡi sáng mai đi chợ nghe con."
+    },
+    {
+      "turn": 10,
+      "audio": "audio/public_0657/public_0657_u11.wav",
+      "text": "Với trưa ngày ba mươi, mười hai giờ nhắc cô ra sân bay."
+    },
+    {
+      "turn": 11,
+      "audio": "audio/public_0657/public_0657_u12.wav",
+      "text": "Trời chiều nay mát ghê con hè, cô mới đi bộ về."
+    },
+    {
+      "turn": 12,
+      "audio": "audio/public_0657/public_0657.wav",
+      "text": "Số tiền Julia Moreno chuyển hồi sáng đó con gửi hết vô tiết kiệm online giùm cô nghen."
+    }
+  ]
+}

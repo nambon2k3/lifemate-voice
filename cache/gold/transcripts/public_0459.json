@@ -1,0 +1,25 @@
+{
+  "id": "public_0459",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0459/public_0459_u1.wav",
+      "text": "Em ơi, tài khoản thanh toán của chị còn bao nhiêu tiền?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0459/public_0459_u2.wav",
+      "text": "Thế hoá đơn mạng tháng này bao nhiêu, bao giờ hết hạn em?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0459/public_0459_u3.wav",
+      "text": "Ờ, em trả luôn bằng tài khoản ngân hàng cho chị nhé."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0459/public_0459.wav",
+      "text": "Minh nó khuyên chị mua thêm, thế hai mã chị đang giữ, mã nào hôm nay tăng mạnh hơn thì em mua một trăm cổ nhé."
+    }
+  ]
+}

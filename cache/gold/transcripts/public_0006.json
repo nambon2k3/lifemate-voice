@@ -1,0 +1,20 @@
+{
+  "id": "public_0006",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0006/public_0006_u1.wav",
+      "text": "Mai mình có những báo thức nào thế?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0006/public_0006_u2.wav",
+      "text": "Xoá cái sớm nhắc giúp tôi nhé."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0006/public_0006.wav",
+      "text": "Cái còn lại nếu mai mưa thì dời muộn nửa tiếng, không mưa thì giữ nguyên."
+    }
+  ]
+}

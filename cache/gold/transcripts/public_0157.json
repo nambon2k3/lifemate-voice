@@ -1,0 +1,40 @@
+{
+  "id": "public_0157",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0157/public_0157_u1.wav",
+      "text": "Bật điều hoà phòng ngủ hai mươi lăm độ nha."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0157/public_0157_u2.wav",
+      "text": "Ngoài trời đang nóng cỡ nào rồi?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0157/public_0157_u3.wav",
+      "text": "Tài khoản ngân hàng của tôi còn nhiêu?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0157/public_0157_u4.wav",
+      "text": "Trợ lý, bữa nay có ổng hông?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0157/public_0157_u5.wav",
+      "text": "Cho tôi nghe bài Chúng ta của hiện tại cái."
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0157/public_0157_u6.wav",
+      "text": "Giờ đây có chỗ nào bán bún bò hông?"
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0157/public_0157.wav",
+      "text": "Đặt giùm tôi hai vé ra Hà Nội ngày mười sáu, lấy chuyến rẻ nhất trước mười hai giờ trưa, báo thức trước giờ bay hai tiếng, rồi nhắn Zalo cho Hương giờ bay nha."
+    }
+  ]
+}

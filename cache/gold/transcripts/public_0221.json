@@ -1,0 +1,15 @@
+{
+  "id": "public_0221",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0221/public_0221_u1.wav",
+      "text": "Em định chuyển ba trăm nghìn qua ví, mà Đăng phân vân không biết chuyển cho Liên hay cho Khánh nữa."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0221/public_0221.wav",
+      "text": "Thôi, chị cho lên đi nha."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "public_0365",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0365/public_0365_u1.wav",
+      "text": "Em tìm giúp Minh Minh trong danh bạ cái."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0365/public_0365_u2.wav",
+      "text": "À, Minh lên nhóm thiết kế á."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0365/public_0365.wav",
+      "text": "Nhắn Zalo cho cậu ấy là mình sẽ gửi bản vẽ trước năm giờ chiều nay nha."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "public_0045",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0045/public_0045_u1.wav",
+      "text": "Sáng rồi, chị Lâm, xăng nay bao nhiêu một lít?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0045/public_0045_u2.wav",
+      "text": "Cảm ơn nhiêu nha."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0045/public_0045_u3.wav",
+      "text": "Máy tôi đang nặn còn nặn không à?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0045/public_0045_u4.wav",
+      "text": "Tài khoản em còn bao nhiêu?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0045/public_0045.wav",
+      "text": "Mai ba mươi, thuê buổi đi dạo ngoài xã giúp em nha, rồi gọi cho Hương bảo một tiếng chơi nặn thì cứ giùm Nguyên nha."
+    }
+  ]
+}

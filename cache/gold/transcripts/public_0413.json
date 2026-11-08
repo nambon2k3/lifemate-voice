@@ -1,0 +1,20 @@
+{
+  "id": "public_0413",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0413/public_0413_u1.wav",
+      "text": "Mở bài Hoa nở không màu cho tôi nghe cái."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0413/public_0413_u2.wav",
+      "text": "Tối ba tối sau có tàu đi Vien không?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0413/public_0413.wav",
+      "text": "Lấy hai vé chuyến một giờ chiều, xong tắt nhạc, tắt mấy cái đèn trên tầng hai đang sáng đi."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "public_0128",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0128/public_0128_u1.wav",
+      "text": "Ừ được rồi, cảm ơn nghe."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0128/public_0128_u2.wav",
+      "text": "Mai có hẹn gì trong lịch của tôi không?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0128/public_0128_u3.wav",
+      "text": "Mai là tí khi nào có mưa hông?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0128/public_0128_u4.wav",
+      "text": "Nhắc tôi tưới cây lúc năm giờ chiều mai nhé."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0128/public_0128.wav",
+      "text": "Mai đá bóng nên đặt báo thức hai giờ chiều mai cho tôi, với chuyển ví cho Minh tiền thuê xong phòng tôi nhỉ?"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "id": "public_0035",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0035/public_0035_u1.wav",
+      "text": "Giá xăng RON95 hôm nay thế nào?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0035/public_0035_u2.wav",
+      "text": "Dạo này trợ lý vẫn khỏe chứ?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0035/public_0035_u3.wav",
+      "text": "Đặt báo thức sáu rưỡi sáng mai nhé."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0035/public_0035.wav",
+      "text": "Mai nếu có mưa thì bỏ lịch đá bóng sáng mai đi, gọi cho Lan báo luôn, còn trời không mưa thì cứ để nguyên."
+    }
+  ]
+}

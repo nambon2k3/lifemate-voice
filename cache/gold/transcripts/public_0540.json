@@ -1,0 +1,15 @@
+{
+  "id": "public_0540",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0540/public_0540_u1.wav",
+      "text": "Em ghi giùm tôi cái nối khách phòng ba muốn thuê xe đạp sáng mai."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0540/public_0540.wav",
+      "text": "Chiều ni tôi dẫn hai khách từ nhà đi xe buýt qua Pilgrim Village, em nạp thẻ đóng tiền vé khứ hồi ba Nguyễn nghe."
+    }
+  ]
+}

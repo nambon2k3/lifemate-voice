@@ -1,0 +1,35 @@
+{
+  "id": "public_0171",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0171/public_0171_u1.wav",
+      "text": "Tài khoản ngân hàng còn bao nhiêu tiền ạ?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0171/public_0171_u2.wav",
+      "text": "Còn ví điện tử thì sao ạ?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0171/public_0171_u3.wav",
+      "text": "Bỏ bài Cốt Chất yêu vào đây nhé."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0171/public_0171_u4.wav",
+      "text": "Giờ này trợ lý thế nào ạ?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0171/public_0171_u5.wav",
+      "text": "Lần đây có quán cơm tấm nào không ạ?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0171/public_0171.wav",
+      "text": "Chiều nay em đi chơi công viên với nhóm bạn, gọi giúp em xe bảy chỗ đón ở công ty ra chỗ hẹn, sớm hơn hẹn hai lăm phút, rồi nhắc em mua nước với bánh nang theo trước khi lên xe đón. Mười lăm phút ạ."
+    }
+  ]
+}

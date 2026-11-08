@@ -1,0 +1,15 @@
+{
+  "id": "public_0248",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0248/public_0248_u1.wav",
+      "text": "Em ơi, cuối tuần này nhà chị có khách lên chơi nha, mà hình như cà phê hẹn trong tủ hết sạch rồi thì phải."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0248/public_0248.wav",
+      "text": "Ba hộp cho chắc em ạ."
+    }
+  ]
+}

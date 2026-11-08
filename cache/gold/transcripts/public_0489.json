@@ -1,0 +1,15 @@
+{
+  "id": "public_0489",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0489/public_0489_u1.wav",
+      "text": "Anh Bình nói chuyển tiền rồi, em coi tài khoản anh nhận chưa."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0489/public_0489.wav",
+      "text": "Em kiểm giúp anh với kịch mô hai vẹt với tròn số tiền ông gửi á, mà bữa đó anh không gạch lịch, đặt luôn hai vẹt nghe."
+    }
+  ]
+}

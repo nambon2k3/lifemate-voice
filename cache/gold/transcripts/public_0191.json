@@ -1,0 +1,15 @@
+{
+  "id": "public_0191",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0191/public_0191_u1.wav",
+      "text": "Tối thứ bảy, mùng ba tháng mười có chiếu phim gì hay không em, anh định lấy ba vé thường."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0191/public_0191.wav",
+      "text": "Ừ, lấy liên hoan xem ngắn đi."
+    }
+  ]
+}

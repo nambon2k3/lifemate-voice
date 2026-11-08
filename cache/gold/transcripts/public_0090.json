@@ -1,0 +1,40 @@
+{
+  "id": "public_0090",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0090/public_0090_u1.wav",
+      "text": "Số của Sếp Dũng là gì nhỉ?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0090/public_0090_u2.wav",
+      "text": "Làm tốt đấy, cảm ơn nhé."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0090/public_0090_u3.wav",
+      "text": "Thời tiết mai thế nào, bạn xem giúp tôi."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0090/public_0090_u4.wav",
+      "text": "Hôm nay một lít xăng 95 giá bao nhiêu?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0090/public_0090_u5.wav",
+      "text": "Trong tài khoản ngân hàng tôi còn bao nhiêu?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0090/public_0090_u6.wav",
+      "text": "Nhắc tôi gọi cho khách lúc năm giờ chiều mai nhé."
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0090/public_0090.wav",
+      "text": "Đèn nào đang để sáng hết cỡ thì hạ xuống còn năm mươi giúp tôi, trừ đèn phòng ngủ ra nhé."
+    }
+  ]
+}

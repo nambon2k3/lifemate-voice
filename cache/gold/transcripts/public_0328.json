@@ -1,0 +1,15 @@
+{
+  "id": "public_0328",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0328/public_0328_u1.wav",
+      "text": "Giữ cho tôi một chỗ ở bãi B12, ngoài ga Hà Nội nhé, trưa ngày mười chín này, từ mười một giờ cho đến ba giờ trưa."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0328/public_0328.wav",
+      "text": "À, rồi thêm vào lịch giúp tôi một cái hẹn tên là Nhọc nhằn vô chỗ bi mười hai, mười hai giờ trưa hôm đó luôn nha."
+    }
+  ]
+}

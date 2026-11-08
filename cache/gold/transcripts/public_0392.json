@@ -1,0 +1,15 @@
+{
+  "id": "public_0392",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0392/public_0392_u1.wav",
+      "text": "Tối mai nhà chị có sáu người, muốn ăn canh chua cá, tám giờ mới ăn nha, lát nữa chị nhờ em chuẩn bị."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0392/public_0392.wav",
+      "text": "Rồi, em kiếm công thức món đi, đặt mua đủ hàng nguyên liệu chính cho cả nhà, xong thêm cái lịch bắt đầu nấu trước giờ ăn một tiếng rưỡi nha em."
+    }
+  ]
+}

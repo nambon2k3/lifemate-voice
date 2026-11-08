@@ -1,0 +1,60 @@
+{
+  "id": "public_0681",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0681/public_0681_u1.wav",
+      "text": "Con kiếm số Anh Lộc giao hàng cho cô coi."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0681/public_0681_u2.wav",
+      "text": "Trưa rồi, đặt cô hai phần cơm tấm sườn bì chả nha con."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0681/public_0681_u3.wav",
+      "text": "Thêm một ly trà đào cam sả bên Nhà Mèo nữa."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0681/public_0681_u4.wav",
+      "text": "Tối nay cô nấu canh chua cá lóc, coi cần những gì con?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0681/public_0681_u5.wav",
+      "text": "Lưu cái công thức đó lại giùm cô."
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0681/public_0681_u6.wav",
+      "text": "Chiều nay ngoài trời sao rồi con?"
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0681/public_0681_u7.wav",
+      "text": "Mai có mưa hông?"
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0681/public_0681_u8.wav",
+      "text": "Còn thứ bảy thì sao?"
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0681/public_0681_u9.wav",
+      "text": "Ờ, mưa thì cô khỏi phơi đồ, lo dọn hàng vô trước."
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0681/public_0681_u10.wav",
+      "text": "Ừ, cảm ơn con nha."
+    },
+    {
+      "turn": 10,
+      "audio": "audio/public_0681/public_0681.wav",
+      "text": "Con gọi giùm cô chiếc xe máy từ tiệm qua Cobor Marketing, lấy mấy số voucher in cho tiệm nha."
+    }
+  ]
+}

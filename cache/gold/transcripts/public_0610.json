@@ -1,0 +1,20 @@
+{
+  "id": "public_0610",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0610/public_0610_u1.wav",
+      "text": "Em đặt cho anh ba vé xe khách đi Đà Nẵng thứ bảy ni, chuyến một giờ chiều nghe."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0610/public_0610_u2.wav",
+      "text": "Rứa thứ bảy tàu hỏa ra Đà Nẵng có mấy chuyến em?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0610/public_0610.wav",
+      "text": "Khách đổi qua đi tàu rồi, hủy vé xe đó, đặt tàu sáng nếu đủ chỗ cho cả ba người, không thì chuyến chiều nghe."
+    }
+  ]
+}

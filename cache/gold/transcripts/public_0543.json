@@ -1,0 +1,30 @@
+{
+  "id": "public_0543",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0543/public_0543_u1.wav",
+      "text": "Em coi giùm chị tí với mấy tài khoản ngân hàng còn bao nhiêu tiền nghe."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0543/public_0543_u2.wav",
+      "text": "Chuyển cho Sara hai triệu tiền booking khách sạn, ví thiếu thì lấy tài khoản nào nhiều tiền hơn."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0543/public_0543_u3.wav",
+      "text": "Tối thứ tư tuần sau ở Bạch Đằng, Đà Nẵng có chương trình chi không em?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0543/public_0543_u4.wav",
+      "text": "Để chị tính sau, chiều mai mấy giờ chị đi khám răng?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0543/public_0543.wav",
+      "text": "Sarah báo nhận tiền hai lần, em coi giao dịch gần đây của tài khoản rồi chuyển cho bà ấy giúp chị nghe."
+    }
+  ]
+}

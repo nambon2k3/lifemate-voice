@@ -1,0 +1,30 @@
+{
+  "id": "public_0514",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0514/public_0514_u1.wav",
+      "text": "Check giùm mình menu quán trà sữa Nhà Mèo coi."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0514/public_0514_u2.wav",
+      "text": "Bốu hai ly trà đào giao tới năm đô Center, cho anh Lê lỡ nha."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0514/public_0514_u3.wav",
+      "text": "Tối mai mình có lịch gì không ta?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0514/public_0514_u4.wav",
+      "text": "Ờ he, xích quên luôn, thôi được rồi."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0514/public_0514.wav",
+      "text": "Giao lưu anh Long giùm, trả đũa em đặt rồi. Nói luôn em gửi xe bảy nào để anh gửi chung."
+    }
+  ]
+}

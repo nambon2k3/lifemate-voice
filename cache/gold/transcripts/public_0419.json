@@ -1,0 +1,25 @@
+{
+  "id": "public_0419",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0419/public_0419_u1.wav",
+      "text": "Em xem hôm nay chị có nhắc việc gì không?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0419/public_0419_u2.wav",
+      "text": "Học xong từ trường về nhà đi xe máy mất bao lâu em nhỉ?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0419/public_0419_u3.wav",
+      "text": "Tối nay chị muốn nấu món gì có thịt, em tìm giúp chị."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0419/public_0419.wav",
+      "text": "Ờ thịt kho trứng em ạ, đọc các bước cho chị, rồi nếu món ấy nấu quá một tiếng thì nhắc chị ba rưỡi, à không, bốn giờ chiều bắt đầu nấu, không thì năm giờ."
+    }
+  ]
+}

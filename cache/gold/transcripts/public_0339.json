@@ -1,0 +1,20 @@
+{
+  "id": "public_0339",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0339/public_0339_u1.wav",
+      "text": "Chuyển mục hai vé nghe Đêm nhạc chinh, em xem còn những suất nào."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0339/public_0339_u2.wav",
+      "text": "Lấy suất tám giờ tối nha, hôm đó chị đi ô tô bốn chỗ từ nhà tới Vườn Bè, bảy giờ mười tối đó là vườn, vào cổng B cho vờn."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0339/public_0339.wav",
+      "text": "Đặt hai vé xổ số, xe như chị dặn, xong nhắn vào nhóm đi xem nhạc, là xe đón lúc bảy giờ mười, và cũng bơi nha."
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "id": "public_0682",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0682/public_0682_u1.wav",
+      "text": "Sáng nay chị có việc gì tới hạn không em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0682/public_0682_u2.wav",
+      "text": "Gọi cho mẹ giùm chị cái."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0682/public_0682_u3.wav",
+      "text": "À coi nhớ đi Đà Nẵng ngày ba mươi tháng này chuyến buổi sáng nha."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0682/public_0682_u4.wav",
+      "text": "Book chuyến chín giờ xe chích xanh một người thôi."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0682/public_0682_u5.wav",
+      "text": "Giờ đi xe từ nhà lên công ty hết nhiêu tiền em?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0682/public_0682_u6.wav",
+      "text": "Đặt xe bốn chỗ đi em."
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0682/public_0682_u7.wav",
+      "text": "Xe tới chưa vậy?"
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0682/public_0682_u8.wav",
+      "text": "Chiều sáu giờ đặt sẵn xe bốn chỗ từ công ty về nhà luôn nha."
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0682/public_0682_u9.wav",
+      "text": "Chuyến chiều nay đón ở đâu em?"
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0682/public_0682_u10.wav",
+      "text": "Mai bảy giờ sáng đặt xe máy từ nhà lên công ty luôn."
+    },
+    {
+      "turn": 10,
+      "audio": "audio/public_0682/public_0682_u11.wav",
+      "text": "Trưa rồi đói quá, ăn gì dở ta?"
+    },
+    {
+      "turn": 11,
+      "audio": "audio/public_0682/public_0682_u12.wav",
+      "text": "Ờ nghe được đó, cảm ơn em."
+    },
+    {
+      "turn": 12,
+      "audio": "audio/public_0682/public_0682.wav",
+      "text": "Mai cô Jean có hai cuốn sách trên đó, em đặt cuốn rẻ hơn vô bên công ty cho chị nha."
+    }
+  ]
+}

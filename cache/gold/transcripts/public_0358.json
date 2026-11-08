@@ -1,0 +1,20 @@
+{
+  "id": "public_0358",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0358/public_0358_u1.wav",
+      "text": "Ê, ạ, tối thứ bảy này có đêm nhạc mùa thu đúng không, xem giúp mình diễn ở đâu, vé bao nhiêu với?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0358/public_0358_u2.wav",
+      "text": "Từ nhà mình qua chỗ đấy bao xa nhỉ?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0358/public_0358.wav",
+      "text": "Ok đặt cho mình hai vé nha, còn bộ đi lại, nếu sao quá tám coi thì đặt luôn cái xe bốn chỗ, đón huynh ở nhà, lúc bảy giờ tối hôm đó, đùn hơn thì thôi, cuốn tơi cho xe."
+    }
+  ]
+}

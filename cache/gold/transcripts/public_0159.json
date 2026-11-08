@@ -1,0 +1,25 @@
+{
+  "id": "public_0159",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0159/public_0159_u1.wav",
+      "text": "Ngoài trời nắng không?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0159/public_0159_u2.wav",
+      "text": "Quanh đây có tiệm sửa xe nào?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0159/public_0159_u3.wav",
+      "text": "Số của mẹ là gì?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0159/public_0159.wav",
+      "text": "Nhắc tôi gọi cho mẹ tối nay."
+    }
+  ]
+}

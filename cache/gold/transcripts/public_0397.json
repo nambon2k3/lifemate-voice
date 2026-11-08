@@ -1,0 +1,15 @@
+{
+  "id": "public_0397",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0397/public_0397_u1.wav",
+      "text": "Đặt giùm anh chiếc xe bốn chỗ từ công ty về nhà lúc ba giờ chiều nha."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0397/public_0397.wav",
+      "text": "Ờ nhắn Zalo sếp Trân, à không, gửi mail đi, chiều nay anh xin về ba giờ, nhà có việc."
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "public_0586",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0586/public_0586_u1.wav",
+      "text": "Con coi giùm cô tháng này còn mấy cái hoá đơn chưa đóng nha."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0586/public_0586_u2.wav",
+      "text": "Cái nào dùng tới hạn trước thì đóng trước đi con, trừ tài khoản ngân hàng nha."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0586/public_0586_u3.wav",
+      "text": "Ờ, mai cuối tuần sau nhà ấy, Hà Bình có chương trình gì hông con?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0586/public_0586_u4.wav",
+      "text": "Nhà cô đi bốn mươi lận, chú Năm mua nhà, còn bé Na thì khoáy quay hài."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0586/public_0586_u5.wav",
+      "text": "Cái phim ngắn tối thứ ba đó còn nhiều vé hông con?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0586/public_0586.wav",
+      "text": "Đóng luôn tiền nước cho ngân hàng nha con, rồi đặt vé cho cả nhà đi coi show cuối tuần sau luôn."
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "public_0354",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0354/public_0354_u1.wav",
+      "text": "Tìm giúp tôi mấy cái gara sửa ô tô quanh nhà mình xem nào."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0354/public_0354.wav",
+      "text": "Ừ, thế gọi cho tá Gara thành công giúp tôi, rồi ghi vào lịch mười giờ sáng thứ sáu này tôi mang xe qua đá bảo dưỡng nhé."
+    }
+  ]
+}

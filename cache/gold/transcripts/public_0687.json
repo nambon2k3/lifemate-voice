@@ -1,0 +1,60 @@
+{
+  "id": "public_0687",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0687/public_0687_u1.wav",
+      "text": "Sáng ni chị có ghi chi trong sổ tay mà quên mất, đọc tiêu đề giùm chị với."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0687/public_0687_u2.wav",
+      "text": "Thêm vô ghi chú đi chợ cuối tuần một ký tôm sú nghe."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0687/public_0687_u3.wav",
+      "text": "À, chuyển cho Nguyễn Thị Lan năm trăm nghìn tiền góp quà, lấy tài khoản thanh toán."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0687/public_0687_u4.wav",
+      "text": "Chở rồi, đặt xe máy từ nhà lên công ty giùm chị."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0687/public_0687_u5.wav",
+      "text": "Trưa rồi hỉ, xem giờ coi gọi nhỡ chị không em."
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0687/public_0687_u6.wav",
+      "text": "Gọi lại cho Mr. Tanaka trước đi em."
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0687/public_0687_u7.wav",
+      "text": "Xong rồi, giờ gọi anh Kha."
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0687/public_0687_u8.wav",
+      "text": "Còn cái số lạ đó có trong danh bạ không em?"
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0687/public_0687_u9.wav",
+      "text": "Ừ, gọi lại số đó coi ai rứa."
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0687/public_0687_u10.wav",
+      "text": "Mở cho em cái ngày toàn invoice với email của khách."
+    },
+    {
+      "turn": 10,
+      "audio": "audio/public_0687/public_0687.wav",
+      "text": "Tối thứ ba tuần sau chị rảnh, em coi có sự kiện chi hay rồi đặt giùm chị hai vé nhé."
+    }
+  ]
+}

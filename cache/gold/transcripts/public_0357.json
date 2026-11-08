@@ -1,0 +1,20 @@
+{
+  "id": "public_0357",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0357/public_0357_u1.wav",
+      "text": "Con xếp hoa anh Tuấn tối mai bao nhiêu ấy? À anh chỉ inbox hoa thôi, giá dưới chín trăm nghìn thì mới mua, vé tay ưu tiên qua mười hai nhé."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0357/public_0357_u2.wav",
+      "text": "Tuấn giờ tối ra bắc Đảo đấy, mua được thì nhớ ghi lịch cho tôi."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0357/public_0357.wav",
+      "text": "Rồi, xem giờ vé khoa bao nhiêu, còn dưới mức tôi chốt thì lấy một vé, xăng thêm vào lịch tối hôm đó, thêm số ghế luôn."
+    }
+  ]
+}

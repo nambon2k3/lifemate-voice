@@ -1,0 +1,30 @@
+{
+  "id": "public_0542",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0542/public_0542_u1.wav",
+      "text": "Dịch giùm chị câu tôi bị dị ứng hải sản sang tiếng Anh nha."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0542/public_0542_u2.wav",
+      "text": "Ok, xăng RON95 hôm nay bao nhiêu em?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0542/public_0542_u3.wav",
+      "text": "Check giùm chị task nào high priority mà chưa xong."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0542/public_0542_u4.wav",
+      "text": "Rồi, ví còn bao nhiêu tiền vậy?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0542/public_0542.wav",
+      "text": "Workshop hoãn rồi, hủy vé máy bay ra Đà Nẵng giùm chị, rồi năm giờ chiều hôm trước ngày bay nhắc chị gọi khách nha."
+    }
+  ]
+}

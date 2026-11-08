@@ -1,0 +1,20 @@
+{
+  "id": "public_0020",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0020/public_0020_u1.wav",
+      "text": "Sáng mai anh đang đặt mấy cái báo thức thế?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0020/public_0020_u2.wav",
+      "text": "Bỏ cái mụn hơn đi giúp anh."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0020/public_0020.wav",
+      "text": "Còn cái kia, mai mà trời mưa thì cho ra sớm hơn hai mươi phút, trời khô ráo thì cứ để vậy."
+    }
+  ]
+}

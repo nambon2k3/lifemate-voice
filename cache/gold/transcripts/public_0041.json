@@ -1,0 +1,35 @@
+{
+  "id": "public_0041",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0041/public_0041_u1.wav",
+      "text": "Báo thức mấy giờ sáng mai nhé."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0041/public_0041_u2.wav",
+      "text": "Tài khoản của tôi còn bao nhiêu?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0041/public_0041_u3.wav",
+      "text": "Chở líp dạo này thông minh ra đấy."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0041/public_0041_u4.wav",
+      "text": "Số điện thoại của Hư là gì nhỉ?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0041/public_0041_u5.wav",
+      "text": "Còn với điện tử thì bao nhiêu?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0041/public_0041.wav",
+      "text": "Đèn phòng khách bật lên, nhưng để 50 phần trăm thôi nhé, quạt thì không cần bật, điều hoà phòng khách thì 26 độ."
+    }
+  ]
+}

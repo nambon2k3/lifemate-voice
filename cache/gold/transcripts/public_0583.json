@@ -1,0 +1,20 @@
+{
+  "id": "public_0583",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0583/public_0583_u1.wav",
+      "text": "Em mở cái email voucher dinner của Minh Phát đọc lên nghe với."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0583/public_0583_u2.wav",
+      "text": "Thế cho N2 tuổi 9, N350 giờ, xem đủ ba trăm nghìn chưa?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0583/public_0583.wav",
+      "text": "Đủ rồi thì chốt luôn anh, giao vé ra đúng giờ được appointment nhé."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "public_0463",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0463/public_0463_u1.wav",
+      "text": "Con ơi, ông xả cô mai nghe nhạc, dạo ni có buổi hòa nhạc mô không con?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0463/public_0463_u2.wav",
+      "text": "Cái xe khủng nớ, phí bao nhiêu một người rứa con?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0463/public_0463_u3.wav",
+      "text": "Trà matcha, còn chi khác rẻ hơn không con?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0463/public_0463_u4.wav",
+      "text": "Phim ngắn nớ chiếu ở mô con, có xa không?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0463/public_0463.wav",
+      "text": "Trung Phương kì còn nhà cô, đi bộ cũng tới. Bữa mô ở đó mà cô không vướng lịch thì con lấy hai vé nghe."
+    }
+  ]
+}

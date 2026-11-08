@@ -1,0 +1,25 @@
+{
+  "id": "public_0591",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0591/public_0591_u1.wav",
+      "text": "Em xem giúp chị hôm nay có ai chuyển khoản vào tài khoản không?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0591/public_0591_u2.wav",
+      "text": "Thế tháng này có những vở kịch nào đang bán vé hả em?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0591/public_0591_u3.wav",
+      "text": "Ơ, con ví điện tử của chị còn bao nhiêu tiền?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0591/public_0591.wav",
+      "text": "Em đặt vé Vườ Cát bình minh mua đủ cho chị với mấy người đã gửi tiền vé hôm nay nha."
+    }
+  ]
+}

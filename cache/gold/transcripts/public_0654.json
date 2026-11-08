@@ -1,0 +1,65 @@
+{
+  "id": "public_0654",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0654/public_0654_u1.wav",
+      "text": "Sáng sớm coi giùm anh danh mục cổ phiếu hôm qua chốt sao rồi em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0654/public_0654_u2.wav",
+      "text": "Đặt cảnh báo khi Private Holding xuống dưới ba mươi nghìn dùm anh."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0654/public_0654_u3.wav",
+      "text": "À, hôm nay anh có việc gì tới hạn không em?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0654/public_0654_u4.wav",
+      "text": "Thêm việc gửi báo giá cho khách Bình Dương, hạn năm giờ chiều nay nha."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0654/public_0654_u5.wav",
+      "text": "Số của Minh đồng nghiệp là số nào em?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0654/public_0654_u6.wav",
+      "text": "Minh đổi số rồi, sửa thành không chín tám tám, một hai ba, bốn năm sáu bảy giùm anh."
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0654/public_0654_u7.wav",
+      "text": "Còn số bác Ba hàng xóm?"
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0654/public_0654_u8.wav",
+      "text": "Ví có trong danh bạ chưa em, số nào?"
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0654/public_0654_u9.wav",
+      "text": "Cho anh xin luôn số Sếp Trân."
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0654/public_0654_u10.wav",
+      "text": "Sáng nay Sài Gòn mát ghê ha em."
+    },
+    {
+      "turn": 10,
+      "audio": "audio/public_0654/public_0654_u11.wav",
+      "text": "Ừ, cảm ơn em nha."
+    },
+    {
+      "turn": 11,
+      "audio": "audio/public_0654/public_0654.wav",
+      "text": "Em coi đặt cảnh báo Private Holding xuống dưới ba mươi nghìn cho anh chưa, chưa thì đặt luôn nha."
+    }
+  ]
+}

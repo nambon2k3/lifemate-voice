@@ -1,0 +1,25 @@
+{
+  "id": "public_0644",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0644/public_0644_u1.wav",
+      "text": "Em đọc giùm anh mấy tin nhắn mới sáng đi."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0644/public_0644_u2.wav",
+      "text": "Nhắn lại Noah with fail, đặt cảm ơn nghe, để anh coi."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0644/public_0644_u3.wav",
+      "text": "Danh mục ăn dời đâu, giữ mã chi rồi em?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0644/public_0644.wav",
+      "text": "Còn hai mã Noah Whitfield, giữ trong tin nhắn, hôm ni mã mô tăng mạnh hơn em."
+    }
+  ]
+}

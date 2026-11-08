@@ -1,0 +1,20 @@
+{
+  "id": "public_0435",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0435/public_0435_u1.wav",
+      "text": "Em coi giùm anh tối nay có mail nào mới không?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0435/public_0435_u2.wav",
+      "text": "Ờ, nhắc anh Hoàng tám giờ sáng mai đem ví qua khách sạn Hoàng Kim nha."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0435/public_0435.wav",
+      "text": "Trả lời mail giùm anh, dịch tiếng Anh, tám giờ sáng mai tôi đem ví qua khách sạn trả."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "public_0219",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0219/public_0219_u1.wav",
+      "text": "Đơn bộ cấp sự trắng của em giao tới chưa?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0219/public_0219_u2.wav",
+      "text": "Giao robot mở ra toàn cốc màu xanh, không phải cốc trắng, trả lại được không ạ?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0219/public_0219.wav",
+      "text": "Dạ có, anh làm giúp em, cứ ghi lại do là giao nhầm hàng nha."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "public_0085",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0085/public_0085_u1.wav",
+      "text": "Vàng SJC hôm nay bán ra bao nhiêu một lượng?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0085/public_0085_u2.wav",
+      "text": "Bật tivi kênh VTV6 giúp tôi."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0085/public_0085.wav",
+      "text": "Tiền truyền hình tháng này lấy ví điện tử trả trước, ví thiếu thì bù bằng ngân hàng nhé, trả xong nhắn SMS cho bố là con đóng tiền truyền hình rồi."
+    }
+  ]
+}

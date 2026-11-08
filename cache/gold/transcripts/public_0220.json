@@ -1,0 +1,20 @@
+{
+  "id": "public_0220",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0220/public_0220_u1.wav",
+      "text": "Cuối tuần này có hội trợ đồ thủ công nào không em, còn vé không?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0220/public_0220_u2.wav",
+      "text": "Ok, hỗ trợ đó được, bọn chị đi ban người."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0220/public_0220.wav",
+      "text": "Ừ đúng rồi, em lấy vé cho tụi chị luôn đi."
+    }
+  ]
+}

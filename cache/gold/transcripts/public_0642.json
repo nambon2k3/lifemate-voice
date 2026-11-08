@@ -1,0 +1,20 @@
+{
+  "id": "public_0642",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0642/public_0642_u1.wav",
+      "text": "Con coi giùm cô máy tài khoản Ra Gio gần đây trong tài khoản nha."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0642/public_0642_u2.wav",
+      "text": "Mũi mười bảy là cái anh chạy xe cô đi đổ đó, còn mấy lần hôm qua là cô đổ."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0642/public_0642.wav",
+      "text": "Con coi giùm cô lại xăng hôm qua cô đổ ở tiệm Dầu Rồng giá bao nhiêu một lít chứ con?"
+    }
+  ]
+}

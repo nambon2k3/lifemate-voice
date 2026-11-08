@@ -13,6 +13,7 @@ import mimetypes
 from pathlib import Path
 
 import requests
+import json
 
 from env import env_value
 
@@ -323,37 +324,66 @@ def call_asr(audio_path: Path, settings: dict) -> str:
 
 
 def transcribe(sample: dict, wav_path: str, settings: dict) -> str:
-    """Return the transcript for one wav.
+    """Return transcript from JSON ASR cache, legacy cache, or ASR server."""
 
-    On train, returns ``audio_text`` when ``use_gold_transcript`` is set and
-    ``wav_path`` is the latest request. That path does not read or write the
-    ASR cache. Otherwise tries the on-disk cache, then the ASR server. The
-    gold sentence, when the sample has one, is stored on the second cache line.
-
-    Input:
-        sample (dict): one JSONL row. Uses ``id``, ``audio``, and maybe ``audio_text``.
-        wav_path (str): wav to transcribe, relative to the split directory.
-        settings (dict): must include ``cache_dir`` (str). ``use_gold_transcript``
-        (bool), ``asr_url`` (str), and ``asr_language`` (str) are optional.
-
-    Output:
-        str: the transcript.
-    """
     cache_dir = Path(settings["cache_dir"])
-    path = cache_path(cache_dir, sample["id"], wav_path)
     gold = sample.get("audio_text")
     gold = gold if isinstance(gold, str) else None
-    if settings.get("use_gold_transcript") and wav_path == sample.get("audio") and gold is not None:
-        return gold
-    cached = read_cache(path)
-    if cached is not None:
-        if gold and path.is_file() and len(path.read_text(encoding="utf-8").splitlines()) < 2:
-            write_cache(path, cached, gold)
-        return cached
 
+    # Training: use gold transcript for the original audio.
+    if (
+        settings.get("use_gold_transcript")
+        and wav_path == sample.get("audio")
+        and gold is not None
+    ):
+        return gold
+
+    if not settings.get("disable_cache", False):
+
+        # 1. Read ASR JSON cache:
+        # cache/gold/transcripts/<sample_id>.json
+        json_cache = cache_dir / f"{sample['id']}.json"
+
+        if json_cache.is_file():
+            with json_cache.open("r", encoding="utf-8") as f:
+                data = json.load(f)
+
+            target_audio = Path(wav_path).as_posix()
+
+            for turn in data.get("turns", []):
+                cached_audio = Path(turn.get("audio", "")).as_posix()
+
+                if cached_audio == target_audio:
+                    text = turn.get("text")
+
+                    if isinstance(text, str):
+                        return text
+
+        # 2. Fallback to legacy per-audio cache.
+        path = cache_path(cache_dir, sample["id"], wav_path)
+        cached = read_cache(path)
+
+        if cached is not None:
+            if gold and path.is_file() and len(
+                path.read_text(encoding="utf-8").splitlines()
+            ) < 2:
+                write_cache(path, cached, gold)
+
+            return cached
+
+    # 3. Cache miss: call ASR server.
     audio_path = audio_file(wav_path, settings)
+
     if not audio_path.is_file():
-        raise FileNotFoundError(f"missing wav for {sample['id']}: {audio_path}")
+        raise FileNotFoundError(
+            f"missing wav for {sample['id']}: {audio_path}"
+        )
+
     text = call_asr(audio_path, settings)
-    write_cache(path, text, gold)
+
+    # 4. Save to legacy cache.
+    if not settings.get("disable_cache", False):
+        path = cache_path(cache_dir, sample["id"], wav_path)
+        write_cache(path, text, gold)
+
     return text

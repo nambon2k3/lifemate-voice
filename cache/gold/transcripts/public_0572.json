@@ -1,0 +1,20 @@
+{
+  "id": "public_0572",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0572/public_0572_u1.wav",
+      "text": "Ngày hai mươi ba có chuyến mô từ Huế ra Hà Nội không em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0572/public_0572_u2.wav",
+      "text": "Trưa đặt cả hai chuyến Jetstar, mỗi chuyến một vé, tôi với Lucas đi lịch giờ, ai chuyến mô tính sau."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0572/public_0572.wav",
+      "text": "Lucas ở lại thêm hai đêm rồi, huỷ giùm tôi vé của Lucas, với bật đèn phòng khách luôn hỉ."
+    }
+  ]
+}

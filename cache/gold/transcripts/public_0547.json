@@ -1,0 +1,20 @@
+{
+  "id": "public_0547",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0547/public_0547_u1.wav",
+      "text": "Em ơi, hai cô giáo của lớp 5A có gửi thư báo giờ học tuần sau không?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0547/public_0547_u2.wav",
+      "text": "Tháng Tư nhà tôi rớt 50 triệu thì đi xe buýt tuyến nào, vé bao nhiêu?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0547/public_0547.wav",
+      "text": "Nạp thẻ cho tôi đủ tiền để chuyến không chín cả đi lẫn về, cho mấy buổi học của cô Anna Smith tuần sau nhé."
+    }
+  ]
+}

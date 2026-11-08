@@ -1,0 +1,30 @@
+{
+  "id": "public_0065",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0065/public_0065_u1.wav",
+      "text": "Chào buổi sáng nhé, hôm nay có gì mới không?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0065/public_0065_u2.wav",
+      "text": "Ngày mai tôi có hẹn gì trong lịch không?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0065/public_0065_u3.wav",
+      "text": "Bật cho tôi bài Chúng ta của hiện tại."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0065/public_0065_u4.wav",
+      "text": "Bật đèn ngủ nhỏ lên."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0065/public_0065.wav",
+      "text": "Lấy ví điện tử nạp 200 nghìn tiền điện thoại cho Lan, rồi gửi bố đúng bằng tiền mạng internet tháng này nhé."
+    }
+  ]
+}

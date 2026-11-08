@@ -1,0 +1,25 @@
+{
+  "id": "public_0126",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0126/public_0126_u1.wav",
+      "text": "Xăng RON95 giờ nhiêu một lít rồi?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0126/public_0126_u2.wav",
+      "text": "Hôm nay có tiền trả sữa nào không?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0126/public_0126_u3.wav",
+      "text": "Giá vàng SJC bữa nay ra sao?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0126/public_0126.wav",
+      "text": "Mai mà mưa thì bỏ lịch họp team, nhắn SMS cho Tuấn biết, còn trời không mưa thì gọi ô tô bốn chỗ từ nhà ra chỗ hẹn, đón sớm nửa tiếng."
+    }
+  ]
+}

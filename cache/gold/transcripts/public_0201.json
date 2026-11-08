@@ -1,0 +1,20 @@
+{
+  "id": "public_0201",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0201/public_0201_u1.wav",
+      "text": "Đọc anh nghe tin nhắn mới giùm nhóm thiết kế với."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0201/public_0201_u2.wav",
+      "text": "Trả hạn cho Lô rồi em."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0201/public_0201.wav",
+      "text": "Ừ, vậy em tạo cho anh một việc nộp bản thiết kế, hạn đúng như nhóm đã chốt nhé."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "public_0627",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0627/public_0627_u1.wav",
+      "text": "Em ơi, xem giúp chị các khoản đã chuyển gần đây ở tài khoản thanh toán nhé."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0627/public_0627_u2.wav",
+      "text": "Ơ, coi tháng này chị chưa kiếm tiền xăng cho trống anh nào?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0627/public_0627.wav",
+      "text": "Nước xanh Ron 95 trên 21 nghìn rưỡi thì chuyển cháu Minh 700 nghìn tiền xanh, không thì 600 thôi."
+    }
+  ]
+}

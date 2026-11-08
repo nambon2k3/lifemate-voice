@@ -1,0 +1,35 @@
+{
+  "id": "public_0052",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0052/public_0052_u1.wav",
+      "text": "Hôm nay xăng RON95 bao nhiêu tiền?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0052/public_0052_u2.wav",
+      "text": "Bật đèn bếp giúp tôi."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0052/public_0052_u3.wav",
+      "text": "Nhắc tôi gọi khách lúc tám giờ sáng mai."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0052/public_0052_u4.wav",
+      "text": "Chuyển tivi sang kênh VTV6 đi."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0052/public_0052_u5.wav",
+      "text": "Chào buổi sáng, trả lời xong chưa?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0052/public_0052.wav",
+      "text": "Tối hôm trước ngày ba của tôi, đặt lịch báo thức lúc chín giờ để tôi dọn đồ nhé."
+    }
+  ]
+}

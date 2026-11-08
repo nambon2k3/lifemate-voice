@@ -1,0 +1,40 @@
+{
+  "id": "public_0158",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0158/public_0158_u1.wav",
+      "text": "Đặt báo thức sáu giờ sáng mai nha."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0158/public_0158_u2.wav",
+      "text": "Trợ lý làm việc hay quá."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0158/public_0158_u3.wav",
+      "text": "Tám giờ sáng mai nhắc tôi ghi mô sửa nha."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0158/public_0158_u4.wav",
+      "text": "Bật điều hoà phòng ngủ, hai mươi lăm độ."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0158/public_0158_u5.wav",
+      "text": "Cho tôi số điện thoại của mẹ."
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0158/public_0158_u6.wav",
+      "text": "Cảm ơn nha."
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0158/public_0158.wav",
+      "text": "Gái bấm gọi luôn số vừa đọc giúp tôi nha."
+    }
+  ]
+}

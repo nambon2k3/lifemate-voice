@@ -1,0 +1,20 @@
+{
+  "id": "public_0320",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0320/public_0320_u1.wav",
+      "text": "Chiều nay anh phải ra ga Hà Nội đón bà, em xem quanh ga còn chỗ nào đỗ ô tô không?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0320/public_0320_u2.wav",
+      "text": "Ba đi đại hơi khó, anh lấy khu B12 cho gần lối đi nhé."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0320/public_0320.wav",
+      "text": "Ờ, giữ chỗ đó cho anh từ hai giờ chiều nay nhé, nhắc tầm ba tiếng là đủ."
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "public_0177",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0177/public_0177_u1.wav",
+      "text": "Ơ, chị Mai bên phòng tài chính dùng email nào ấy nhỉ, em tra hộ chị với."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0177/public_0177.wav",
+      "text": "Ừ, thế chọn nháp cho chị một cái email gửi chị ấy, báo là chị sẽ gửi số liệu trước năm giờ chiều nay nhé, cứ để nháp đấy, chị xem like rồi tự gửi."
+    }
+  ]
+}

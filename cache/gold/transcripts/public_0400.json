@@ -1,0 +1,15 @@
+{
+  "id": "public_0400",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0400/public_0400_u1.wav",
+      "text": "Con mở tivi kênh VTV1 cho cô coi tin tức."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0400/public_0400.wav",
+      "text": "Tính nói sáng nay lên, coi rót chín mươi lăm, chưa bao nhiêu, nhắn con Thảo mà thôi, nhắn cho ông Sáu đi."
+    }
+  ]
+}

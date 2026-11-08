@@ -1,0 +1,20 @@
+{
+  "id": "public_0218",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0218/public_0218_u1.wav",
+      "text": "Em ơi, tiền nước tháng chín nhà chị đóng chưa nhỉ?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0218/public_0218_u2.wav",
+      "text": "Thôi chị bỏ sẵn luôn trong hôm nay."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0218/public_0218.wav",
+      "text": "Ừ, trả luôn đi em, trừ thẳng vào ví điện tử của chị nhé."
+    }
+  ]
+}

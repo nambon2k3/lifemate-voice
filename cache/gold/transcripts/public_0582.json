@@ -1,0 +1,20 @@
+{
+  "id": "public_0582",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0582/public_0582_u1.wav",
+      "text": "Tìm mấy món lẩu cho tối nay coi, nhà có khách."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0582/public_0582_u2.wav",
+      "text": "Khách là Owen Roberts bên Team, ổng ăn chay, món chay đó cần mua gì?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0582/public_0582.wav",
+      "text": "Ừ, nấu lẩu nấm chay đã quên rạp play, em lưu món đó lại rồi nhắc anh bốn giờ chiều đi mua nấm nha."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "public_0560",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0560/public_0560_u1.wav",
+      "text": "Em ơi, từ nhà ra bến xe trung tâm đi Bến Tuyển Mô, vé bao nhiêu?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0560/public_0560_u2.wav",
+      "text": "Rứa từ Bến Sái đi tiếp xuống Hội An thì đi tuyến chi anh?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0560/public_0560.wav",
+      "text": "Em nạp thẻ cho anh đúng bằng tiền vé tiếng rùa mười sáu tiếng rùa một, mười sáu giờ sáu mai, nhắc anh ra trả nghe."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "public_0464",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0464/public_0464_u1.wav",
+      "text": "Chiều nay ngoài trời sao, có mưa hông?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0464/public_0464_u2.wav",
+      "text": "Em quên trả tiền bữa mùng một rồi."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0464/public_0464.wav",
+      "text": "Chúc thăm Huế đi, năm giờ chiều nay gặp ở Thanh Niên Lê Lợi nha, có tiếng lịch nó sao nhỉ, à khoan, khách gửi hàng tiếng hẹn đi."
+    }
+  ]
+}

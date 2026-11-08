@@ -1,0 +1,35 @@
+{
+  "id": "public_0082",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0082/public_0082_u1.wav",
+      "text": "Nhắc mình mua sữa lúc 9 giờ sáng mai nha."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0082/public_0082_u2.wav",
+      "text": "Mở tivi kênh SCTV9 đi."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0082/public_0082_u3.wav",
+      "text": "Mai trời có mưa thì không nhỉ?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0082/public_0082_u4.wav",
+      "text": "Bật đèn phòng ngủ nhỏ giúp mình."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0082/public_0082_u5.wav",
+      "text": "Gần đây có quán cơm tấm nào ngon không?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0082/public_0082.wav",
+      "text": "Lịch cà phê với Minh ngày kia lùi 15 phút giúp mình, báo thức thì đặt trước đó hai tiếng, rồi nhắn SMS cho Minh giờ mới luôn."
+    }
+  ]
+}

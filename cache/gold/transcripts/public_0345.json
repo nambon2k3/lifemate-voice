@@ -1,0 +1,20 @@
+{
+  "id": "public_0345",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0345/public_0345_u1.wav",
+      "text": "Thứ bảy này chị có lịch gì không em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0345/public_0345_u2.wav",
+      "text": "Ờ, bữa gặp Bồ đó ở đâu ấy nhỉ?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0345/public_0345.wav",
+      "text": "Em mở tin nhắn của cô Hà xem tin mới nhất nói gì, nếu cô báo hủy buổi học rồi thì xoá cái lịch đó đi cho chị nhé."
+    }
+  ]
+}

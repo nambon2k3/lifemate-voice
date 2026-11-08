@@ -1,0 +1,15 @@
+{
+  "id": "public_0481",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0481/public_0481_u1.wav",
+      "text": "Tắt hết đèn trong phòng giúp anh, mà anh dặn luôn sớm."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0481/public_0481.wav",
+      "text": "Rứa con, coi chị Nga coi thư kho chứ, chưa thì kho luôn giùm anh nha."
+    }
+  ]
+}

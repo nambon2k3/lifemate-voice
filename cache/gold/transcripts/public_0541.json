@@ -1,0 +1,35 @@
+{
+  "id": "public_0541",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0541/public_0541_u1.wav",
+      "text": "Giá vàng SJC hôm nay thế nào anh em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0541/public_0541_u2.wav",
+      "text": "Đặt cho anh cái báo thức sáu giờ sáng mai nhé."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0541/public_0541_u3.wav",
+      "text": "Tiền điện tháng này hết bao nhiêu em?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0541/public_0541_u4.wav",
+      "text": "Ừ, trả luôn qua ngân hàng đi."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0541/public_0541_u5.wav",
+      "text": "Nhắn Lan là tiền điện anh trả rồi nhé."
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0541/public_0541.wav",
+      "text": "Còn học phí của bóng không phải lớp Bê râu, lớp của Mr. Batteau đấy, đã có khoá tranh chưa, bao nhiêu hả em?"
+    }
+  ]
+}

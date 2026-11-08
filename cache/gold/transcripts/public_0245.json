@@ -1,0 +1,15 @@
+{
+  "id": "public_0245",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0245/public_0245_u1.wav",
+      "text": "Này, tối nay tôi với hai đứa nhỏ về quê ở Vinh, cần ba vé tàu, xem giúp tôi còn chuyến nào không."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0245/public_0245.wav",
+      "text": "Lấy tàu N-A3 cho tôi, đi sớm một tí còn về đến nhà kịp ngủ."
+    }
+  ]
+}

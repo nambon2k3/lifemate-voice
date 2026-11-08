@@ -1,0 +1,15 @@
+{
+  "id": "public_0493",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0493/public_0493_u1.wav",
+      "text": "Trợ lý ơi, trong bếp tớ còn mấy quả trứng thế?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0493/public_0493.wav",
+      "text": "À thế loại headset ấy hôm qua tớ mua rồi mà quên gạch, đánh dấu trong danh sách đi chợ đi."
+    }
+  ]
+}

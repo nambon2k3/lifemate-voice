@@ -1,0 +1,20 @@
+{
+  "id": "public_0592",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0592/public_0592_u1.wav",
+      "text": "Con ơi coi giùm cô sáng ni có hoá đơn mua sắp tới hạn không rứa?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0592/public_0592_u2.wav",
+      "text": "Rứa con trả luôn cái tiền điện thoại bằng ví cho cô hỉ."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0592/public_0592.wav",
+      "text": "À, hôm qua con Thảo khoai món brownie ngon lắm, con lưu cái công thức brownie nớ vô cho cô với."
+    }
+  ]
+}

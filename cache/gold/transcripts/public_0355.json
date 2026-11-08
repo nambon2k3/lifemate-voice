@@ -1,0 +1,15 @@
+{
+  "id": "public_0355",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0355/public_0355_u1.wav",
+      "text": "Mấy đơn hàng anh mua tuần trước về hết chưa em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0355/public_0355.wav",
+      "text": "Đèo cái SMS anh ấy, shop rứa nhầm, anh đặt một tráng cơ, em làm yêu cầu trả tiền giúp anh, rồi thêm vào việc cần làm là năm giờ chiều thứ ba tuần sau, vậy gửi trả xong nhé."
+    }
+  ]
+}

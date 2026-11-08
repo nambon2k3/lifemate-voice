@@ -1,0 +1,30 @@
+{
+  "id": "public_0103",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0103/public_0103_u1.wav",
+      "text": "Ví điện tử của tôi còn bao nhiêu đây?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0103/public_0103_u2.wav",
+      "text": "Nhắc tôi nạp tiền điện tám giờ sáng mai ấy."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0103/public_0103_u3.wav",
+      "text": "Nghe nói vàng tăng, SJC nay bao nhiêu?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0103/public_0103_u4.wav",
+      "text": "Báo thức sáu giờ rưỡi sáng mai hộ tôi."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0103/public_0103.wav",
+      "text": "Tôi xem phim, đèn phòng khách để 15% cho tối tối là được, quạt khỏi bật, điều hoà phòng khách bật 27 độ nha."
+    }
+  ]
+}

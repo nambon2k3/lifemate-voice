@@ -1,0 +1,35 @@
+{
+  "id": "public_0069",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0069/public_0069_u1.wav",
+      "text": "Khá lắm, làm tốt lắm ấy nhá."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0069/public_0069_u2.wav",
+      "text": "Mai sáng như tối nhắc tôi mua sữa nha."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0069/public_0069_u3.wav",
+      "text": "Mở giúp tôi bài Bước qua nhau nhé."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0069/public_0069_u4.wav",
+      "text": "Ngoài đường giờ nắng mưa thế nào nhỉ?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0069/public_0069_u5.wav",
+      "text": "Ngày mai tôi có lịch gì không nhỉ?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0069/public_0069.wav",
+      "text": "Trưa nắng nóng quá, bật hết quạt trong nhà lên số 6 cho tôi, phòng nào điều hoà đang chạy rồi thì thôi nhé."
+    }
+  ]
+}

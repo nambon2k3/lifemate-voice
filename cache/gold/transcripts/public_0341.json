@@ -1,0 +1,20 @@
+{
+  "id": "public_0341",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0341/public_0341_u1.wav",
+      "text": "Em xem giúp anh đèn phòng khách đang bật hay tắt thế?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0341/public_0341_u2.wav",
+      "text": "Ừ, anh chỉ hỏi cho chắc thôi, em đừng bật lên nhé."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0341/public_0341.wav",
+      "text": "Được rồi, cứ điện nguyên như thế, coi còn làm gì thêm luôn em."
+    }
+  ]
+}

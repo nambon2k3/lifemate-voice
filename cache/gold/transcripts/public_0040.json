@@ -1,0 +1,25 @@
+{
+  "id": "public_0040",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0040/public_0040_u1.wav",
+      "text": "Bật điều hoà phòng khách hai sáu độ đi."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0040/public_0040_u2.wav",
+      "text": "Giá vàng SJC lên xuống thế nào rồi?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0040/public_0040_u3.wav",
+      "text": "Dạo này ổn không, huống chi anh dặn trước."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0040/public_0040.wav",
+      "text": "Lấy tài khoản thanh toán chuyển cho Nguyễn Thị Lan đúng số tiền điện tháng này, chủ nhà Phạm Hùng đúng tiền mạng, mà không đủ cả hai thì lấy tiết kiệm cho cả hai."
+    }
+  ]
+}

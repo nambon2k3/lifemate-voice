@@ -1,0 +1,15 @@
+{
+  "id": "public_0555",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0555/public_0555_u1.wav",
+      "text": "Đặt hai vé tàu sáng thứ sáu đi Đà Nẵng cho vợ chồng chị, mẹ chồng đi xe tối."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0555/public_0555.wav",
+      "text": "Boss bắt chị ở lại làm từ sáu giờ em, ví dụ chị mua vé tàu xe, em vừa đặt nha."
+    }
+  ]
+}

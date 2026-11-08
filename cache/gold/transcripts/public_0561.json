@@ -1,0 +1,15 @@
+{
+  "id": "public_0561",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0561/public_0561_u1.wav",
+      "text": "Mấy đơn đồ ăn mình đặt trên công ty cho buổi họp với Protest Software xong rồi em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0561/public_0561.wav",
+      "text": "Bên Vortex Sockwear giờ họp qua mai rồi, em hủy bỏ một trong hai đơn đó đi, đơn kia để mọi người ăn tối."
+    }
+  ]
+}

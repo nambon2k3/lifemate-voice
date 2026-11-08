@@ -1,0 +1,15 @@
+{
+  "id": "public_0633",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0633/public_0633_u1.wav",
+      "text": "Em coi cái list đồ còn mua, còn mấy món chưa đặt vậy?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0633/public_0633.wav",
+      "text": "Mấy món chưa đặt đó em thêm vô giỏ mua đồ đúng số lượng giùm anh, trừ cái ấm ra nha."
+    }
+  ]
+}

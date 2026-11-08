@@ -1,0 +1,25 @@
+{
+  "id": "public_0530",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0530/public_0530_u1.wav",
+      "text": "Em ơi, tụi bé nhà chị còn mấy qua tháng?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0530/public_0530_u2.wav",
+      "text": "Tài khoản thanh toán của chị còn bao nhiêu?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0530/public_0530_u3.wav",
+      "text": "Còn khách để hôm nay thế nào em?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0530/public_0530.wav",
+      "text": "Tìm cái gì đủ mua mã đá với ZK N, mỗi mã hơi trong cổ, giá thấp hơn giá hiện tại một nghìn."
+    }
+  ]
+}

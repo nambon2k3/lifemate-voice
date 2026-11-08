@@ -1,0 +1,20 @@
+{
+  "id": "public_0396",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0396/public_0396_u1.wav",
+      "text": "Mai cô lên chợ Bến Thành, gần đó có bảy xe hơi nào không?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0396/public_0396_u2.wav",
+      "text": "À, anh đọc em cô, hỏi coi mấy giờ hàng về."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0396/public_0396.wav",
+      "text": "Dậy nè, mai mà mưa thì cô lái xe hơi, đặt cho cô chỗ cái bãi đó từ tám giờ sáng, à không, chín giờ đi, còn không mưa thì cô chạy xe máy, khỏi đặt."
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "public_0496",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0496/public_0496_u1.wav",
+      "text": "Máy ga tôi hư rồi, quanh đây có ai sửa máy ga không?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0496/public_0496.wav",
+      "text": "Hai tiệm đó, tiệm nào gần võ tôi hơn thì lưu tiệm đó nha, đặt tên chỗ sửa máy ghe."
+    }
+  ]
+}

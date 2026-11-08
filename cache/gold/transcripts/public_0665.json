@@ -1,0 +1,55 @@
+{
+  "id": "public_0665",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0665/public_0665_u1.wav",
+      "text": "Sáng nay đặt cho cô xe máy từ tiệm ra chợ Bình Hưng nha con."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0665/public_0665_u2.wav",
+      "text": "Trưa rồi, bà nhẫn hôm nay bao nhiêu con?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0665/public_0665_u3.wav",
+      "text": "Chiều rồi, đọc tin nhắn mới cho cô nghe coi."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0665/public_0665_u4.wav",
+      "text": "Nhắn anh Lộc là mai giao thêm năm thùng mì gói nha."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0665/public_0665_u5.wav",
+      "text": "Nhắn chú Năm đi đám giỗ về sớm, đừng uống nhiều."
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0665/public_0665_u6.wav",
+      "text": "Còn bé Na thì nhắn sáng mai mẹ đưa tiền cho."
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0665/public_0665_u7.wav",
+      "text": "Tên anh Lập nói mấy giờ giao hàng con?"
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0665/public_0665_u8.wav",
+      "text": "Nhắn số không chín không ba một hai ba bốn năm sáu bảy, tiệm cô còn ga, chiều mai giao được."
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0665/public_0665_u9.wav",
+      "text": "Trời ơi, hôm nay bát mật quá con, chân mỏi như."
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0665/public_0665.wav",
+      "text": "Cổ phiếu Sunrise Retail của cô giờ bao nhiêu con? Lên thêm năm nghìn hay xuống năm nghìn thì báo cô nha."
+    }
+  ]
+}

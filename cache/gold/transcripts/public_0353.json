@@ -1,0 +1,15 @@
+{
+  "id": "public_0353",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0353/public_0353_u1.wav",
+      "text": "Xem giúp tôi mấy hôm tới ở Nhà hát có buổi diễn nào hay không."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0353/public_0353.wav",
+      "text": "Thế lấy cho tôi hai vé cái vở nhạc kịch mùa thu ấy, xong ghi vào lịch đúng giờ diễn, nhớ ghi cả tên bài hát cho dễ nhớ nhé."
+    }
+  ]
+}

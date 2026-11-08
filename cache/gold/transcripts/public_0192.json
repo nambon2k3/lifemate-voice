@@ -1,0 +1,15 @@
+{
+  "id": "public_0192",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0192/public_0192_u1.wav",
+      "text": "Tôi đang tính chuyến tàu S76 giờ mười hai thứ hai vào Vinpearl Resort, tôi chỉ cần một vé thôi."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0192/public_0192.wav",
+      "text": "Ừ, đúng tiền đấy, đặt cho tôi một vé nha."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "public_0203",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0203/public_0203_u1.wav",
+      "text": "Nhà mình sắp hết gạo thừa rồi, xem trên shop online có loại nào ủng hộ."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0203/public_0203_u2.wav",
+      "text": "Ờ, lấy loài tui hái kĩ đi."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0203/public_0203.wav",
+      "text": "Hai túi nha, đặt luôn giúp mình."
+    }
+  ]
+}

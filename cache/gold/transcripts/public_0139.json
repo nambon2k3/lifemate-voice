@@ -1,0 +1,20 @@
+{
+  "id": "public_0139",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0139/public_0139_u1.wav",
+      "text": "Xăng 95 hôm nay bao nhiêu?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0139/public_0139_u2.wav",
+      "text": "Nhắc tôi nộp tiền điện năm giờ chiều mai nhé."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0139/public_0139.wav",
+      "text": "Mai mà mưa thì hủy buổi gặp với khách hàng rồi nhắn SMS cho Sếp Dũng, còn trời không mưa thì đặt xe bảy chỗ từ nhà tới chỗ hẹn, đón trước bốn lăm phút."
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "public_0432",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0432/public_0432_u1.wav",
+      "text": "Em ơi, chuỗi ngủ trước mười một giờ của chị được mấy ngày rồi?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0432/public_0432.wav",
+      "text": "Tối qua chị ngủ sớm mà quên tích, em ghi bù nhé. Nói được chủ ý thì nhắn qua anh Thành mấy hôm liền rồi, à thôi, qua thằng Minh."
+    }
+  ]
+}

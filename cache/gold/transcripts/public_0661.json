@@ -1,0 +1,55 @@
+{
+  "id": "public_0661",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0661/public_0661_u1.wav",
+      "text": "Mai anh đi Hải Phòng sớm, đặt báo thức năm rưỡi sáng mai nhé."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0661/public_0661_u2.wav",
+      "text": "Thêm cái năm giờ bốn lăm nữa, sợ ngủ quên."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0661/public_0661_u3.wav",
+      "text": "Sáng mai có xe nào đi Hải Phòng sớm không em?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0661/public_0661_u4.wav",
+      "text": "Lấy một vé xe Hoàng Văn sáu giờ."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0661/public_0661_u5.wav",
+      "text": "Ờ có mail nào chưa đọc không?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0661/public_0661_u6.wav",
+      "text": "Đọc cái thư nhân sự xem."
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0661/public_0661_u7.wav",
+      "text": "Trả lời anh xác nhận trực ngày lễ nhé."
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0661/public_0661_u8.wav",
+      "text": "Thư trường Kim Đồng nói gì?"
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0661/public_0661_u9.wav",
+      "text": "À nhớ rồi, anh lưu trữ thư đó đi."
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0661/public_0661.wav",
+      "text": "Sếp vừa mua cái lò nướng bên Mỹ về, trên đó ghi ba trăm năm mươi độ F, em đổi ra độ C giúp anh."
+    }
+  ]
+}

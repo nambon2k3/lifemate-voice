@@ -1,0 +1,20 @@
+{
+  "id": "public_0239",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0239/public_0239_u1.wav",
+      "text": "Ở trên phố chẳng có hiệu sách nào to to không ạ?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0239/public_0239_u2.wav",
+      "text": "Đúng rồi, nhà sách đó đó."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0239/public_0239.wav",
+      "text": "Thì xem cả hai luôn đi, đường từ nhà tới Nhà sách, với cả có xe buýt hay tàu nào đi được không?"
+    }
+  ]
+}

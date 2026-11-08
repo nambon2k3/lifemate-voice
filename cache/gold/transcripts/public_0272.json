@@ -1,0 +1,20 @@
+{
+  "id": "public_0272",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0272/public_0272_u1.wav",
+      "text": "Tìm cho anh món mì nào nấu bữa tối đi, nguyên liệu chính nào, nhà còn thiếu thì cho luôn vào danh sách đi chợ nhé."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0272/public_0272_u2.wav",
+      "text": "Tuần trây em ạ, nấu cho hai người thôi."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0272/public_0272.wav",
+      "text": "À có, đừng có lặp vào nhé, vợ anh bị gián lạc."
+    }
+  ]
+}

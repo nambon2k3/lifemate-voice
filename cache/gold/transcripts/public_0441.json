@@ -1,0 +1,15 @@
+{
+  "id": "public_0441",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0441/public_0441_u1.wav",
+      "text": "Ê em, mai Sài Gòn có mưa hông?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0441/public_0441.wav",
+      "text": "Mưa vậy thôi khỏi chạy xe máy đi, chắc chuyến xe sớm nhất đi Đà Lạt, mai nhắc chị trước một tiếng nghe."
+    }
+  ]
+}

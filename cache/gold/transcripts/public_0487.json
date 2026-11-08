@@ -1,0 +1,20 @@
+{
+  "id": "public_0487",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0487/public_0487_u1.wav",
+      "text": "Ghi giùm tôi cái việc thứ sáu lên Sài Gòn giao xoài cho mối nha."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0487/public_0487_u2.wav",
+      "text": "Mối mới người hàng, dịch coi câu xoài nài ngọt lắm quá tiếng Hàn."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0487/public_0487.wav",
+      "text": "Còn cái vé xe thứ sáu đó hen, huỷ luôn đi. À mà khoan, coi vé đó mua hết bao nhiêu tiền đã."
+    }
+  ]
+}

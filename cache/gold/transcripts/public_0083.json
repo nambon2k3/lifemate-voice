@@ -1,0 +1,30 @@
+{
+  "id": "public_0083",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0083/public_0083_u1.wav",
+      "text": "Xăng RON95 giá mới là bao nhiêu ta?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0083/public_0083_u2.wav",
+      "text": "Chào buổi chiều, dạo này vẫn ổn chứ?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0083/public_0083_u3.wav",
+      "text": "Mai bảy giờ sáng gọi cho dì nhé, đặt báo thức."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0083/public_0083_u4.wav",
+      "text": "Mở đèn phòng làm việc đi."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0083/public_0083.wav",
+      "text": "Giá SJC mua vào hôm nay mà từ 118 triệu trở lên thì 2 giờ chiều mai nhắc tôi bàn với con chuyển án vàng, còn thấp hơn thì chuyển 2 triệu cho Hạm Hùng từ tài khoản thanh toán, góp mua vàng."
+    }
+  ]
+}

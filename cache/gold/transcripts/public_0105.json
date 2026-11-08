@@ -1,0 +1,40 @@
+{
+  "id": "public_0105",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0105/public_0105_u1.wav",
+      "text": "Mai mình có lịch gì không nhỉ?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0105/public_0105_u2.wav",
+      "text": "Xăng RON95 hôm nay giá bao nhiêu một lít?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0105/public_0105_u3.wav",
+      "text": "Coi giúp mình tài khoản ngân hàng còn nhiêu tiền."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0105/public_0105_u4.wav",
+      "text": "Ngoài trời lúc này nóng lắm không?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0105/public_0105_u5.wav",
+      "text": "Đặt báo thức năm rưỡi sáng mai giúp mình."
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0105/public_0105_u6.wav",
+      "text": "Cho điều hoà phòng ngủ chạy 24 độ nha."
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0105/public_0105.wav",
+      "text": "Dùng ví nạp 50 nghìn điện thoại cho Minh, rồi chuyển cho mẹ luôn bằng tiền nước tháng này nha."
+    }
+  ]
+}

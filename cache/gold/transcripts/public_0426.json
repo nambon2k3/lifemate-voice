@@ -1,0 +1,30 @@
+{
+  "id": "public_0426",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0426/public_0426_u1.wav",
+      "text": "Tối mai mình mời cả đoàn về nhà ăn cơm, em ghi chìa khóa nhà cho anh đi chuyển em."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0426/public_0426_u2.wav",
+      "text": "Danh sách đi chợ còn chi chưa mua?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0426/public_0426_u3.wav",
+      "text": "Thêm mấy cái thịt bò vô luôn."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0426/public_0426_u4.wav",
+      "text": "Bí còn bao nhiêu rồi em?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0426/public_0426.wav",
+      "text": "Giúp anh món cơm trưa à, không, món đặc sản thành phố mình, nấu giúp một tiếng nghe."
+    }
+  ]
+}

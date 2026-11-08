@@ -1,12 +1,13 @@
 # Defaults. A matching name in .env overrides the line. See .env.example.
 
-asr_model: vinai/PhoWhisper-large
+asr_model: qwen3-asr-vi
 planner_model: qwen-4b
 planner_base_url: http://127.0.0.1:8001/v1
 temperature: 0
 max_steps: 8
 split: public_test
 kit_root: train+public_test
-cache_dir: cache/transcripts
-output_path: outputs/submission.jsonl
+cache_dir: cache/gold/transcripts
+output_path: outputs/public_test/submission.jsonl
 use_gold_transcript: false
+disable_cache: false

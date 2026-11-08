@@ -1,0 +1,15 @@
+{
+  "id": "public_0449",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0449/public_0449_u1.wav",
+      "text": "Mạ có nhắn chi cho em trên Zalo không bạn?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0449/public_0449.wav",
+      "text": "Rứa nhắn ba à, không, nhắn mẹ chớ, nói vé tàu em đặt rồi, hết bao nhiêu luôn nghe."
+    }
+  ]
+}

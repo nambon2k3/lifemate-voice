@@ -1,0 +1,35 @@
+{
+  "id": "public_0078",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0078/public_0078_u1.wav",
+      "text": "Đặt tivi lên kênh VTV1 đi."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0078/public_0078_u2.wav",
+      "text": "Bật điều hoà phòng ngủ hai bốn độ nha."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0078/public_0078_u3.wav",
+      "text": "Sáng nay em thế nào, vui không?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0078/public_0078_u4.wav",
+      "text": "Xăng RON95 hôm nay giá bao nhiêu?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0078/public_0078_u5.wav",
+      "text": "Quanh đây có quán pizza nào không em?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0078/public_0078.wav",
+      "text": "Chuyến bay Busan-Sài Gòn tôi đặt rồi, đó, đặt báo thức trước giờ cách cảnh hai tiếng rưỡi nha."
+    }
+  ]
+}

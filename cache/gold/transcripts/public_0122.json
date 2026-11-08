@@ -1,0 +1,30 @@
+{
+  "id": "public_0122",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0122/public_0122_u1.wav",
+      "text": "Bật đèn phòng ngủ nhỏ lên nha."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0122/public_0122_u2.wav",
+      "text": "Chuyển tivi qua kênh VTV1 đi."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0122/public_0122_u3.wav",
+      "text": "Tài khoản ngân hàng của tôi còn được bao nhiêu rồi?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0122/public_0122_u4.wav",
+      "text": "Giỏi lắm, làm nhanh được không?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0122/public_0122.wav",
+      "text": "Đặt báo thức sáu rưỡi sáng mai nha, rồi chuyển ví cho Tuấn chút tiền."
+    }
+  ]
+}

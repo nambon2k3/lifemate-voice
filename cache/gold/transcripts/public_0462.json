@@ -1,0 +1,20 @@
+{
+  "id": "public_0462",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0462/public_0462_u1.wav",
+      "text": "Kiếm coi có món thịt kho trứng, mai đổ ông già tôi nấu."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0462/public_0462_u2.wav",
+      "text": "Lâu dữ vậy, có món gà xào nào nhanh không?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0462/public_0462.wav",
+      "text": "Thôi nấu món kho hồi nãy, coi nó xài trứng gì, rồi bỏ một viểu vô dở cho tôi."
+    }
+  ]
+}

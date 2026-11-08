@@ -1,0 +1,30 @@
+{
+  "id": "public_0638",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0638/public_0638_u1.wav",
+      "text": "Tối nay anh dẫn bốn bạn intern về nhà ăn lẩu, gọi xe bảy chỗ từ công ty về nhà nhé."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0638/public_0638_u2.wav",
+      "text": "Ừ thế tủ bếp nhà mình còn những gì?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0638/public_0638_u3.wav",
+      "text": "Thêm vào hộp nắm kim châm với một cân thịt bò vào danh sách đi chợ."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0638/public_0638_u4.wav",
+      "text": "À, vẫy báo vắng, skip không đi nữa."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0638/public_0638.wav",
+      "text": "Thế bảo người trong tiệm mua gói mì, tính coi anh trừ vào túi bếp giúp anh nhé."
+    }
+  ]
+}

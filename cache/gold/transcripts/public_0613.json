@@ -1,0 +1,25 @@
+{
+  "id": "public_0613",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0613/public_0613_u1.wav",
+      "text": "Thứ năm ni em có lịch chi không hẻ?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0613/public_0613_u2.wav",
+      "text": "Thêm vô danh sách đi chợ một bó rau thơm giùm em."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0613/public_0613_u3.wav",
+      "text": "Hôm qua em có tiền rồi đó, đánh dấu giùm em với nhé."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0613/public_0613.wav",
+      "text": "Sáng ni em đặt đùa bên quán cô ba rồi, món mô trong đơn đó có trong danh sách đi chợ thì xoá giùm em nghe."
+    }
+  ]
+}

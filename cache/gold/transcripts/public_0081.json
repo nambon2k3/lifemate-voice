@@ -1,0 +1,20 @@
+{
+  "id": "public_0081",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0081/public_0081_u1.wav",
+      "text": "Chào em, hôm nay em khỏe không?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0081/public_0081_u2.wav",
+      "text": "Ngoài trời giờ thế nào, bao nhiêu độ?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0081/public_0081.wav",
+      "text": "Giá vàng thế giới mà trên 4.100 đô một ounce thì tám giờ sáng thứ bảy này nhắc chị ra tiệm bán bớt, chưa tới thì chuyển ba triệu từ tài khoản thanh toán cho Trần Đăng Tuấn tiền góp mua vàng."
+    }
+  ]
+}

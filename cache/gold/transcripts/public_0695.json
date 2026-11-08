@@ -1,0 +1,60 @@
+{
+  "id": "public_0695",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0695/public_0695_u1.wav",
+      "text": "Sáng nay chị cho tôi xem cái số của Huỳnh Lạc á."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0695/public_0695_u2.wav",
+      "text": "Nhắc tôi năm giờ chiều nay đi lấy áo đồng phục nha."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0695/public_0695_u3.wav",
+      "text": "À mai tôi có match ở Bồ Đào Nha kìa."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0695/public_0695_u4.wav",
+      "text": "Tắt cái chạy bộ sáu giờ đi, mai tôi lười xíu."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0695/public_0695_u5.wav",
+      "text": "Trưa rồi coi giùm app bị chạy quá không?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0695/public_0695_u6.wav",
+      "text": "Mở vô dõi một hai đi."
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0695/public_0695_u7.wav",
+      "text": "Thêm hai ký cà chua Đà Lạt nữa."
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0695/public_0695_u8.wav",
+      "text": "Ok, check đông luôn."
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0695/public_0695_u9.wav",
+      "text": "Chiều nay mưa xỉu luôn hả, ướt hết trơn rồi."
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0695/public_0695_u10.wav",
+      "text": "Ok cảm ơn nha."
+    },
+    {
+      "turn": 10,
+      "audio": "audio/public_0695/public_0695.wav",
+      "text": "Thế quà cho Sara mua tôi mua rồi, gạch khỏi danh sách đi chợ giùm nha."
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "public_0504",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0504/public_0504_u1.wav",
+      "text": "Ơi, mai tới có lịch gì hông?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0504/public_0504.wav",
+      "text": "Tớ xong việc sớm rồi nè, bãi xe đang tính tiền ấy, cho dừng luôn nha, đỡ trốn."
+    }
+  ]
+}

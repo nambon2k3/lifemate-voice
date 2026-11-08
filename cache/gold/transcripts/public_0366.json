@@ -1,0 +1,15 @@
+{
+  "id": "public_0366",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0366/public_0366_u1.wav",
+      "text": "Chín giờ sáng mai anh có hẹn khám bệnh ở tiệm điện Nga, đi xe buýt từ nhà qua đó mất bao lâu em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0366/public_0366.wav",
+      "text": "Thế thì nhắc anh rời nhà trước một tiếng nha."
+    }
+  ]
+}

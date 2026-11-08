@@ -1,0 +1,30 @@
+{
+  "id": "public_0160",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0160/public_0160_u1.wav",
+      "text": "Cho em xem sổ của anh Minh bàn cược hồi họp đại học của em với."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0160/public_0160_u2.wav",
+      "text": "Xăng hôm nay bao nhiêu một lít rồi ạ?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0160/public_0160_u3.wav",
+      "text": "Tắt cái đèn ngoài phòng khách hộ em."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0160/public_0160_u4.wav",
+      "text": "Mở bài Có chắc yêu là đây đi ạ."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0160/public_0160.wav",
+      "text": "Gọi cho anh Nhảy đi, với lại đặt thêm báo thức bảy giờ kém mười lăm sáng mai giúp em nhé."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "public_0335",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0335/public_0335_u1.wav",
+      "text": "Chủ nhật này anh có hẹn gặp đối tác lúc sáu giờ chiều phải không em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0335/public_0335_u2.wav",
+      "text": "Minh đó muốn đổi qua trung tâm văn hóa Tây Hồ, mà hôm đấy năm giờ chiều anh mới ra khỏi nhà được, đi xe buýt thôi."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0335/public_0335.wav",
+      "text": "Ừ, em tra chuyến xe buýt đi, cứ tính 5 giờ là lên xe luôn, rồi chọn thời gian xe chạy, nếu tới nơi trước 6 giờ tối thì dời lịch sang giờ xe tới, luẩn quẩn một tiếng trong tủ rồi đổi lịch thành gặp đối tác ở trung tâm văn hóa Tây Hồ luôn nha."
+    }
+  ]
+}

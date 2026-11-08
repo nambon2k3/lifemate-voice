@@ -1,0 +1,65 @@
+{
+  "id": "public_0680",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0680/public_0680_u1.wav",
+      "text": "Ghi đổi số rồi em, sửa lại thành công chín tám một, hai ba bốn năm, sáu bảy tám."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0680/public_0680_u2.wav",
+      "text": "Mai mình có lịch chi không?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0680/public_0680_u3.wav",
+      "text": "Học phụ huynh giờ qua mười một giờ tới mười hai giờ."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0680/public_0680_u4.wav",
+      "text": "Thêm lịch đi thư viện với Nhi thôi, giờ chiều mai."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0680/public_0680_u5.wav",
+      "text": "Còn vụ đi chơi công viên thứ ba, huỷ luôn."
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0680/public_0680_u6.wav",
+      "text": "Chiều ni ai gọi mình, mà mình không nghe được."
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0680/public_0680_u7.wav",
+      "text": "Cổ phiếu của mình giờ ra nghe."
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0680/public_0680_u8.wav",
+      "text": "Cộng phát hôm ni bao nhiêu?"
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0680/public_0680_u9.wav",
+      "text": "Lên hai mươi sáu nghìn thì báo mình."
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0680/public_0680_u10.wav",
+      "text": "Mệt quá, tối ni ăn chi cho ấm bụng hỉ?"
+    },
+    {
+      "turn": 10,
+      "audio": "audio/public_0680/public_0680_u11.wav",
+      "text": "Ừ, rửa ăn bánh canh, cảm ơn nhé."
+    },
+    {
+      "turn": 11,
+      "audio": "audio/public_0680/public_0680.wav",
+      "text": "Chiều ni mình không nghe máy, có người bên Nexora gọi, mở thông tin địa đồ của người đó coi."
+    }
+  ]
+}

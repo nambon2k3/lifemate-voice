@@ -1,0 +1,25 @@
+{
+  "id": "public_0100",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0100/public_0100_u1.wav",
+      "text": "Ví còn bao nhiêu tiền nhỉ?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0100/public_0100_u2.wav",
+      "text": "Mở tivi kênh VTV1 giúp mình."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0100/public_0100_u3.wav",
+      "text": "Bật điều hoà phòng ngủ 26 độ nha."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0100/public_0100.wav",
+      "text": "Đặt giúp mình xe máy từ nhà tới trường dự họp phụ huynh chiều nay, đón trước giờ họp hai mươi phút, rồi nhắc mình mang số điện thoại của con trước bước xe tới mười phút."
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "public_0240",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0240/public_0240_u1.wav",
+      "text": "Chị thấy trên sàn đang có hai mẫu bàn phím là Slimkey 75 với Keygol 60, đặt cho chị một cái nha."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0240/public_0240.wav",
+      "text": "Lấy cái Slimkey 75 đi em."
+    }
+  ]
+}

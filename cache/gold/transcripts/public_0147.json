@@ -1,0 +1,30 @@
+{
+  "id": "public_0147",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0147/public_0147_u1.wav",
+      "text": "Nhắc tôi tưới cây lúc tám giờ sáng mai nha."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0147/public_0147_u2.wav",
+      "text": "Em xem mai tôi có lịch gì không?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0147/public_0147_u3.wav",
+      "text": "Bật tivi lên kênh VTV6 giúp tôi đi."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0147/public_0147_u4.wav",
+      "text": "Tài khoản ngân hàng của tôi còn bao nhiêu rồi?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0147/public_0147.wav",
+      "text": "Đặt báo thức lúc tám giờ sáng mai trước buổi họp phụ huynh, rồi chuyển ví cho cô giáo Mai tiền quỹ lớp của con luôn nhé."
+    }
+  ]
+}

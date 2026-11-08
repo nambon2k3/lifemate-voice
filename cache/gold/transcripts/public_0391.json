@@ -1,0 +1,15 @@
+{
+  "id": "public_0391",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0391/public_0391_u1.wav",
+      "text": "Mai anh đi tàu S73 nhé, bảy giờ mười lăm sáng tàu chạy ở ga Hà Nội, chỉ nữa anh nhờ em tính ra đường ra ga."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0391/public_0391.wav",
+      "text": "Xoá giúp anh đi ô tô với xe buýt ra ga xem, nếu chuyến buýt sớm nhất không tới trước giờ tàu nửa tiếng thì đặt thêm bốn chỗ đón anh, đúng giờ cần ra khỏi nhà để cuốn tới ga sớm nửa tiếng, rồi nhắc anh giờ đó luôn."
+    }
+  ]
+}

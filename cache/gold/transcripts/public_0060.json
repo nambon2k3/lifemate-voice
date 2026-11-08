@@ -1,0 +1,25 @@
+{
+  "id": "public_0060",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0060/public_0060_u1.wav",
+      "text": "Mở bài Có chắc yêu là đây cho tôi."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0060/public_0060_u2.wav",
+      "text": "Bật điều hoà phòng ngủ 25 độ nhé."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0060/public_0060_u3.wav",
+      "text": "Mai thời tiết Hà Nội thế nào?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0060/public_0060.wav",
+      "text": "Mai tôi có đá bóng, đặt báo thức sớm hơn giờ đó một tiếng giúp tôi nhé."
+    }
+  ]
+}

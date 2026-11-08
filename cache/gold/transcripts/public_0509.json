@@ -1,0 +1,15 @@
+{
+  "id": "public_0509",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0509/public_0509_u1.wav",
+      "text": "Hộp match có quên nằm chỗ nào em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0509/public_0509.wav",
+      "text": "Lưu chỗ đó tên City View nha, bãi công viên 23 tháng 9 còn chỗ thì giữ cho một chuyến từ ba giờ, hết thì khỏi ghé, bảo dọa hai hộp trứng với tư ạ."
+    }
+  ]
+}

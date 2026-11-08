@@ -1,0 +1,55 @@
+{
+  "id": "public_0668",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0668/public_0668_u1.wav",
+      "text": "Từ Homestay ra ga Huế chạy xe mất bao lâu em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0668/public_0668_u2.wav",
+      "text": "Số điện thoại của Lucas là chi rứa?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0668/public_0668_u3.wav",
+      "text": "Thêm vô danh sách đi chợ mười ổ bánh mì nghe."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0668/public_0668_u4.wav",
+      "text": "Ờ, trong kho bếp còn những chi em?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0668/public_0668_u5.wav",
+      "text": "Tôi lấy sáu quả trứng chiên cho khách, trừ ra giùm."
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0668/public_0668_u6.wav",
+      "text": "Với họp sữa tư cuối cùng luôn."
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0668/public_0668_u7.wav",
+      "text": "Lấy thêm hai gói mì tôm nữa."
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0668/public_0668_u8.wav",
+      "text": "Khách Tây ăn trứng chi khi quá trời, vui ghê em."
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0668/public_0668_u9.wav",
+      "text": "Ừ, thôi, tôi chuẩn bị đi đây."
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0668/public_0668.wav",
+      "text": "Tôi ra Bluebird Cafe đón khách, nhắc anh ấy em bật chế độ ra khỏi nhà rồi đặt xe trong mấy giờ tôi qua đó đi."
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "id": "public_0699",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0699/public_0699_u1.wav",
+      "text": "Sáng nay Sài Gòn có mưa không em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0699/public_0699_u2.wav",
+      "text": "Tối nay anh nấu cơm, kiếm thêm món gà xào sả."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0699/public_0699_u3.wav",
+      "text": "Lên cho năm người thì cần bao nhiêu gà?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0699/public_0699_u4.wav",
+      "text": "Ờ, luôn món đó lại giùm anh."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0699/public_0699_u5.wav",
+      "text": "Số hình sáu chữ xe là số mấy em?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0699/public_0699_u6.wav",
+      "text": "Anh mới đổi số, sửa thành không chín năm ba, sáu ba năm, hai chín chín chín."
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0699/public_0699_u7.wav",
+      "text": "Ví anh còn bao nhiêu tiền?"
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0699/public_0699_u8.wav",
+      "text": "Chuyển ngân sáu năm trăm nghìn tiền thuê xe tuần này."
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0699/public_0699_u9.wav",
+      "text": "Nạp cho vợ ăn một trăm nghìn tiền điện thoại luôn."
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0699/public_0699_u10.wav",
+      "text": "Giờ ví còn bao nhiêu?"
+    },
+    {
+      "turn": 10,
+      "audio": "audio/public_0699/public_0699_u11.wav",
+      "text": "Cuối năm chạy xe mệt mà khách đông, quá vui em."
+    },
+    {
+      "turn": 11,
+      "audio": "audio/public_0699/public_0699_u12.wav",
+      "text": "Ừ, cảm ơn em."
+    },
+    {
+      "turn": 12,
+      "audio": "audio/public_0699/public_0699.wav",
+      "text": "Em lưu giùm anh cây xăng trên đường nhà, anh vô bản đồ, đặt tên là Chỗ lẩu Xăng Quên nha."
+    }
+  ]
+}

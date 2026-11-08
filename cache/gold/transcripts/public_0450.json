@@ -1,0 +1,20 @@
+{
+  "id": "public_0450",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0450/public_0450_u1.wav",
+      "text": "Em ơi, tôi muốn bán một cổ phiếu coi dùm tôi đang có gì hen."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0450/public_0450_u2.wav",
+      "text": "Mã nào đang lợi nhiều hơn vậy em?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0450/public_0450.wav",
+      "text": "Bán máy sửa đi, à không, út có gạch trong ghi chú rồi, em coi rồi bán y viện nghe."
+    }
+  ]
+}

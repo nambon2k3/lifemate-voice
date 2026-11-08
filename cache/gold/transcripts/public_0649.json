@@ -1,0 +1,15 @@
+{
+  "id": "public_0649",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0649/public_0649_u1.wav",
+      "text": "Tối ni có ai nhắn chi chị không em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0649/public_0649.wav",
+      "text": "Trạm xe buýt gần Grand View Hotel có mấy? Khi mua gói chuyến, nếu dời quá hai mươi phút thì đặt xe bốn chỗ về cho chị."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "public_0556",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0556/public_0556_u1.wav",
+      "text": "Em check giùm anh mấy đơn online đang tới đâu rồi."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0556/public_0556_u2.wav",
+      "text": "Ok, mai theo bài anh có mấy tiết nghỉ hông?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0556/public_0556_u3.wav",
+      "text": "Vậy tạo lịch nhận hàng mười giờ sáng mai cho cái đơn mắc nhất trong mấy đơn chưa giao."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0556/public_0556_u4.wav",
+      "text": "Nhắn Võ Hằng là mưa giờ sáng mai nha, những hàng dùm anh."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0556/public_0556.wav",
+      "text": "Thôi đổi ý em, gửi giùm anh cái đơn hoàn phí với xoá luôn lịch nhận hàng sáng mai nha."
+    }
+  ]
+}

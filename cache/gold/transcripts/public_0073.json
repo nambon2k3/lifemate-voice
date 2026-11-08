@@ -1,0 +1,35 @@
+{
+  "id": "public_0073",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0073/public_0073_u1.wav",
+      "text": "Cho tôi xem VTV6 trên tivi."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0073/public_0073_u2.wav",
+      "text": "Chào em nhé, trưa rồi."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0073/public_0073_u3.wav",
+      "text": "Chiều mai năm giờ nhắc tôi đi đổ xăng."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0073/public_0073_u4.wav",
+      "text": "Xem hộ tôi trong ngân hàng còn bao nhiêu."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0073/public_0073_u5.wav",
+      "text": "Đặt báo thức bảy giờ sáng mai hộ tôi."
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0073/public_0073.wav",
+      "text": "Giờ em đặt bún bò giò ở quán Bún bò Huế gần nhà tôi, mỗi người trong nhóm giao đi một phần, không tính tôi nhé."
+    }
+  ]
+}

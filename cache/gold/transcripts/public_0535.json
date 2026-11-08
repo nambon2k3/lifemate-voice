@@ -1,0 +1,20 @@
+{
+  "id": "public_0535",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0535/public_0535_u1.wav",
+      "text": "Mai em vô Đà Nẵng có chuyến mô từ Huế không hẻ?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0535/public_0535_u2.wav",
+      "text": "Tao mắc rứa, xe khách chạy mấy tiếng tới nơi?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0535/public_0535.wav",
+      "text": "Rứa đặt cho em một vé xe khách nghe."
+    }
+  ]
+}

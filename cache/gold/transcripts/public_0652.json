@@ -1,0 +1,60 @@
+{
+  "id": "public_0652",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0652/public_0652_u1.wav",
+      "text": "Đi xe bốn chỗ từ Homestay ra ga Huế bao nhiêu em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0652/public_0652_u2.wav",
+      "text": "Rứa đặt luôn đi, trả bằng ví nghe."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0652/public_0652_u3.wav",
+      "text": "Gọi giùm anh số không chín không năm một hai ba bốn năm sáu bảy, vừa anh đó."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0652/public_0652_u4.wav",
+      "text": "Trưa rồi, quán Cô Ba có những món chi em?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0652/public_0652_u5.wav",
+      "text": "Đặt hai tô đặc biệt với một chả cô dao về homestay."
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0652/public_0652_u6.wav",
+      "text": "Mở bài Nơi này có anh tròn khác nghe với."
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0652/public_0652_u7.wav",
+      "text": "Nhỏ bớt tiếng chút em, để mức ba thôi."
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0652/public_0652_u8.wav",
+      "text": "Tao mai ni vô lịch, nhàn trưa buổi tối luôn."
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0652/public_0652_u9.wav",
+      "text": "Chiều ni Huế mưa lâm râm, khách Tây nghe mát quá trời."
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0652/public_0652_u10.wav",
+      "text": "Ừ, cảm ơn em nha."
+    },
+    {
+      "turn": 10,
+      "audio": "audio/public_0652/public_0652.wav",
+      "text": "Khách check out rồi, em kết thúc giữ xe ở bãi đón Đông Ba, thêm việc thu tiền giữ xe của khách, ghi rõ số tiền nghe."
+    }
+  ]
+}

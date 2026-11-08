@@ -1,0 +1,40 @@
+{
+  "id": "public_0101",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0101/public_0101_u1.wav",
+      "text": "Giá vàng SJC nay thế nào?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0101/public_0101_u2.wav",
+      "text": "Mai tay tiết ra sao?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0101/public_0101_u3.wav",
+      "text": "Tài khoản của tớ còn bao nhiêu?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0101/public_0101_u4.wav",
+      "text": "Ok vậy được rồi nha."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0101/public_0101_u5.wav",
+      "text": "Nhắc tôi gọi cho khách tám giờ tối mai nhé."
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0101/public_0101_u6.wav",
+      "text": "Bật điều hoà phòng khách hai bảy độ."
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0101/public_0101.wav",
+      "text": "Đặt báo thức sáu rưỡi sáng mai xong gọi cho Minh giúp tớ."
+    }
+  ]
+}

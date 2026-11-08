@@ -1,0 +1,20 @@
+{
+  "id": "public_0200",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0200/public_0200_u1.wav",
+      "text": "Tìm giúp tôi cái phòng triển lãm nào trên phố Trường Tiền ấy."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0200/public_0200_u2.wav",
+      "text": "Ừ, đúng chỗ đấy rồi."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0200/public_0200.wav",
+      "text": "Xem cho tôi cả đường đi lẫn tuyến xe buýt từ nhà mình tới chỗ đó luôn nhé."
+    }
+  ]
+}

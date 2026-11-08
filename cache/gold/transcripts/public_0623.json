@@ -1,0 +1,20 @@
+{
+  "id": "public_0623",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0623/public_0623_u1.wav",
+      "text": "Em ơi, chị đang theo mấy cái thói quen gì?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0623/public_0623_u2.wav",
+      "text": "Em chỉ hôm nay đọc sách ra hộ em."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0623/public_0623.wav",
+      "text": "Hôm nay chị đi bộ được bao nhiêu ngàn bước rồi em, đủ tám ngàn bước chưa?"
+    }
+  ]
+}

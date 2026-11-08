@@ -1,0 +1,30 @@
+{
+  "id": "public_0072",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0072/public_0072_u1.wav",
+      "text": "Em đặt báo thức sáu giờ sáng mai nha."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0072/public_0072_u2.wav",
+      "text": "Chuyển tivi sang HTV7 nhé."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0072/public_0072_u3.wav",
+      "text": "Mở điều hoà phòng ngủ, hai mươi bảy độ giúp em."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0072/public_0072_u4.wav",
+      "text": "Mai em có hẹn gì không nhỉ?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0072/public_0072.wav",
+      "text": "Em nhờ anh giao văn Tuấn, đồng hồ tiêm vàng, chi Nguyễn Thị Lan, đồng hồ tiêm nửa tháng nay, chuyển đúng số đó cho hai người giúp em, lấy tài khoản thanh toán, thiếu thì lấy tiền kim."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "public_0454",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0454/public_0454_u1.wav",
+      "text": "Ở ga Kim Mã chuyến Metro tiếp theo mấy giờ ạ?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0454/public_0454_u2.wav",
+      "text": "Thế mười hai giờ, thế mười giờ hai mươi nhắc em ra ga bắt chuyến mười giờ ba tư nhé."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0454/public_0454.wav",
+      "text": "Hôm qua em làm đủ hết các thói quen đấy, cái nào chưa ghi thì ghi bù giúp em nhé. À không, uống nước thì bỏ ra, hôm qua uống ít lắm."
+    }
+  ]
+}

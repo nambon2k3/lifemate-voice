@@ -1,0 +1,20 @@
+{
+  "id": "public_0563",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0563/public_0563_u1.wav",
+      "text": "Mấy vé chị booking cho khách mai ngày mai đọc chị nghe."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0563/public_0563_u2.wav",
+      "text": "Check-in trước cho Michael Chen đi."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0563/public_0563.wav",
+      "text": "Còn tao bát của Mia Fisher, em cũng làm đi rứa luôn cho chị nghe."
+    }
+  ]
+}

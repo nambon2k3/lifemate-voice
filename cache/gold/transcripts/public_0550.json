@@ -1,0 +1,20 @@
+{
+  "id": "public_0550",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0550/public_0550_u1.wav",
+      "text": "Ơi tớ vừa lấy một hộp sữa tươi với hai túi yến mạch, chừa trong tủ giúp tớ nha."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0550/public_0550_u2.wav",
+      "text": "Mở tivi kênh có bản tin buổi sáng cho tớ nghe với."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0550/public_0550.wav",
+      "text": "Ơ, chat, sữa tớ lấy hai hộp chứ không phải một, trừ thêm cho đúng nha. Tắt tivi luôn, tớ chạy deadline đây."
+    }
+  ]
+}

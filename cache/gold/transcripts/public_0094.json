@@ -1,0 +1,30 @@
+{
+  "id": "public_0094",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0094/public_0094_u1.wav",
+      "text": "Bật tivi lên kênh S+ Sport giúp mình."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0094/public_0094_u2.wav",
+      "text": "Bật luôn cái đèn phòng ngủ nhỏ nha."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0094/public_0094_u3.wav",
+      "text": "Quan SJC hôm nay bao nhiêu rồi?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0094/public_0094_u4.wav",
+      "text": "Xăng RON95 giờ bao nhiêu một lít?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0094/public_0094.wav",
+      "text": "Mai mưa thì huỷ vụ đi chơi công viên, nhắn SMS tới Sứ Dụng biết, còn không mưa thì đặt ô tô bốn chỗ từ nhà ra chỗ hẹn, sớm hơn giờ hẹn nửa tiếng."
+    }
+  ]
+}

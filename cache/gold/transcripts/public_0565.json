@@ -1,0 +1,15 @@
+{
+  "id": "public_0565",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0565/public_0565_u1.wav",
+      "text": "Tám giờ tối nay nhắc anh gọi cho Sếp Tivi confirm lịch meeting tuần sau nha."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0565/public_0565.wav",
+      "text": "Bà xã muốn nấu món của cô ấy, chú ơi, em coi món nào làm đẹp nhất thì mở chi tiết dùm anh nha."
+    }
+  ]
+}

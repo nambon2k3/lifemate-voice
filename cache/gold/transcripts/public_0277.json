@@ -1,0 +1,15 @@
+{
+  "id": "public_0277",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0277/public_0277_u1.wav",
+      "text": "Làm giúp chị cái đơn trả lại chiếc áo khoác gió mua trong sạp tuần trước nhé."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0277/public_0277.wav",
+      "text": "À thôi em, khỏi làm đơn trả nữa nhé, chị mang ra cửa hàng khu quen, người ta xử lý luôn tại quầy rồi."
+    }
+  ]
+}

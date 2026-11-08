@@ -1,0 +1,30 @@
+{
+  "id": "public_0116",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0116/public_0116_u1.wav",
+      "text": "Trả cho em sổ cuốn lá nhé."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0116/public_0116_u2.wav",
+      "text": "Em còn bao nhiêu tiền trong ví điện tử nhỉ?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0116/public_0116_u3.wav",
+      "text": "Tài khoản ngân hàng còn bao nhiêu ạ?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0116/public_0116_u4.wav",
+      "text": "Mở bài Cả trái yêu là đây đi."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0116/public_0116.wav",
+      "text": "Em muốn có báo thức trước giờ các bạn chuyển em đặt đúng một tiếng, đặt tên là Lâm thủ tục nhé."
+    }
+  ]
+}

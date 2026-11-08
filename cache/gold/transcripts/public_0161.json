@@ -1,0 +1,30 @@
+{
+  "id": "public_0161",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0161/public_0161_u1.wav",
+      "text": "Xăng RON95 hôm nay bao nhiêu rồi em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0161/public_0161_u2.wav",
+      "text": "Em tắt đèn phòng khách hộ chị nghe."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0161/public_0161_u3.wav",
+      "text": "Chỗ mình có quán cơm tấm nào không em?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0161/public_0161_u4.wav",
+      "text": "Cho chị số điện thoại của Mỹ với."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0161/public_0161.wav",
+      "text": "Giá vàng SJC mua vào hôm nay mà trên 132 triệu thì nhắc chị 2 giờ chiều nay Minh vàng đi bán, chưa tới thì chuyển 4 triệu từ tài khoản thanh toán cho Trần Đăng Tuấn nhờ mua giúp chị nhé."
+    }
+  ]
+}

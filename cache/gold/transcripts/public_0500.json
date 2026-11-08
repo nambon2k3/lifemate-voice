@@ -1,0 +1,20 @@
+{
+  "id": "public_0500",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0500/public_0500_u1.wav",
+      "text": "Tối nay anh có hẹn gì trên lịch không em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0500/public_0500_u2.wav",
+      "text": "Ờ, chiều nay còn nhất gì chưa làm hông?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0500/public_0500.wav",
+      "text": "Vậy coi giùm xem 19 ở tòa Nam Sơn giùm, chuyến kế mà sau 5 giờ 10 thì dời hạn Visa 6 rưỡi, còn sớm hơn thì nhắc anh 5 giờ ra tạm nha."
+    }
+  ]
+}

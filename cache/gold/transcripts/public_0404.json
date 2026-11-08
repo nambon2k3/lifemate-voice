@@ -1,0 +1,15 @@
+{
+  "id": "public_0404",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0404/public_0404_u1.wav",
+      "text": "Thứ hai tới có tàu nào đi Nha Trang buổi tối hông?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0404/public_0404.wav",
+      "text": "Ok, đổi qua chuyến tối đó luôn, cancel với tàu sáng mình book rồi đặt lại hai vé nha."
+    }
+  ]
+}

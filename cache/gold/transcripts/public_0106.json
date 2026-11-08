@@ -1,0 +1,25 @@
+{
+  "id": "public_0106",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0106/public_0106_u1.wav",
+      "text": "Ngoài tôi có những lịch nào nhỉ?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0106/public_0106_u2.wav",
+      "text": "Xem hộ tôi ví còn bao nhiêu tiền."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0106/public_0106_u3.wav",
+      "text": "Cảm ơn nhé, hữu ít lắm."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0106/public_0106.wav",
+      "text": "Nhắc tôi gọi cho mẹ nhé."
+    }
+  ]
+}

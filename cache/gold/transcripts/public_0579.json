@@ -1,0 +1,20 @@
+{
+  "id": "public_0579",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0579/public_0579_u1.wav",
+      "text": "Đặt cho tôi hai vé tàu đi lào Cai sáng chủ nhật, chuyến sáu giờ ấy, tôi với ông Ba."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0579/public_0579_u2.wav",
+      "text": "Còn nhà Tuấn ba người, hai vợ chồng với đứa nhỏ, đặt xe khách vào Đà Nẵng tối thứ hai."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0579/public_0579.wav",
+      "text": "Xem thứ hai Hà Nội có mưa không, mưa thì hủy vé xe khách nhà Tuấn, đặt ba vé tàu đi Yên Thai nhé."
+    }
+  ]
+}

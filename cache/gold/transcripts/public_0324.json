@@ -1,0 +1,15 @@
+{
+  "id": "public_0324",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0324/public_0324_u1.wav",
+      "text": "Cái balo laptop đặt hôm trước mình không cần dùng nữa, còn trong hạn đủ trả tới hôm 5 tháng 10 thì mới làm yêu cầu trả nhé."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0324/public_0324.wav",
+      "text": "Mình check rồi đơn đó vẫn còn hạn nè, bảo họ yêu cầu trả hàng giúp mình đi, lý do là đổi ý của cô dùng ấy nha."
+    }
+  ]
+}

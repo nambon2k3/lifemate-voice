@@ -1,0 +1,60 @@
+{
+  "id": "public_0689",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0689/public_0689_u1.wav",
+      "text": "Đặt báo thức năm giờ rưỡi sáng mai, ghi là đưa khách ra ga."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0689/public_0689_u2.wav",
+      "text": "Thêm cái mười giờ sáng nay nhắc hết check out nữa."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0689/public_0689_u3.wav",
+      "text": "Thế còn mấy hộp sữa tươi rứa em?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0689/public_0689_u4.wav",
+      "text": "Vừa khoai cho khách hết hai hộp, trừ giùm anh."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0689/public_0689_u5.wav",
+      "text": "Bốn thì làm offline hết bốn quả rồi."
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0689/public_0689_u6.wav",
+      "text": "Hôm nay của anh, à hôm nay lịch của anh có chi không?"
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0689/public_0689_u7.wav",
+      "text": "Giờ qua ba giờ chiều dùm anh, chuyến bay chở."
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0689/public_0689_u8.wav",
+      "text": "Kế hoạch chiều mai hai giờ dẫn khách đi Đà Nẵng."
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0689/public_0689_u9.wav",
+      "text": "Ớt mua giùm cả tuần, khách Tây cứ hỏi rang mua hoài anh hỉ."
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0689/public_0689_u10.wav",
+      "text": "Heo, được đó, cảm ơn em."
+    },
+    {
+      "turn": 10,
+      "audio": "audio/public_0689/public_0689.wav",
+      "text": "Thao quan liệp luyện nói tiếng Anh với Lumines Studio giữ được mấy ngày rồi em? Đánh dấu hôm nay anh luyện xong luôn nghe."
+    }
+  ]
+}

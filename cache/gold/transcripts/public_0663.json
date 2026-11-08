@@ -1,0 +1,60 @@
+{
+  "id": "public_0663",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0663/public_0663_u1.wav",
+      "text": "Sáng nay tôi lên An Kiều từ chợ Cái Răng đi xe buýt tuyến nào em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0663/public_0663_u2.wav",
+      "text": "Ờ, nạp thẻ Cebu Bank năm chục ngàn coi."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0663/public_0663_u3.wav",
+      "text": "Số anh Mời nhiêu em?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0663/public_0663_u4.wav",
+      "text": "Trưa rồi, ví điện tử còn nhiêu tiền?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0663/public_0663_u5.wav",
+      "text": "Chuyển anh mười hai triệu, tiền xài bữa trước nãy nha."
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0663/public_0663_u6.wav",
+      "text": "Nạp tiền điện thoại cho Tần Tí một trăm nghìn."
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0663/public_0663_u7.wav",
+      "text": "Chuyển vào Hùng năm trăm nghìn đi chợ."
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0663/public_0663_u8.wav",
+      "text": "Giờ ví còn nhiêu?"
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0663/public_0663_u9.wav",
+      "text": "Bữa nay bán đắt dữ em ơi, hot sạch xoài."
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0663/public_0663_u10.wav",
+      "text": "Ờ, mệt mà vui."
+    },
+    {
+      "turn": 10,
+      "audio": "audio/public_0663/public_0663.wav",
+      "text": "Cái báo thức dạy giao hàng sáng mai em sửa lại trước giờ giao xong cho anh mười một tiếng nha."
+    }
+  ]
+}

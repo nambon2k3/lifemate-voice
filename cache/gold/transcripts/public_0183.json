@@ -1,0 +1,15 @@
+{
+  "id": "public_0183",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0183/public_0183_u1.wav",
+      "text": "Ê, cái hẹn ngoài rứa sáng nay giải chỗ nào nhỉ?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0183/public_0183.wav",
+      "text": "Ok thế gọi cho anh một chiếc xe máy đi nhà qua đấy luôn đi."
+    }
+  ]
+}

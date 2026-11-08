@@ -1,0 +1,25 @@
+{
+  "id": "public_0564",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0564/public_0564_u1.wav",
+      "text": "Ơi, tìm giúp em xe đi Hải Phòng sáng mai với."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0564/public_0564_u2.wav",
+      "text": "Đặt em hai vé chuyến bảy rưỡi nha, em với Trang đi ăn cưới."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0564/public_0564_u3.wav",
+      "text": "Từ Kí túc xá ra Bến xe Già Lâm đi xe máy mất bao lâu ạ?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0564/public_0564.wav",
+      "text": "Huỷ vé xe lúc nãy giúp em, rồi giữ chỗ gửi xe gần Maple Creek Residence bốn tiếng từ bay rủi sang mai nha."
+    }
+  ]
+}

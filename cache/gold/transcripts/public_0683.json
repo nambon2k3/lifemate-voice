@@ -1,0 +1,55 @@
+{
+  "id": "public_0683",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0683/public_0683_u1.wav",
+      "text": "Mai Huế có mưa không rứa?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0683/public_0683_u2.wav",
+      "text": "Sáng mai em dắt xe ra chợ Đông Ba, đặt chỗ gửi xe lúc tám giờ hai tiếng."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0683/public_0683_u3.wav",
+      "text": "Trừ đặt xe máy từ nhà lên trường giùm em."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0683/public_0683_u4.wav",
+      "text": "Xe tới chưa?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0683/public_0683_u5.wav",
+      "text": "Trưa rồi, có email mới không?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0683/public_0683_u6.wav",
+      "text": "Đọc email anh Dũng coi."
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0683/public_0683_u7.wav",
+      "text": "Trả lời anh Dũng chiều thứ năm em rảnh, hẹn ba giờ nghe."
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0683/public_0683_u8.wav",
+      "text": "Còn email chị Thu thì lưu trữ đi."
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0683/public_0683_u9.wav",
+      "text": "Học cá ngày mai quá trời."
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0683/public_0683.wav",
+      "text": "Ghi xe quán cà phê Rủ đi, mà em lười quá, ngoài trời chỗ em trừ răng, mở tivi kênh VTV3 cho em luôn."
+    }
+  ]
+}

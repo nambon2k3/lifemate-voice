@@ -1,0 +1,20 @@
+{
+  "id": "public_0616",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0616/public_0616_u1.wav",
+      "text": "Coi hai cái thẻ ngân hàng còn bao nhiêu tiền?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0616/public_0616_u2.wav",
+      "text": "Chạy cọc xe cho Leon Foster hai triệu, lấy thẻ đại Việt trước, thiếu thì thẻ kia."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0616/public_0616.wav",
+      "text": "Coi giùm em mấy giao dịch của cái thẻ vừa chuyển cọc cho Leon Foster nha."
+    }
+  ]
+}

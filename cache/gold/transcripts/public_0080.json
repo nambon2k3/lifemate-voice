@@ -1,0 +1,30 @@
+{
+  "id": "public_0080",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0080/public_0080_u1.wav",
+      "text": "Mai trời thế nào em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0080/public_0080_u2.wav",
+      "text": "Báo thức sáu rưỡi sáng mai giúp tôi."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0080/public_0080_u3.wav",
+      "text": "Mở điều hoà phòng ngủ 27 độ đi em."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0080/public_0080_u4.wav",
+      "text": "Chuyển tivi sang VTV1 cho tôi."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0080/public_0080.wav",
+      "text": "Tiền nước kỳ này trả bằng ví điện tử giúp tôi, ví không đủ thì lấy ngân hàng trả, rồi nhắn SMS cho Tuấn báo tiền nước đóng xong rồi nha."
+    }
+  ]
+}

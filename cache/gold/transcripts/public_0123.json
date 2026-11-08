@@ -1,0 +1,20 @@
+{
+  "id": "public_0123",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0123/public_0123_u1.wav",
+      "text": "Con đi ngoài vòng cách hai mươi lăm độ."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0123/public_0123_u2.wav",
+      "text": "Xăng, giá xăng RON95 hôm nay ra sao?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0123/public_0123.wav",
+      "text": "Cập báo thức trước giờ bay bốn tiếng giúp tôi, có chuyến đi Đà Nẵng tôi đặt hôm trước ấy, tôi còn cái chắc buôn hoa đón vợ."
+    }
+  ]
+}

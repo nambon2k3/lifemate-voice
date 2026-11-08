@@ -1,0 +1,40 @@
+{
+  "id": "public_0135",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0135/public_0135_u1.wav",
+      "text": "Tài khoản ngân hàng còn bao nhiêu?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0135/public_0135_u2.wav",
+      "text": "Mai mình có cái hẹn nào trong lịch không?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0135/public_0135_u3.wav",
+      "text": "Ví của mình còn bao nhiêu?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0135/public_0135_u4.wav",
+      "text": "Gần đây có chỗ nào bán cơm tấm ngon không?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0135/public_0135_u5.wav",
+      "text": "Cảm ơn nhé, bạn giỏi thật."
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0135/public_0135_u6.wav",
+      "text": "Chuyển tivi qua kênh VTV3 giúp mình."
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0135/public_0135.wav",
+      "text": "Mai gọi mình dậy nhé, đặt báo thức đi."
+    }
+  ]
+}

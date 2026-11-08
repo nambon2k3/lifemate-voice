@@ -1,0 +1,15 @@
+{
+  "id": "public_0524",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0524/public_0524_u1.wav",
+      "text": "Coi giùm tôi xổ số Mộc Xanh bữa nay giá nhiêu rồi?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0524/public_0524.wav",
+      "text": "Lên giữ hàng canh giùm tôi, nếu lên sáu mươi hai hàng thì báo, mà không báo thì coi."
+    }
+  ]
+}

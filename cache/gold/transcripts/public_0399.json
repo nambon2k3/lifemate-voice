@@ -1,0 +1,15 @@
+{
+  "id": "public_0399",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0399/public_0399_u1.wav",
+      "text": "Coi giùm anh mấy cái thói quen bữa nay tích cái nào chưa?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0399/public_0399.wav",
+      "text": "Ờ, tức cái chạy bộ, đặt ba phần cơm tấm xỉu mì chả về nhà, nhắn vợ tối nay khỏi nấu."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "public_0351",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0351/public_0351_u1.wav",
+      "text": "Bản soạn giúp mình cái thư nháp gửi chị Thu nhé, tiêu đề là Tổng kết quý ba, nội dung là gửi chị bản tổng kết quý ba để duyệt nội bộ, để nháp thôi, chưa gửi đâu."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0351/public_0351_u2.wav",
+      "text": "À, chị Thu vừa nhắn là đừng gửi chị ấy với thắng cho người phụ trách việc luôn."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0351/public_0351.wav",
+      "text": "Ừ, thế bạn gửi luôn cái bản nháp vừa xong cho người phụ trách giúp mình với."
+    }
+  ]
+}

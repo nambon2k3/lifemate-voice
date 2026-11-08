@@ -1,0 +1,15 @@
+{
+  "id": "public_0406",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0406/public_0406_u1.wav",
+      "text": "Em hủy cái đơn mì ý vừa đặt đi, chờ lâu quá."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0406/public_0406.wav",
+      "text": "Ừ thôi để anh tự nấu, ờ trừ cho anh hai gói mì, anh không hai gói."
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "public_0596",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0596/public_0596_u1.wav",
+      "text": "Kiếm giùm anh mấy món ăn sáng làm cho nhanh nha."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0596/public_0596.wav",
+      "text": "Thôi, case mứt chi mà em nói mười phút là xong á, đọc giùm anh từng bước luôn đi, chín giờ anh còn deadline nộp báo cáo."
+    }
+  ]
+}

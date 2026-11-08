@@ -1,0 +1,15 @@
+{
+  "id": "public_0180",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0180/public_0180_u1.wav",
+      "text": "Cái báo cáo vận hành ấy, hạn nộp là bao giờ nhỉ?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0180/public_0180.wav",
+      "text": "Ờ, thế em cho tôi một việc còn thì biếu luôn, cuộc báo cáo ấy, hạn sớm hơn một ngày, vẫn năm giờ chiều nhé."
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "id": "public_0164",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0164/public_0164_u1.wav",
+      "text": "Quanh đây có quán trà sữa nào không chị?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0164/public_0164_u2.wav",
+      "text": "Tắt đèn phòng khách hộ với."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0164/public_0164_u3.wav",
+      "text": "Đặt báo thức bảy giờ sáng mai giúp em."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0164/public_0164_u4.wav",
+      "text": "Dạ em cảm ơn chị nhiều."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0164/public_0164_u5.wav",
+      "text": "Xăng 95 hôm nay bao nhiêu tiền một lít?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0164/public_0164_u6.wav",
+      "text": "Giá vàng SJC hôm nay ra sao ạ?"
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0164/public_0164.wav",
+      "text": "Chuyển cho Nguyễn Thị Lan đúng bằng tiền mạng tháng này, nếu tài khoản thanh toán không đủ thì dùng tiết kiệm nhé."
+    }
+  ]
+}

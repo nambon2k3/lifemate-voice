@@ -1,0 +1,20 @@
+{
+  "id": "public_0348",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0348/public_0348_u1.wav",
+      "text": "Chị định mua cái đèn ngủ màu họa tiết ấy, tí hai cái, nhưng mỗi cái phải dưới bốn trăm rưỡi thì mới mua nha."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0348/public_0348_u2.wav",
+      "text": "Ờ mà trong danh sách mua sắm của chị có ghi đúng hai cái nhé."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0348/public_0348.wav",
+      "text": "Rồi, dỡ em thêm cái đèn đó vào danh sách đi, xem xem giá, nếu vẫn dưới mức chị nói thì đặt luôn hai cái màu hỗ phát cho chị."
+    }
+  ]
+}

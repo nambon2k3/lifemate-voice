@@ -1,0 +1,15 @@
+{
+  "id": "public_0276",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0276/public_0276_u1.wav",
+      "text": "Từ nhà chị đi xe buýt tới Cung Thiếu nhi thì tuyến nào em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0276/public_0276.wav",
+      "text": "Ừ, thế tạo cho chị cái việc cần chuẩn bị đi tiệm đó là tới cùng thế Nhi, hẹn tám giờ sáng thứ bảy, mùng mười tám tháng mười, nhớ ghi cả số, tên, tạo tên việc nha."
+    }
+  ]
+}

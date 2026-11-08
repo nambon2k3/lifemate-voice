@@ -1,0 +1,20 @@
+{
+  "id": "public_0520",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0520/public_0520_u1.wav",
+      "text": "Thứ sáu này anh có lịch gì chưa em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0520/public_0520_u2.wav",
+      "text": "Từ nhà chạy lên sân thống nhất mất bao lâu?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0520/public_0520.wav",
+      "text": "Coi trận chung kết ở sân đó, còn vé không, còn thì lấy hai vé Hotly, hai vé Sài Gòn Cười, rồi hẹn báo thức trước giờ ghi một tiếng."
+    }
+  ]
+}

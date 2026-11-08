@@ -1,0 +1,25 @@
+{
+  "id": "public_0636",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0636/public_0636_u1.wav",
+      "text": "Em ơi tối ni anh còn hẹn chi nữa không, coi lịch giùm anh."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0636/public_0636_u2.wav",
+      "text": "Ờ, nhắc anh trước cái hẹn tàu mười lăm phút nghe."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0636/public_0636_u3.wav",
+      "text": "Vợ à, có nhắn chi anh trên Zalo không em?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0636/public_0636.wav",
+      "text": "Rứa anh đi xe buýt ra ga Huế, chuyến kế tiếp ở trạm gần nhà có kịp đón Lucas không em?"
+    }
+  ]
+}

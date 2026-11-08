@@ -1,0 +1,15 @@
+{
+  "id": "public_0378",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0378/public_0378_u1.wav",
+      "text": "Tìm cho tôi vài quán cà phê quanh Hồ Tây mà mở cửa sớm mai."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0378/public_0378.wav",
+      "text": "Được, thế chị lên cho tôi từ nhà tới đại quán đầu tiên ấy."
+    }
+  ]
+}

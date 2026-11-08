@@ -1,0 +1,15 @@
+{
+  "id": "public_0222",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0222/public_0222_u1.wav",
+      "text": "Hai đơn mới giao tuần này đều hỏng cả, đôi giày chạy bộ với cái máy rứa tóc, tôi muốn trả lại một đơn."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0222/public_0222.wav",
+      "text": "Trả lại đôi giày chạy bộ đi, đến nãy băng da hết rồi."
+    }
+  ]
+}

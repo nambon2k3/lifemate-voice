@@ -1,0 +1,25 @@
+{
+  "id": "public_0517",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0517/public_0517_u1.wav",
+      "text": "Hôm ni em còn việc chi chưa làm không hè?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0517/public_0517_u2.wav",
+      "text": "Thứ 5 đánh dấu xong việc tới giúp em, em vào phòng hẻm rồi."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0517/public_0517_u3.wav",
+      "text": "Trưa em đang gửi xe ở mô rứa?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0517/public_0517.wav",
+      "text": "Em lấy xe ra rồi, tắt cái V5 gửi xe giúp em nghe."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "public_0544",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0544/public_0544_u1.wav",
+      "text": "Em cho chị vào giỏ đi chợ một he thạch ba chỉ nhé."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0544/public_0544_u2.wav",
+      "text": "Được rồi, em đặt hàng luôn cho chị."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0544/public_0544.wav",
+      "text": "Giao về nhà chị nha em, hàng tới trước giờ cô Clover bên Next Quang cơm nửa tiếng là vừa."
+    }
+  ]
+}

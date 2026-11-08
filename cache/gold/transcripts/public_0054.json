@@ -1,0 +1,20 @@
+{
+  "id": "public_0054",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0054/public_0054_u1.wav",
+      "text": "Ngoài trời giờ bao nhiêu độ nhỉ?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0054/public_0054_u2.wav",
+      "text": "Ví điện tử của tôi còn bao nhiêu tiền?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0054/public_0054.wav",
+      "text": "Nhắc tôi tắt bếp lúc chín giờ kém mười lăm tối mai nhé."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "public_0063",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0063/public_0063_u1.wav",
+      "text": "Giá xăng RON95 giờ bao nhiêu rồi à?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0063/public_0063_u2.wav",
+      "text": "Ok em, chào buổi sáng nha."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0063/public_0063_u3.wav",
+      "text": "Lịch mai của em có gì không ạ?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0063/public_0063_u4.wav",
+      "text": "Nhắc em mua sữa lúc chị ra xả mái với."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0063/public_0063.wav",
+      "text": "Sáng rồi, tắt hết đèn đang sáng trong nhà giúp em, trưa nay mỗi đèn phòng làm việc thôi nha."
+    }
+  ]
+}

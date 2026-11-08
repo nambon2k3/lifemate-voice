@@ -1,0 +1,30 @@
+{
+  "id": "public_0102",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0102/public_0102_u1.wav",
+      "text": "Giá vàng SJC sáng nay sao rồi?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0102/public_0102_u2.wav",
+      "text": "Mở bài Nơi này có anh cho tôi nghe."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0102/public_0102_u3.wav",
+      "text": "Chuyển tivi sang HTV7 giùm."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0102/public_0102_u4.wav",
+      "text": "Ngoài trời đang bao nhiêu độ?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0102/public_0102.wav",
+      "text": "Ngày mai mà có mưa thì bảo lịch đá bóng buổi sáng đi, còn nếu bóng chuyền luôn giùm tôi, còn không mưa thì cứ để vậy."
+    }
+  ]
+}

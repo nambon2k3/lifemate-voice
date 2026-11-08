@@ -1,0 +1,60 @@
+{
+  "id": "public_0672",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0672/public_0672_u1.wav",
+      "text": "Sáng chủ nhật nè, ví anh còn nhiêu tiền em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0672/public_0672_u2.wav",
+      "text": "Mới chiên hai cái trứng, trừ giùm anh trong tủ nha."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0672/public_0672_u3.wav",
+      "text": "Số anh Tuấn là số mấy em?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0672/public_0672_u4.wav",
+      "text": "Ờ, mấy bữa tới em có nhắc việc gì không?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0672/public_0672_u5.wav",
+      "text": "Thêm giùm anh gặp khách Nokwin Trading ở Phan Thiết, ba giờ chiều thứ sáu."
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0672/public_0672_u6.wav",
+      "text": "Nhắc anh tám giờ tối nay gọi má nữa."
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0672/public_0672_u7.wav",
+      "text": "Rồi, dạch anh lấy rồi, tên dấu xong giùm."
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0672/public_0672_u8.wav",
+      "text": "Xoá luôn cái đóng tiền gym đi, anh nghỉ tập rồi."
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0672/public_0672_u9.wav",
+      "text": "Trưa rồi mà nóng quá em ơi."
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0672/public_0672_u10.wav",
+      "text": "Ừ, cảm ơn em."
+    },
+    {
+      "turn": 10,
+      "audio": "audio/public_0672/public_0672.wav",
+      "text": "Đặt giúp anh một vé đi cho kịp buổi gặp Rodwin trên đây nha, tàu hay xe gì cũng được."
+    }
+  ]
+}

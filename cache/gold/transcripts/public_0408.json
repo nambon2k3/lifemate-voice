@@ -1,0 +1,20 @@
+{
+  "id": "public_0408",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0408/public_0408_u1.wav",
+      "text": "Nhắc anh ba giờ chiều nay ra sân bay đón đoàn khách Hàn nghe."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0408/public_0408_u2.wav",
+      "text": "Rứa bữa có nhắn gì cho anh không em?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0408/public_0408.wav",
+      "text": "Mai Mã mô đang lười, đừng nhắn bữa luôn, thôi cứ nhắn, em đọc nghe thôi."
+    }
+  ]
+}

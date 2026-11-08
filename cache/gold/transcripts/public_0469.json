@@ -1,0 +1,15 @@
+{
+  "id": "public_0469",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0469/public_0469_u1.wav",
+      "text": "Vợ anh vừa nhắn gì đấy, đọc anh nghe."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0469/public_0469.wav",
+      "text": "Ừ, mai vợ hỏi giờ bao nhiêu rồi, xuống dưới mức anh ghi trong ghi chú thì nhắn vợ mua luôn đi nhé."
+    }
+  ]
+}

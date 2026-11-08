@@ -1,0 +1,15 @@
+{
+  "id": "public_0442",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0442/public_0442_u1.wav",
+      "text": "Một ổng pork ở nhà trọ, anh bay sớm, em coi từ nhà ra sân bay xem xe giá nhiêu."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0442/public_0442.wav",
+      "text": "Nôn bác bật tiếng hẹn, xe bốn chỗ hết nhiêu đó, mai mưa thì đặt luôn sáu giờ sáng nhé."
+    }
+  ]
+}

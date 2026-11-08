@@ -1,0 +1,20 @@
+{
+  "id": "public_0516",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0516/public_0516_u1.wav",
+      "text": "Cổ phiếu S&P500 tôi còn bao nhiêu?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0516/public_0516_u2.wav",
+      "text": "Mai Hà Nội có mưa hông?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0516/public_0516.wav",
+      "text": "Bán hết chỗ cho KEN ấy đi, dở lại hai trăm. Mưa thì ghi lịch ba giờ chiều mai đánh cờ, nhắn ông Ba sang nhà tôi."
+    }
+  ]
+}

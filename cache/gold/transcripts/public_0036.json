@@ -1,0 +1,35 @@
+{
+  "id": "public_0036",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0036/public_0036_u1.wav",
+      "text": "Mai tám giờ tối nhắc mình gọi cho khách nhé."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0036/public_0036_u2.wav",
+      "text": "Phí hôm nay còn bao nhiêu tiền?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0036/public_0036_u3.wav",
+      "text": "Quanh đây có quán pizza nào ngon không?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0036/public_0036_u4.wav",
+      "text": "Phát bài Ngày đầu tiên đi."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0036/public_0036_u5.wav",
+      "text": "Làm tốt lắm, vì hài lòng đấy."
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0036/public_0036.wav",
+      "text": "Lịch đá bóng mai dời muộn thêm nửa tiếng, báo thức trước đó một tiếng, rồi nhắn SMS cho Minh giờ mới giúp mình."
+    }
+  ]
+}

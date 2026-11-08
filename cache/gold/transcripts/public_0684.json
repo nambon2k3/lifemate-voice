@@ -1,0 +1,70 @@
+{
+  "id": "public_0684",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0684/public_0684_u1.wav",
+      "text": "Sáng nay giá xăng RON95 bao nhiêu em nhỉ?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0684/public_0684_u2.wav",
+      "text": "À em tìm giúp chị workshop của Hennessy Design với."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0684/public_0684_u3.wav",
+      "text": "Đặt giúp chị hai vé cái Sáng mai nhé."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0684/public_0684_u4.wav",
+      "text": "Ba vì cơ à, thế bây giờ bắt đầu ấy nhỉ?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0684/public_0684_u5.wav",
+      "text": "Số anh Minh đồng nghiệp chị là số nào em?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0684/public_0684_u6.wav",
+      "text": "Anh ấy vừa đổi số, sửa giúp chị thành không chín tám bốn chín sáu không sáu chín một sáu nhé."
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0684/public_0684_u7.wav",
+      "text": "Thế xăng E5 hôm nay bao nhiêu?"
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0684/public_0684_u8.wav",
+      "text": "Đổ 40ml E5 đi ba việc thì hết bao nhiêu em?"
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0684/public_0684_u9.wav",
+      "text": "Tranh vẽ Ron 95 bao nhiêu một lít?"
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0684/public_0684_u10.wav",
+      "text": "Thêm giúp chị việc đổ xăng, hạn sáu giờ sáng mai nhé."
+    },
+    {
+      "turn": 10,
+      "audio": "audio/public_0684/public_0684_u11.wav",
+      "text": "Trưa nay trời đẹp quá em nhỉ?"
+    },
+    {
+      "turn": 11,
+      "audio": "audio/public_0684/public_0684_u12.wav",
+      "text": "Ừ, cảm ơn em nhé."
+    },
+    {
+      "turn": 12,
+      "audio": "audio/public_0684/public_0684.wav",
+      "text": "Mai chị đi xem anh Hùng tới workshop Peninsula Design, xe chạy dầu, em xem giá dầu, nhắn anh ấy là chị đi cùng nhé."
+    }
+  ]
+}

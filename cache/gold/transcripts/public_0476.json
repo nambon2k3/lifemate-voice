@@ -1,0 +1,15 @@
+{
+  "id": "public_0476",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0476/public_0476_u1.wav",
+      "text": "Đặt giúp chị báo thức sáu giờ sáng cho nhầm nhé."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0476/public_0476.wav",
+      "text": "À, em gửi giúp chị chở đồ xe chủ nhật nhé. À không, chủ nhật em chỉ cần phòng đêm, vì cái chua nay thôi."
+    }
+  ]
+}

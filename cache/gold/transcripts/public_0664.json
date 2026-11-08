@@ -1,0 +1,65 @@
+{
+  "id": "public_0664",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0664/public_0664_u1.wav",
+      "text": "Sáng nay trong nhà còn đèn nào đang bật không em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0664/public_0664_u2.wav",
+      "text": "Tắt cả hoa giúp chị nhé."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0664/public_0664_u3.wav",
+      "text": "Bật quạt phòng khách số hai cho bà nhé."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0664/public_0664_u4.wav",
+      "text": "Thôi trời lạnh, để điều hoà phòng khách chế độ sưởi 25 độ giúp chị."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0664/public_0664_u5.wav",
+      "text": "À số của Mai, cô giáo của cháu là bao nhiêu em?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0664/public_0664_u6.wav",
+      "text": "Từ công ty chị đến bệnh viện Bạch Mai đi ô tô mất bao lâu?"
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0664/public_0664_u7.wav",
+      "text": "Tài khoản của chị còn bao nhiêu tiền nhỉ?"
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0664/public_0664_u8.wav",
+      "text": "Tối nay chị định nấu gà xào rau ớt, em tìm công thức giúp chị."
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0664/public_0664_u9.wav",
+      "text": "Lưu con gạch đó lại giúp chị nhé."
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0664/public_0664_u10.wav",
+      "text": "Trưa nay Hà Nội rét thật đấy em."
+    },
+    {
+      "turn": 10,
+      "audio": "audio/public_0664/public_0664_u11.wav",
+      "text": "Ừ, cảm ơn em nhé."
+    },
+    {
+      "turn": 11,
+      "audio": "audio/public_0664/public_0664.wav",
+      "text": "Chị ăn trưa với Julia Marano xong rồi, em kết thúc phiên gửi xe giúp chị nhé."
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "id": "public_0670",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0670/public_0670_u1.wav",
+      "text": "Sáng sớm mà coi giùm cô tài khoản thanh toán còn bao nhiêu tiền."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0670/public_0670_u2.wav",
+      "text": "Rứa chuyển cho Lê Minh một triệu hai tiền gạo nghe con."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0670/public_0670_u3.wav",
+      "text": "Chuyển xong còn lại bao nhiêu con?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0670/public_0670_u4.wav",
+      "text": "Bữa ni Đà Nẵng có mưa không con?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0670/public_0670_u5.wav",
+      "text": "Đặt báo thức bốn giờ chiều nay cho cô đi đón cháu."
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0670/public_0670_u6.wav",
+      "text": "Với năm giờ sáng mai nữa cô đi tập dưỡng sinh."
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0670/public_0670_u7.wav",
+      "text": "Ghi lại dùm cô mua nước mắm đường với bột ngọt."
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0670/public_0670_u8.wav",
+      "text": "Còn việc đó người quản không ri?"
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0670/public_0670_u9.wav",
+      "text": "Ừ, cảm ơn con em."
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0670/public_0670.wav",
+      "text": "Minh Tô Hà Sân gửi thư nói chuyển tiền phòng qua app rồi, còn coi ổng ghi bao nhiêu, tài khoản của chuyển tiền gạo nhầm chưa?"
+    }
+  ]
+}

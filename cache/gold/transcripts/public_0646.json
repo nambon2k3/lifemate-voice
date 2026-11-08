@@ -1,0 +1,20 @@
+{
+  "id": "public_0646",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0646/public_0646_u1.wav",
+      "text": "Ví anh còn nhiêu tiền vậy em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0646/public_0646_u2.wav",
+      "text": "Ờ, nạp giùm anh tầm nhìn vô thẻ đi xe luôn đi."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0646/public_0646.wav",
+      "text": "Trần mười phút nữa, vui mới ra tới trạm công ty Sài Gòn Top, coi giùm chuyến xe buýt nào kịp nha."
+    }
+  ]
+}

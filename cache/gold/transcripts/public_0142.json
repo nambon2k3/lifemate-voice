@@ -1,0 +1,25 @@
+{
+  "id": "public_0142",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0142/public_0142_u1.wav",
+      "text": "Ngày mai có gì trong lịch của em không?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0142/public_0142_u2.wav",
+      "text": "Tắt đèn phòng làm việc đi."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0142/public_0142_u3.wav",
+      "text": "Nhắc em nộp tiền điện lúc tám giờ tối mai nhé."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0142/public_0142.wav",
+      "text": "Nhắn Zalo cho mẹ hộ em là đến rồi thì gọi em nhé."
+    }
+  ]
+}

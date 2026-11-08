@@ -1,0 +1,60 @@
+{
+  "id": "public_0679",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0679/public_0679_u1.wav",
+      "text": "Sáng nay giá vàng SJC bao nhiêu vậy?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0679/public_0679_u2.wav",
+      "text": "Ủa, trong ghi chú có cái nào về quà cho mẹ không?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0679/public_0679_u3.wav",
+      "text": "Tạo thêm ghi chú quỹ mua vàng, ghi là gom đủ một chi nhánh tặng mẹ trước Tết."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0679/public_0679_u4.wav",
+      "text": "À mà mấy mã chứng khoán của tôi giờ sao rồi?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0679/public_0679_u5.wav",
+      "text": "Báo tôi khi Ví Tắc rút dưới một trăm hai mươi nghìn nha."
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0679/public_0679_u6.wav",
+      "text": "Trưa rồi, số phụ huynh trong danh bạ là số nào?"
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0679/public_0679_u7.wav",
+      "text": "Năm mới đổi số, sửa lại thành không chín tám tám, một hai ba bốn năm sáu bảy giùm tôi."
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0679/public_0679_u8.wav",
+      "text": "Còn số chị Hai là số nào ta?"
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0679/public_0679_u9.wav",
+      "text": "Tối rồi, deadline đồ án một xíu luôn á."
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0679/public_0679_u10.wav",
+      "text": "Ok, cảm ơn nha."
+    },
+    {
+      "turn": 10,
+      "audio": "audio/public_0679/public_0679.wav",
+      "text": "Giá vàng nhẫn tối nay bán ra nhiêu vậy? Ghi giá đó vô cái notebook về vàng giùm tôi luôn."
+    }
+  ]
+}

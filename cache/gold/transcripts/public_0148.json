@@ -1,0 +1,20 @@
+{
+  "id": "public_0148",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0148/public_0148_u1.wav",
+      "text": "Tài khoản tôi còn bao nhiêu tiền?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0148/public_0148_u2.wav",
+      "text": "Còn ví điện tử thì sao?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0148/public_0148.wav",
+      "text": "Cái hẹn cà phê với Minh mai giày muộn một tiếng rứa nhỉ?"
+    }
+  ]
+}

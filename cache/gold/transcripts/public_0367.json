@@ -1,0 +1,15 @@
+{
+  "id": "public_0367",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0367/public_0367_u1.wav",
+      "text": "Tìm giúp chị món mì nào nấu nhanh nhanh cho hai người ăn tối nay với."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0367/public_0367.wav",
+      "text": "Ờ, lấy thẻ trả hai quên điểm chín của món đầu tiên vào danh sách chi trả giúp chị nhé, số lúc đúng như anh vừa nói đấy."
+    }
+  ]
+}

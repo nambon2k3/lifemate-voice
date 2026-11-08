@@ -1,0 +1,35 @@
+{
+  "id": "public_0099",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0099/public_0099_u1.wav",
+      "text": "Dạo này bà làm việc giỏi thật đấy."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0099/public_0099_u2.wav",
+      "text": "Ví điện tử của Minh còn được bao nhiêu nhỉ?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0099/public_0099_u3.wav",
+      "text": "Mai xăng RON95 hôm nay lên bao nhiêu rồi?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0099/public_0099_u4.wav",
+      "text": "Mở tivi kênh VTV1 hộ mình."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0099/public_0099_u5.wav",
+      "text": "Thế con tao gọi Tuấn Hằng, coi coi bao nhiêu?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0099/public_0099.wav",
+      "text": "Đặt cho Minh bữa mè, hai vé đi Sài Gòn, ngày mùng bảy tháng mười hai, chuyển 500 ngàn cho bà Jojo, mà rẻ nhất hỉ."
+    }
+  ]
+}

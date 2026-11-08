@@ -1,0 +1,65 @@
+{
+  "id": "public_0694",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0694/public_0694_u1.wav",
+      "text": "Sáng nay tài khoản thanh toán của chị còn bao nhiêu em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0694/public_0694_u2.wav",
+      "text": "Chuyển cho chủ nhà Phạm Hùng ba triệu rưỡi, ghi tiền nhà tháng mười hai nhé."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0694/public_0694_u3.wav",
+      "text": "À, tìm giúp chị quán phở nào ở Hoàng Kim với."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0694/public_0694_u4.wav",
+      "text": "Chị Yến có nhắn Zalo gì cho chị không em?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0694/public_0694_u5.wav",
+      "text": "Nhắn lại chị Yến là chị sẽ đến đúng giờ nhé."
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0694/public_0694_u6.wav",
+      "text": "Còn thằng Minh có nhắn gì không?"
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0694/public_0694_u7.wav",
+      "text": "Nhắn Minh là trưa mẹ mang qua cho, đừng lo."
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0694/public_0694_u8.wav",
+      "text": "Nhóm gia đình thì sao em?"
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0694/public_0694_u9.wav",
+      "text": "Gửi vào nhóm là tối nay chị về muộn, khoảng bảy giờ mới qua."
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0694/public_0694_u10.wav",
+      "text": "Sáng nay trời lạnh thật đấy em nhỉ?"
+    },
+    {
+      "turn": 10,
+      "audio": "audio/public_0694/public_0694_u11.wav",
+      "text": "Ừ, cảm ơn em, chị chuẩn bị đi đây."
+    },
+    {
+      "turn": 11,
+      "audio": "audio/public_0694/public_0694.wav",
+      "text": "Xem tàu điện kế tiếp ở chỗ chị Yến, hẹn đón mấy giờ, sau chín giờ thì nhắn chị Yến là chị tới muộn nhé."
+    }
+  ]
+}

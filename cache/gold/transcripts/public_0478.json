@@ -1,0 +1,15 @@
+{
+  "id": "public_0478",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0478/public_0478_u1.wav",
+      "text": "Em đánh dấu giúp chị việc gia hạn hộ em xe máy là xong rồi nhé."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0478/public_0478.wav",
+      "text": "À em ơi, chị lấy xe ra rồi, em báo kết thúc lịch gửi xe giúp chị luôn nhé, để trả chỗ cho người ta."
+    }
+  ]
+}

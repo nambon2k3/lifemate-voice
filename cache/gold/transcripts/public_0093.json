@@ -1,0 +1,35 @@
+{
+  "id": "public_0093",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0093/public_0093_u1.wav",
+      "text": "Ví điện tử của tôi còn được bao nhiêu nhỉ?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0093/public_0093_u2.wav",
+      "text": "Đặt báo thức bảy giờ sáng mai đi."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0093/public_0093_u3.wav",
+      "text": "Dạo này trợ lý khỏe không đây?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0093/public_0093_u4.wav",
+      "text": "Mai bên mình rét thế nào?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0093/public_0093_u5.wav",
+      "text": "Xăng RON95 bữa nay bao nhiêu một lít rồi?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0093/public_0093.wav",
+      "text": "Đặt cho tôi một vé đi Sài Gòn ngày mùng bốn tháng mười hai, phải đến nơi trước sáu giờ chiều, còn trong đó thì chọn chuyến bay muộn nhất."
+    }
+  ]
+}

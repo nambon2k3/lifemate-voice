@@ -1,0 +1,20 @@
+{
+  "id": "public_0317",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0317/public_0317_u1.wav",
+      "text": "Hai đơn đồ điện gia dụng anh đặt tuần trước giờ sao rồi em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0317/public_0317_u2.wav",
+      "text": "Cái máy xay giao nhầm hàng rồi, không phải là anh đặt, anh muốn trả lại."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0317/public_0317.wav",
+      "text": "Đúng rồi, tạo yêu cầu trả đơn đó giúp anh."
+    }
+  ]
+}

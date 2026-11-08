@@ -1,0 +1,15 @@
+{
+  "id": "public_0327",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0327/public_0327_u1.wav",
+      "text": "Đặt cho anh hai vé đêm khoa học ở Cung thiếu nhi nhé."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0327/public_0327.wav",
+      "text": "Ok, giờ nhắn Zalo cho Mai anh xíu giùm giúp anh là đặt được mấy vé rồi nhé."
+    }
+  ]
+}

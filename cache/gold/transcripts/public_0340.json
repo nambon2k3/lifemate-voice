@@ -1,0 +1,15 @@
+{
+  "id": "public_0340",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0340/public_0340_u1.wav",
+      "text": "Mở giúp mình tin nhắn chị Lan gửi về lịch đi nguyên nhân với, mình xem lại chút."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0340/public_0340.wav",
+      "text": "Ok, để đặt cho mình chuyến bay đến chuyến tàu đó, mỗi cái một vé thôi. Mà nếu từ lúc hạ cánh tới lúc tàu chạy được ít nhất tiếng rưỡi thì ghi vào lịch sửa giờ tàu tới nơi giúp mình nha."
+    }
+  ]
+}

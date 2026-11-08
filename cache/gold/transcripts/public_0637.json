@@ -1,0 +1,20 @@
+{
+  "id": "public_0637",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0637/public_0637_u1.wav",
+      "text": "Em ơi, số dư ngân hàng anh còn nhiêu?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0637/public_0637_u2.wav",
+      "text": "Tối qua Miss Tí mới mắc chon sân ăn, gửi xe chỗ nào, hết nhiêu tiền?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0637/public_0637.wav",
+      "text": "Em coi trong tài khoản thanh toán, Mark Johnson trả anh nửa tiền gửi xe tối qua chưa?"
+    }
+  ]
+}

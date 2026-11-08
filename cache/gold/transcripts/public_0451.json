@@ -1,0 +1,20 @@
+{
+  "id": "public_0451",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0451/public_0451_u1.wav",
+      "text": "Em xem ở nhà còn đèn nào đang bật không?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0451/public_0451_u2.wav",
+      "text": "Tắt đèn phòng ngủ nhỏ đi em, còn lại để anh thằng dùng."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0451/public_0451.wav",
+      "text": "Chị về đây, ổng gầm còn giờ gửi xe thì kết thúc luôn, rồi Zalo báo anh ấy chị đang về."
+    }
+  ]
+}

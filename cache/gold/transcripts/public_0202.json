@@ -1,0 +1,20 @@
+{
+  "id": "public_0202",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0202/public_0202_u1.wav",
+      "text": "Anh đăng kênh một cái bàn phím nhỏ gọn để mang đi làm, trên đó có mẫu nào ổn không em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0202/public_0202_u2.wav",
+      "text": "Các cô thì đắt quá, chắc anh lấy con compact K2 thôi."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0202/public_0202.wav",
+      "text": "Ờ đặt đi, một cái combo cá hai thôi, thanh toán khi nhận hàng nha."
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "id": "public_0667",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0667/public_0667_u1.wav",
+      "text": "Xong rồi, mở bài Nam Này Có Anh nghe coi."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0667/public_0667_u2.wav",
+      "text": "Nhỏ quá, vẫn nên tăng lên."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0667/public_0667_u3.wav",
+      "text": "Sáu ăn sáu, chủ xe nhiêu, đọc lại coi."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0667/public_0667_u4.wav",
+      "text": "Trưa rồi, dành nhẫn bữa nay nhiêu một chỉ?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0667/public_0667_u5.wav",
+      "text": "Ờ, mấy bữa tới có số hàng nào hông?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0667/public_0667_u6.wav",
+      "text": "Hãy hai vé Sài Gòn Cửu Đinh."
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0667/public_0667_u7.wav",
+      "text": "Chiều rồi, cuối tuần này nhà hết quà bình, có gì hông?"
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0667/public_0667_u8.wav",
+      "text": "Ảnh đặt ánh sáng đó, lấy bài Vé cho cả nhà."
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0667/public_0667_u9.wav",
+      "text": "Còn Hoà Nhạc thì sao, giá nhiêu?"
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0667/public_0667.wav",
+      "text": "Gói lương hồi sáng để tám, lớn quá, vẫn xuống còn bốn. Nhớ nhắn Zalo anh Sáu là tối nay anh trả xe trễ nha."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "public_0626",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0626/public_0626_u1.wav",
+      "text": "Em xem nhà còn hóa đơn nào chưa đóng."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0626/public_0626_u2.wav",
+      "text": "Cho luôn cái thẻ nhắc bằng ví đi, xong báo anh ví còn bao nhiêu."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0626/public_0626.wav",
+      "text": "Hai hoá đơn còn lại bằng tự động thanh toán luôn, rồi ghi thêm vào ghi chú Enterprise là từ tháng sau trả tự động."
+    }
+  ]
+}

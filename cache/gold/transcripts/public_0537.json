@@ -1,0 +1,20 @@
+{
+  "id": "public_0537",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0537/public_0537_u1.wav",
+      "text": "Hôm nay mình có lịch gì hông em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0537/public_0537_u2.wav",
+      "text": "Ok, ngày Book dùng chị chỗ nào thì gầng lên lẹ, chị ra phố đi bộ."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0537/public_0537.wav",
+      "text": "Ờm chắc tầm mười giờ hai tiếng, à thôi khỏi bốc nha, anh Long chở chị đi rồi."
+    }
+  ]
+}

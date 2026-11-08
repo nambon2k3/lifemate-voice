@@ -1,0 +1,20 @@
+{
+  "id": "public_0338",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0338/public_0338_u1.wav",
+      "text": "Mở lại giúp anh đoạn chat với shop máy xay hôm qua xem họ bảo đơn bị lỗi gì anh nhỉ."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0338/public_0338_u2.wav",
+      "text": "Ờ thế à, cái mỡ ngai trên sàn giờ bán bao nhiêu em?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0338/public_0338.wav",
+      "text": "Ừ, với em làm trả hàng cái đơn giao nhầm đấy đi, lý do là giao sai mẫu, xong đặt lại cho anh một cái mười hai luôn nhé."
+    }
+  ]
+}

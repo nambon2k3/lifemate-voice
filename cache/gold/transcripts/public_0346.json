@@ -1,0 +1,20 @@
+{
+  "id": "public_0346",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0346/public_0346_u1.wav",
+      "text": "Tối nay mình định nấu trà ri, tìm thử mấy công thức trà bixen nào."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0346/public_0346_u2.wav",
+      "text": "Cả rìa đậu hũ đi, món đó còn hũ gì thế?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0346/public_0346.wav",
+      "text": "Ok, thế đậu hũ trong tủ bếp còn mấy hộp, thì trừ hết ra luôn, vì mình dùng tới nay. Còn thiếu bao nhiêu hộp so với công thức thì đặt mua thêm cho đủ nha."
+    }
+  ]
+}

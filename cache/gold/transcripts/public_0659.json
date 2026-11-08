@@ -1,0 +1,60 @@
+{
+  "id": "public_0659",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0659/public_0659_u1.wav",
+      "text": "Em ơi, sáng ni chị ra khỏi nhà rồi, trong nhà còn đèn mô đang bật không?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0659/public_0659_u2.wav",
+      "text": "Tắt hết hai cái đó giùm chị đi."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0659/public_0659_u3.wav",
+      "text": "Mai có, mai chị có mấy cái báo thức kì?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0659/public_0659_u4.wav",
+      "text": "Cái họp sớm giờ lên sáu giờ đúng nha em."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0659/public_0659_u5.wav",
+      "text": "Cần trưa rồi, có quán mô giao cơm trưa không em?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0659/public_0659_u6.wav",
+      "text": "Bún bò Cô Ba có món chi?"
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0659/public_0659_u7.wav",
+      "text": "Đặt chị một tô đặc biệt với phần chả cua nghen."
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0659/public_0659_u8.wav",
+      "text": "Lát nữa chị đi xe buýt từ Viện Văn Linh ra Cầu Rồng thì đi chuyến mô?"
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0659/public_0659_u9.wav",
+      "text": "Ờ Nguyễn Văn Linh mấy giờ có chuyến?"
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0659/public_0659_u10.wav",
+      "text": "Nạp thêm năm chục nghìn vô thẻ xe bít luôn em."
+    },
+    {
+      "turn": 10,
+      "audio": "audio/public_0659/public_0659.wav",
+      "text": "Em coi giùm trong mấy ví mấy bay chị đặt chuyến nào, bay sớm nhất thì check in luôn chuyến đó cho chị nghe."
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "id": "public_0015",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0015/public_0015_u1.wav",
+      "text": "Đèn giúp tôi cho đèn thạch quán Minh Đông nhấp với."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0015/public_0015_u2.wav",
+      "text": "Giá xăng hôm nay ở Hà Nội là bao nhiêu thế anh nhỉ?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0015/public_0015_u3.wav",
+      "text": "Tắt đèn phòng khách giúp mình nhé."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0015/public_0015.wav",
+      "text": "Gọi cho Minh Quân đi, rồi đặt báo thức sau giờ sáng mai cho tôi với."
+    }
+  ]
+}

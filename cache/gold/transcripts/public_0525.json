@@ -1,0 +1,15 @@
+{
+  "id": "public_0525",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0525/public_0525_u1.wav",
+      "text": "Em xem giúp chị mấy món có phiếu hôm ni hả?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0525/public_0525.wav",
+      "text": "Bố chị, khi cái mẫu ngân hàng ấy xuống dưới 40 nghìn hả? À không, hơn 40 nghìn rưỡi nghe."
+    }
+  ]
+}

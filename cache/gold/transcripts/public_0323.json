@@ -1,0 +1,15 @@
+{
+  "id": "public_0323",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0323/public_0323_u1.wav",
+      "text": "Chiều thứ sáu này có chuyến RV2210 Sài Gòn đó, đi hai người mà tổng không quá hai triệu thì mới đặt nghe chưa?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0323/public_0323.wav",
+      "text": "Rồi, giờ em coi giá chuyến đó đi, hai người mà vẫn dưới mức anh nói thì chốt luôn hai chỗ nha."
+    }
+  ]
+}

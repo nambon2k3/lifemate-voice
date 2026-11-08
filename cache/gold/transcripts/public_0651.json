@@ -1,0 +1,60 @@
+{
+  "id": "public_0651",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0651/public_0651_u1.wav",
+      "text": "Em ơi, mai buổi tối chị có lịch chi không nè?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0651/public_0651_u2.wav",
+      "text": "Em cho chị hẹn gặp xe Hera bằng lô hàng mười giờ sáng thứ năm em."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0651/public_0651_u3.wav",
+      "text": "Trưa rồi, chỗ rổ xe chị đặt chiều ni mấy giờ, tới mấy giờ rứa?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0651/public_0651_u4.wav",
+      "text": "Ê đặt luôn bãi chở hàng sáng mai tám giờ hai tiếng nghen."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0651/public_0651_u5.wav",
+      "text": "Đọc chị nghe ghi chú về việc cơ quan với."
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0651/public_0651_u6.wav",
+      "text": "Thêm mô đao gửi invoice cho Mr. Tanaka trước thứ sáu."
+    },
+    {
+      "turn": 6,
+      "audio": "audio/public_0651/public_0651_u7.wav",
+      "text": "Số điện thoại Mr. Tanaka là số mấy em?"
+    },
+    {
+      "turn": 7,
+      "audio": "audio/public_0651/public_0651_u8.wav",
+      "text": "Con số của xe Han thì sao?"
+    },
+    {
+      "turn": 8,
+      "audio": "audio/public_0651/public_0651_u9.wav",
+      "text": "Sửa số xe Hanh Thành không chín tám không bốn một bốn bốn một chín chín giùm chị."
+    },
+    {
+      "turn": 9,
+      "audio": "audio/public_0651/public_0651_u10.wav",
+      "text": "Chiều nay mặc cho em, mỗi thứ ba mà tưởng thứ sáu."
+    },
+    {
+      "turn": 10,
+      "audio": "audio/public_0651/public_0651.wav",
+      "text": "Mai dậy dậy trễ chút cũng được, coi báo thức kêu trước sáu giờ thì giờ thành sáu rưỡi nghe em."
+    }
+  ]
+}

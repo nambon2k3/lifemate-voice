@@ -1,0 +1,15 @@
+{
+  "id": "public_0009",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0009/public_0009_u1.wav",
+      "text": "Tìm giúp mình số điện thoại của Minh đồng nghiệp với."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0009/public_0009.wav",
+      "text": "Email cho Minh bảo nhau mang tài liệu nhé."
+    }
+  ]
+}

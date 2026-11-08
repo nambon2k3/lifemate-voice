@@ -1,0 +1,25 @@
+{
+  "id": "public_0603",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0603/public_0603_u1.wav",
+      "text": "Ơi, tối nay tớ có lịch gì không nhỉ?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0603/public_0603_u2.wav",
+      "text": "À đọc được cái công thức bên cách kiểu Mỹ trong ghi chú với."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0603/public_0603_u3.wav",
+      "text": "Tủ bếp có trứng, bột mì với sữa không?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0603/public_0603.wav",
+      "text": "Tối nay tới làm pancakes theo công thức đó cho sáu đứa, trừ luôn chừng với sữa trong tủ dùng tới nha."
+    }
+  ]
+}

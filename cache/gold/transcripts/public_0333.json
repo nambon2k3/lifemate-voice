@@ -1,0 +1,15 @@
+{
+  "id": "public_0333",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0333/public_0333_u1.wav",
+      "text": "Em xem trong tủ bếp còn bao nhiêu gà S.P.25 cho tối bữa."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0333/public_0333.wav",
+      "text": "Ừ, hôm nay tôi lấy ba cân rau nấu cổ, em trừ đi nhé, trừ xong mà còn dưới hai cân thì đặt thêm giá S.T.25 cho đủ hai cân, còn đủ thì thôi, khỏi đặt."
+    }
+  ]
+}

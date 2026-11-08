@@ -1,0 +1,20 @@
+{
+  "id": "public_0271",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0271/public_0271_u1.wav",
+      "text": "Sáng nay chị ấy sớm rồi thì được mười lăm phút rồi đấy em."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0271/public_0271_u2.wav",
+      "text": "Ờ đúng rồi, cái thói quen thì mười phút ấy."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0271/public_0271.wav",
+      "text": "Ờ, thế em đánh dấu hôm nay chị làm xong rồi nhé."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "public_0262",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0262/public_0262_u1.wav",
+      "text": "Ê, team thiết kế bên công ty mình sáu đứa đăng ký đi hết rồi đấy."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0262/public_0262_u2.wav",
+      "text": "Ừ, cái ngày Hội Thiết kế Việt ấy, tìm vé giúp mình xem."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0262/public_0262.wav",
+      "text": "Víp đi, công ty chi mà, đặt đủ số vé nhé."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "public_0168",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0168/public_0168_u1.wav",
+      "text": "Chuyển tivi sang kênh SCTV9 đi."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0168/public_0168_u2.wav",
+      "text": "Ừ, cảm ơn nha."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0168/public_0168_u3.wav",
+      "text": "Số điện thoại của mẹ là gì nhỉ?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0168/public_0168_u4.wav",
+      "text": "Vàng SJC bán ra nhiêu một lượng vậy?"
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0168/public_0168.wav",
+      "text": "Đến trên lầu có cái nào đang để sáng dưới một nửa thì tắt luôn giùm tôi, rồi mở điều hoà phòng ngủ 28 độ."
+    }
+  ]
+}

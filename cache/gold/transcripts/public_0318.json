@@ -1,0 +1,20 @@
+{
+  "id": "public_0318",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0318/public_0318_u1.wav",
+      "text": "Anh cần hỏi lại lịch uống thuốc của bố với người chăm sóc trực rượu, trong danh bạ có lưa mấy người chăm sóc ấy không em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0318/public_0318_u2.wav",
+      "text": "Ừ, số trực chia là không chín không hai không không không, không bốn ba tám đúng không?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0318/public_0318.wav",
+      "text": "Ok, thế gọi người đó giúp anh luôn đi."
+    }
+  ]
+}

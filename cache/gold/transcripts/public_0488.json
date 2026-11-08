@@ -1,0 +1,15 @@
+{
+  "id": "public_0488",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0488/public_0488_u1.wav",
+      "text": "Ê, đặt giùm em vé xe khách về Phan Thiết mai nha."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0488/public_0488.wav",
+      "text": "Bảy giờ tới, à không, chốt chuyến một giờ trưa, một vé nha. Bên cho bến thành lên suối Tiên mà dưới bốn chục phút thì nạp thẻ năm chục, lâu hơn thì gọi xe máy về ký túc xá."
+    }
+  ]
+}

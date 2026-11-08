@@ -1,0 +1,25 @@
+{
+  "id": "public_0074",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0074/public_0074_u1.wav",
+      "text": "Giá vàng SJC bữa nay bao nhiêu?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0074/public_0074_u2.wav",
+      "text": "Xăng RON95 bữa nay giá bao nhiêu?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0074/public_0074_u3.wav",
+      "text": "Mở điều hoà phòng khách hai bảy độ giùm anh."
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0074/public_0074.wav",
+      "text": "Đặt giùm anh cái báo thức sáu giờ bốn lăm tối nay, để gọi đám anh, rồi chuyển quý cho Tuấn phần tiền ăn tối hôm qua."
+    }
+  ]
+}

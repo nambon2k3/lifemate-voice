@@ -1,0 +1,20 @@
+{
+  "id": "public_0480",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0480/public_0480_u1.wav",
+      "text": "Ê, ờ ra Nhà hát Thành Phố mấy giờ có chuyến metro vậy?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0480/public_0480_u2.wav",
+      "text": "Ok, chốt, mà thẻ đi xe sắp cạn rồi, nạp giùm em nha."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0480/public_0480.wav",
+      "text": "Nạp ba trăm, à thôi, nạp đủ hai chục lượt Metro ra xíu tiên, mà vé hơn hai chục nghìn thì khỏi, ép đi bít."
+    }
+  ]
+}

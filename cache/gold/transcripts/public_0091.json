@@ -1,0 +1,20 @@
+{
+  "id": "public_0091",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0091/public_0091_u1.wav",
+      "text": "Trong ngân hàng tôi còn được mấy đồng?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0091/public_0091_u2.wav",
+      "text": "Sống, của mẹ tôi là gì nhỉ?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0091/public_0091.wav",
+      "text": "Ăn xong rồi, đèn bếp để 20 phần trăm thôi, quạt phòng khách không cần bật đâu, bật điều hoà phòng ngủ 26 độ cho tôi nghỉ trưa nhé."
+    }
+  ]
+}

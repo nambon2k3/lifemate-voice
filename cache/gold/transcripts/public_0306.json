@@ -1,0 +1,15 @@
+{
+  "id": "public_0306",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0306/public_0306_u1.wav",
+      "text": "Chủ nhật này nhà chị làm rõ không? Biết út nhà chị không uống được sữa, nên công thức nào không có sữa thì hạn đặc nguyên liệu, đặt ba combo em nhé."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0306/public_0306.wav",
+      "text": "Em tìm công thức canh chua cá giúp chị nhé, rồi cứ theo điều kiện chị dặn lúc nãy mà đặt."
+    }
+  ]
+}

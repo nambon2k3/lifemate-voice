@@ -1,0 +1,20 @@
+{
+  "id": "public_0570",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0570/public_0570_u1.wav",
+      "text": "Em ơi, kiếm giùm tôi mấy món canh chua coi, tối nay tôi nấu cho cả nhà."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0570/public_0570_u2.wav",
+      "text": "Ờ, chiều tôi đi xe buýt từ chợ Cái Răng lên Bến Ninh Kiều, đi tuyến nào, vé nhiêu em?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0570/public_0570.wav",
+      "text": "Mấy món canh chua em vừa đọc, lưu giùm tôi mấy món nấu chưa tới bốn chục phút thôi nha."
+    }
+  ]
+}

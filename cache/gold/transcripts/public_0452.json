@@ -1,0 +1,15 @@
+{
+  "id": "public_0452",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0452/public_0452_u1.wav",
+      "text": "Con ơi, cái nồi chiên cô đặt bữa trước, sao tới chưa rút?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0452/public_0452.wav",
+      "text": "Có nồi chiên rồi, đặt cảnh báo điện ba trăm số cho cô hỉ, mà thôi, khỏi, để ông xã về tính."
+    }
+  ]
+}

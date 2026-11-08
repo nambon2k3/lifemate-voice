@@ -1,0 +1,15 @@
+{
+  "id": "public_0584",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0584/public_0584_u1.wav",
+      "text": "Tìm tàu Sài Gòn đi Nha Trang thứ năm tuần sau."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0584/public_0584.wav",
+      "text": "Lucas Bennett cũng đi nữa, em đặt hai vé chuyến mười hai giờ trưa nha."
+    }
+  ]
+}

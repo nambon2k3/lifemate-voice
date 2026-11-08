@@ -1,0 +1,25 @@
+{
+  "id": "public_0170",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0170/public_0170_u1.wav",
+      "text": "Năm giờ chiều mai nhắc tôi lấy đồ giặt nha."
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0170/public_0170_u2.wav",
+      "text": "Mai Đà Nẵng trời thế nào?"
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0170/public_0170_u3.wav",
+      "text": "Này, bạn khỏe không?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0170/public_0170.wav",
+      "text": "Mai trời mưa nên đặt báo thức năm rưỡi sáng mai cho tôi đi sớm, rồi chuyển ví cho Sếp Dũng tiền liên hoàn phần tối hen."
+    }
+  ]
+}

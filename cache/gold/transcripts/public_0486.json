@@ -1,0 +1,35 @@
+{
+  "id": "public_0486",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0486/public_0486_u1.wav",
+      "text": "Mai anh có lịch chi hông em?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0486/public_0486_u2.wav",
+      "text": "Rứa mở cho anh bài Nơi này có anh nghe chớ."
+    },
+    {
+      "turn": 2,
+      "audio": "audio/public_0486/public_0486_u3.wav",
+      "text": "Bài Ni Nghe Hoa không chẳng?"
+    },
+    {
+      "turn": 3,
+      "audio": "audio/public_0486/public_0486_u4.wav",
+      "text": "Vàng nhòm lại chút, chưa mức báo thôi."
+    },
+    {
+      "turn": 4,
+      "audio": "audio/public_0486/public_0486_u5.wav",
+      "text": "Tuần sau anh còn lịch chi nữa không?"
+    },
+    {
+      "turn": 5,
+      "audio": "audio/public_0486/public_0486.wav",
+      "text": "Ờ, quay sang chị Lâm Dung anh, trên hai ba rưỡi thì ghi lịch đổi sáng tối nay tám giờ, không thì sáu giờ sáng mai, coi bà khác luôn."
+    }
+  ]
+}

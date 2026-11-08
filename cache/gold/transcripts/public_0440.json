@@ -1,0 +1,15 @@
+{
+  "id": "public_0440",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0440/public_0440_u1.wav",
+      "text": "Từ Kí túc xá Gara Hà Nội đi xe máy mất bao lâu nhỉ?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0440/public_0440.wav",
+      "text": "Hơn nửa tiếng cơ à, thế vé tàu tối nay với vé chủ nhật chạy mấy giờ, tôi cân giờ đi."
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "public_0612",
+  "turns": [
+    {
+      "turn": 0,
+      "audio": "audio/public_0612/public_0612_u1.wav",
+      "text": "Coi giùm anh vé máy bay chuyến công tác Hà Nội tuần này, đi với về ngày nào?"
+    },
+    {
+      "turn": 1,
+      "audio": "audio/public_0612/public_0612.wav",
+      "text": "Coi giờ mấy giờ thứ ba tuần này anh có gọi cho má không, có thì tích thói quen rồi mai nghe đó nha."
+    }
+  ]
+}
