@@ -42,7 +42,7 @@ services:
     ports:
       - "${ASR_PORT:-2043}:8000"
     volumes:
-      - ${ASR_MODEL_DIR:-./models/Qwen3-ASR-1.7B}:/model:ro
+      - ${ASR_MODEL_DIR:-./models/qwen3-asr-vi/checkpoint-312}:/model:ro
     ipc: host
     command:
       - --model

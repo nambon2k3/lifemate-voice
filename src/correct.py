@@ -20,8 +20,10 @@ _FUNCTION = frozenset({
 _NUMBER = frozenset({
     "không", "một", "mốt", "hai", "ba", "bốn", "tư", "năm", "lăm", "sáu",
     "bảy", "bẩy", "tám", "chín", "mười", "mươi", "trăm", "ngàn", "nghìn",
-    "triệu", "tỷ",
+    "triệu", "tỷ", "rưỡi",
 })
+# These words sit one step from ``dời`` and are not the move verb.
+_KEEP_WORD = frozenset({"chơi", "tôi", "tui"})
 _VOCATIVE = frozenset({
     "em", "anh", "chị", "cô", "chú", "bác", "ông", "bà", "bạn", "cho",
 })
@@ -123,7 +125,7 @@ def correct_slots(transcript: str, sample: dict) -> str:
     indexes = [index for index, piece in enumerate(pieces) if piece.strip()]
     for position, index in enumerate(indexes):
         token = pieces[index]
-        if is_function(token) or is_number_word(token):
+        if is_function(token) or is_number_word(token) or token.lower() in _KEEP_WORD:
             continue
         previous = pieces[indexes[position - 1]] if position else ""
         following = pieces[indexes[position + 1]] if position + 1 < len(indexes) else ""

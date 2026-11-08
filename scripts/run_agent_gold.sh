@@ -89,10 +89,28 @@ if [[ ! -x "$PYTHON" ]]; then
   echo "create it with: python3 -m venv .venv && .venv/bin/pip install -r requirements.txt" >&2
   exit 1
 fi
-ARGS=(src/run.py --split train --gold --output "$OUTPUT" --begin "$BEGIN")
-if [[ -n "$END" ]]; then
-  ARGS+=(--end "$END")
-elif [[ -n "$LIMIT" ]]; then
-  ARGS+=(--limit "$LIMIT")
+if [[ -n "$LIMIT" ]]; then
+  END=$((BEGIN + LIMIT - 1))
+elif [[ -z "$END" ]]; then
+  END="$("$PYTHON" -c "from pathlib import Path; print(sum(1 for line in Path('train+public_test/train/train.jsonl').open() if line.strip()))")"
 fi
-"$PYTHON" "${ARGS[@]}"
+
+MAIN="$ROOT/$OUTPUT"
+ONE="$ROOT/outputs/gold/.one_submission.jsonl"
+mkdir -p "$(dirname "$MAIN")"
+if [[ "$BEGIN" -eq 1 ]]; then
+  : > "$MAIN"
+fi
+skipped=0
+for ((row=BEGIN; row<=END; row++)); do
+  if "$PYTHON" src/run.py --split train --gold --begin "$row" --end "$row" --output "$ONE"; then
+    if [[ -s "$ONE" ]]; then
+      cat "$ONE" >> "$MAIN"
+    fi
+  else
+    echo "skip row $row" >&2
+    skipped=$((skipped + 1))
+  fi
+done
+rm -f "$ONE"
+echo "skipped $skipped" >&2

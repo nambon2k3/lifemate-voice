@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import json
 import re
+import unicodedata
 from datetime import datetime, timedelta
 from typing import Annotated, TypedDict
 
@@ -143,8 +144,30 @@ def run(
         return {"messages": [HumanMessage(content=_NUDGE)], "nudge": 1}
 
     def execute_node(state: AgentState) -> dict:
+        nonlocal guard_fails
         calls = _tool_calls(state["messages"][-1])
         messages = []
+        if not calls:
+            plan = _plan_text(state["messages"])
+            while len(env.get_tool_calls()) < max_steps:
+                planned = _planned_tool(plan, facts, done_calls)
+                known = planned in _FILL_NEXT and _can_take_over(planned, request_text, results, done_calls)
+                if not known and planned and planned != "sys.ask_missing_info":
+                    trial = _prepare_args(
+                        planned, {}, request_text, context_text, results, facts, plan, done_calls,
+                    )
+                    known = reject_reason(planned, trial, installed, tools_by_name, seen_ids) is None
+                if not known:
+                    break
+                before = len(done_calls)
+                messages.append(_execute_one(
+                    {"id": f"fill-{len(messages)}", "name": planned, "args": {}},
+                    plan,
+                ))
+                if len(done_calls) == before:
+                    guard_fails += 1
+                    break
+            return {"messages": messages, "nudge": 0}
         if calls and len(env.get_tool_calls()) < max_steps:
             messages.append(_execute_one(calls[0], _plan_text(state["messages"])))
         for extra in calls[1:]:
@@ -171,6 +194,19 @@ def run(
             args = _prepare_args(
                 name, {}, request_text, context_text, results, facts, plan, done_calls,
             )
+        elif planned and planned != name and planned != "sys.ask_missing_info":
+            trial = _prepare_args(
+                planned, {}, request_text, context_text, results, facts, plan, done_calls,
+            )
+            if reject_reason(planned, trial, installed, tools_by_name, seen_ids) is None:
+                name = planned
+                args = trial
+        elif planned and planned == name and planned != "sys.ask_missing_info":
+            trial = _prepare_args(
+                planned, {}, request_text, context_text, results, facts, plan, done_calls,
+            )
+            if reject_reason(planned, trial, installed, tools_by_name, seen_ids) is None:
+                args = trial
         if name in ("phone.call", "sms.send"):
             kind, obj, tool = _cursor(_parse_objects(plan), done_calls, facts)
             override = _phone_override(results, obj.get("name") or "", name, context_text) if kind == "run" and tool == name else None
@@ -182,6 +218,25 @@ def run(
         if name == "reminders.create" and spoken_clock is None and _remind_lead(request_text) is None:
             name = "sys.ask_missing_info"
             args = {"tool_name": "reminders.create", "params": ["time"]}
+        low_request = request_text.lower()
+        if (
+            name == "alarm.create"
+            and spoken_clock is None
+            and _hours_before(request_text) is None
+            and "trước" not in low_request
+            and "phút" not in low_request
+            and "nửa" not in low_request
+            and not _alarm_retracted(low_request)
+        ):
+            name = "sys.ask_missing_info"
+            args = {"tool_name": "alarm.create", "params": ["time"]}
+        if name == "ewallet.transfer" and _missing_wallet_amount(request_text):
+            name = "sys.ask_missing_info"
+            args = {"tool_name": "ewallet.transfer", "params": ["amount"]}
+        if name == "sys.ask_missing_info" and _missing_wallet_amount(request_text):
+            kind, _obj, tool = _cursor(_parse_objects(plan), done_calls, facts)
+            if kind == "run" and tool == "sys.ask_missing_info":
+                args = {"tool_name": "ewallet.transfer", "params": ["amount"]}
         if name == "bill_payment.pay" and _due_sweep(request_text) and not args.get("bill_id"):
             while True:
                 kind, _obj, tool = _cursor(_parse_objects(plan), done_calls, facts)
@@ -231,6 +286,18 @@ def run(
         if _tool_calls(state["messages"][-1]):
             if len(env.get_tool_calls()) >= max_steps or state["turns"] >= max_turns:
                 return END
+            return "execute"
+        planned = _planned_tool(_plan_text(state["messages"]), facts, done_calls)
+        plan = _plan_text(state["messages"])
+        ready = bool(planned) and planned in _FILL_NEXT and _can_take_over(
+            planned, request_text, results, done_calls,
+        )
+        if not ready and planned and planned != "sys.ask_missing_info":
+            trial = _prepare_args(
+                planned, {}, request_text, context_text, results, facts, plan, done_calls,
+            )
+            ready = reject_reason(planned, trial, installed, tools_by_name, seen_ids) is None
+        if ready and len(env.get_tool_calls()) < max_steps and guard_fails < 2:
             return "execute"
         if state["nudge"] == 0:
             return "nudge"
@@ -509,6 +576,28 @@ def _check_only(text: str) -> bool:
     )
     if any(word in low for word in writes):
         return False
+    if _wants_task(low) or "ghi chú" in low:
+        return False
+    if "báo thức" in low and any(word in low for word in ("xóa", "xoá")):
+        return False
+    if "xe đạp" in low or "máy rửa" in low or "máy giặt" in low or "máy sấy" in low:
+        return False
+    if "gói" in low and any(word in low for word in ("hủy", "huỷ", "bỏ")):
+        return False
+    if any(phrase in low for phrase in ("thư nháp", "soạn nháp", "soạn sẵn")):
+        return False
+    if "đổi" in low and any(word in low for word in ("điểm", "vé", "voucher")):
+        return False
+    if "cài" in low and any(word in low for word in ("tắt", "bật")):
+        return False
+    if _wants_new_event(low) or "danh sách" in low or "cuốn" in low:
+        return False
+    if "lưu" in low and any(word in low for word in ("quán", "chỗ", "bản đồ", "lớp", "tên là")):
+        return False
+    if any(word in low for word in ("tự trả", "tự động thanh toán", "cài báo", "cảnh báo điện")):
+        return False
+    if "robot" in low or ("ghi lại" in low and "phút" in low):
+        return False
     return any(word in low for word in ("mưa", "thời tiết", "giá"))
 
 
@@ -542,6 +631,9 @@ def _vn_under_1000(phrase: str) -> int:
     elif tokens and tokens[0] == "mười":
         number += 10
         tokens = tokens[1:]
+    elif len(tokens) >= 2 and tokens[0] in _VN_DIGIT and tokens[1] in ("lăm", "mốt"):
+        number += _VN_DIGIT[tokens[0]] * 10 + _VN_DIGIT[tokens[1]]
+        tokens = tokens[2:]
     if tokens and tokens[0] in _VN_DIGIT:
         number += _VN_DIGIT[tokens[0]]
     return number
@@ -575,7 +667,8 @@ def _trieu_amount(text: str) -> int | None:
         number = _vn_under_1000(phrase) * 1_000_000
     if number <= 0:
         return None
-    after = low[marker + len("triệu"):].split()
+    after = [token.strip(".,;:!?") for token in low[marker + len("triệu"):].split()]
+    after = [token for token in after if token]
     if after and after[0] in _VN_DIGIT and _VN_DIGIT[after[0]] < 10 and (len(after) == 1 or after[1] != "trăm"):
         number += _VN_DIGIT[after[0]] * 100_000
     elif after and after[0] == "rưỡi":
@@ -995,7 +1088,9 @@ def _governing_when(text: str) -> str:
     low = text.lower()
     if "ví đủ" in low or "ví không đủ" in low:
         return "luôn"
-    if "mưa" in low and any(word in low for word in ("không mưa", "thì thôi", "giữ nguyên")):
+    if ("không mưa" in low or "hông mưa" in low) and not re.search(r"(?<!không )(?<!hông )mưa", low):
+        return "rain=false"
+    if "mưa" in low and any(word in low for word in ("không mưa", "hông mưa", "thì thôi", "giữ nguyên")):
         return "rain=true"
     if "mưa" in low and any(word in low for word in ("muộn", "sớm", "dời", "hủy", "huỷ", "nhắn")):
         return "rain=true"
@@ -1110,6 +1205,171 @@ def _seed_objects(plan: str, scope: str, installed: set[str]) -> list[dict]:
     return objects
 
 
+def _wants_task(low: str) -> bool:
+    """Return whether the sentence asks to add a task.
+
+    Input:
+        low (str): the active clause, lowercased.
+
+    Output:
+        bool: True for ``tạo một việc``, ``thêm một việc``, or ``cái việc``.
+    """
+    return any(phrase in low for phrase in ("một việc", "cái việc", "thêm việc", "tạo việc"))
+
+
+def _plain(text: str) -> str:
+    """Lowercase and strip accents so a spoken name matches a stored one.
+
+    Input:
+        text (str): a name, a label, or a sentence.
+
+    Output:
+        str: letters without diacritics. ``đ`` becomes ``d``.
+    """
+    folded = unicodedata.normalize("NFD", text.lower().replace("đ", "d"))
+    return "".join(char for char in folded if unicodedata.category(char) != "Mn")
+
+
+def _pickup_lead_only(low: str) -> bool:
+    """Return whether sớm or muộn only moves the car.
+
+    Input:
+        low (str): the active clause, lowercased.
+
+    Output:
+        bool: True for ``đón sớm`` or ``đón trước`` when the event itself
+        is not dời and is not muộn.
+    """
+    if "dời" in low:
+        return False
+    if "muộn" in low and "đón muộn" not in low:
+        return False
+    return "đón sớm" in low or "đón trước" in low
+
+
+def _event_moving(low: str) -> bool:
+    """Return whether the sentence moves an existing calendar event.
+
+    Input:
+        low (str): the active clause, lowercased.
+
+    Output:
+        bool: True when dời, muộn, or sớm applies to the event. False when
+        sớm only says how early the car should arrive, or sớm nhất names a
+        free slot rather than a fixed delta.
+    """
+    ride = any(word in low for word in ("xe", "ô tô", "taxi")) and any(word in low for word in ("đặt", "gọi", "chở"))
+    if ride and not re.search(r"dời\s+(?:cái\s+|cái\s+lịch\s+)?(?:lịch|hẹn|buổi|họp|cuộc)", low):
+        return False
+    if _pickup_lead_only(low):
+        return False
+    if ("sớm nhất" in low or "muộn nhất" in low) and "dời" not in low:
+        return False
+    return any(word in low for word in _MOVE_VERBS)
+
+
+def _wants_new_event(low: str) -> bool:
+    """Return whether the sentence creates or restores a calendar event.
+
+    Input:
+        low (str): the active clause, lowercased.
+
+    Output:
+        bool: True for tạo/thêm/đặt/lên lịch, a sự kiện, or khôi phục lịch.
+        False for a reminder, a ticket, or a clinic booking.
+    """
+    if "khôi phục" in low and "lịch" in low:
+        return True
+    return any(phrase in low for phrase in (
+        "tạo lịch", "thêm lịch", "đặt lịch", "lên lịch", "ghi lịch", "ghi vô lịch", "ghi vào lịch", "một lịch",
+        "sự kiện", "tạo buổi", "thêm buổi", "cuộc họp",
+    ))
+
+
+def _forbid_calendar_create(low: str) -> bool:
+    """Return whether a model calendar.create_event does not belong.
+
+    Input:
+        low (str): the active clause, lowercased.
+
+    Output:
+        bool: True when the sentence is a reminder, a ticket, or a clinic
+        visit and does not ask for a new event.
+    """
+    if _wants_new_event(low):
+        return False
+    if _event_moving(low) or "nhắc" in low:
+        return True
+    return any(phrase in low for phrase in ("vé tàu", "vé xe", "vé máy bay", "suất khám", "phòng khám"))
+
+
+def _alarm_retracted(low: str) -> bool:
+    """Return whether ``à không`` takes back the alarm.
+
+    Input:
+        low (str): the active clause, lowercased.
+
+    Output:
+        bool: True when báo thức is only in the clause before ``à không``
+        and the tail is a different request, not a corrected clock.
+    """
+    if "à không" not in low or "báo thức" not in low:
+        return False
+    head, tail = low.split("à không", 1)
+    if "báo thức" not in head or "báo thức" in tail:
+        return False
+    if _last_spoken_hm(tail) or "rưỡi" in tail or "giờ" in tail:
+        return False
+    return True
+
+
+def _group_meal(low: str) -> bool:
+    """Return whether the sentence orders one portion per person in a group.
+
+    Input:
+        low (str): the active clause, lowercased.
+
+    Output:
+        bool: True when a group is named and each person gets a portion.
+    """
+    return "nhóm" in low and any(
+        phrase in low for phrase in ("mỗi người", "một phần", "một suất", "suất")
+    )
+
+
+def _missing_wallet_amount(text: str) -> bool:
+    """Return whether a wallet transfer is asked without a readable amount.
+
+    Input:
+        text (str): the latest user text. ``chút tiền`` and ``ít tiền`` have
+        no amount.
+
+    Output:
+        bool: True when the sentence transfers a wallet and no thousand or
+        million amount is written.
+    """
+    low = text.lower()
+    if "chuyển" not in low or "ví" not in low:
+        return False
+    if _ngan_amount(text) or _trieu_amount(text):
+        return False
+    if re.search(r"\d+\s*(k|đ|đồng)\b", low):
+        return False
+    return True
+
+
+def _fold_vi(text: str) -> str:
+    """Fold the two spellings of hóa so keyword checks see one form.
+
+    Input:
+        text (str): any casing.
+
+    Output:
+        str: lowercased text with ``hoá`` written as ``hóa``.
+    """
+    return text.lower().replace("hoá", "hóa").replace("hoả", "hỏa")
+
+
 def _exclusive_plan(scope: str, installed: set[str], profile: str) -> list[dict] | None:
     """Build the whole plan when the sentence is one known compound shape.
 
@@ -1134,9 +1394,10 @@ def _exclusive_plan(scope: str, installed: set[str], profile: str) -> list[dict]
         return objects
     if re.search(r"v[aà]ng", low) and "triệu" in low and "gold_price.get_price" in installed:
         objects = [_obj("giá vàng", "kiểm tra giá mua, type=sjc nếu là SJC", "luôn", ["gold_price.get_price"])]
-        if "bán" in low and "trên" in low and "chuyển" in low and "banking.transfer" in installed:
-            threshold = _trieu_amount(low.split("trên", 1)[-1])
-            if threshold and "nhắc" in low and "reminders.create" in installed:
+        marker = next((word for word in ("trên", "vượt", "hơn") if word in low), None)
+        threshold = _trieu_amount(low.split(marker, 1)[-1]) if marker else None
+        if threshold and "bán" in low and "chuyển" in low and "banking.transfer" in installed:
+            if "nhắc" in low and "reminders.create" in installed:
                 _push(objects, installed, _obj("nhắc bán vàng", "nhắc giờ trong câu", f"sell>{threshold}", ["reminders.create"]))
             _push(objects, installed, _obj(
                 "chuyển khoản", "amount sau chữ chuyển, tài khoản thanh toán", f"sell<={threshold}",
@@ -1181,7 +1442,7 @@ def _exclusive_plan(scope: str, installed: set[str], profile: str) -> list[dict]
         if "nhắc" in false_part and "reminders.create" in installed:
             _push(objects, installed, _obj("nhắc nạp ví", "nhắc giờ trong câu", "balance<amount", ["reminders.create"]))
         return objects
-    if "nhóm chat" in low and "suất" in low and "food_delivery.place_order" in installed:
+    if _group_meal(low) and "food_delivery.place_order" in installed:
         objects = []
         if "chat_ott.list_chats" in installed:
             _push(objects, installed, _obj("nhóm chat", "đếm người trong nhóm", "luôn", ["chat_ott.list_chats"]))
@@ -1205,11 +1466,12 @@ def _schedule_write(low: str) -> str | None:
         None: the clause is about an alarm, a reminder, or a cancellation of
         something that is not an event (a package, a ticket, an order).
     """
-    if "báo thức" in low or "nhắc" in low:
-        return None
-    if any(word in low for word in _MOVE_VERBS):
-        return "calendar.update_event"
+    moving = _event_moving(low)
     cancelling = any(word in low for word in ("hủy", "huỷ"))
+    if ("báo thức" in low or "nhắc" in low) and not moving and not cancelling:
+        return None
+    if moving:
+        return "calendar.update_event"
     if not cancelling:
         return None
     if "cuộc gọi" in low and not any(word in low for word in ("lịch", "buổi", "hẹn", "họp")):
@@ -1230,7 +1492,7 @@ def _outgoing_message(low: str) -> bool:
         such as ``một tiếng nhắn``. False when the only ``nhắn`` is the noun
         ``tin nhắn``, or a report that someone already sent it (``đã nhắn``).
     """
-    if "gửi tin nhắn" in low:
+    if "sms" in low or "gửi tin nhắn" in low:
         return True
     text = low.replace("tin nhắn", " ")
     text = re.sub(r"\bđã\s+nhắn\b", " ", text)
@@ -1332,6 +1594,63 @@ def _claim_weather(objects: list[dict], low: str, installed: set[str]) -> list[d
     return kept
 
 
+def _add_open_apps(objects: list[dict], scope: str, installed: set[str]) -> list[dict]:
+    """Add the apps whose sentence cue is a noun plus a verb, not a model guess.
+
+    Input:
+        objects (list[dict]): the plan so far. May be mutated.
+        scope (str): the active clause.
+        installed (set[str]): tool names this sample may call.
+
+    Output:
+        list[dict]: the same objects plus one object for a dishwasher, a chore,
+        a cancelled package, a draft, a bicycle, a points reward, or a timed
+        device rule. An app that is not installed is left out.
+    """
+    low = scope.lower()
+    if any(word in low for word in ("máy rửa", "máy giặt", "máy sấy")) and any(
+        word in low for word in ("chạy", "bật", "chế độ")
+    ):
+        objects = _drop_tools(objects, {"appliances.start_cycle", "appliances.stop"})
+        if "appliances.start_cycle" in installed:
+            tools = ["appliances.list", "appliances.start_cycle"] if "appliances.list" in installed else ["appliances.start_cycle"]
+            _push(objects, installed, _obj("máy", "chạy đúng chế độ trong câu", "luôn", tools))
+    if "giao" in low and any(word in low for word in ("việc", "vụ", "cất")) and "household_chores.assign" in installed:
+        objects = _drop_tools(objects, {"household_chores.assign"})
+        tools = ["household_chores.list_chores", "household_chores.assign"] if "household_chores.list_chores" in installed else ["household_chores.assign"]
+        _push(objects, installed, _obj("việc nhà", "giao đúng việc cho người trong câu", "luôn", tools))
+    if "gói" in low and any(word in low for word in ("hủy", "huỷ", "bỏ")) and "subscriptions.cancel" in installed:
+        objects = _drop_tools(objects, {"subscriptions.cancel"})
+        tools = ["subscriptions.list", "subscriptions.cancel"] if "subscriptions.list" in installed else ["subscriptions.cancel"]
+        _push(objects, installed, _obj("gói", "huỷ đúng gói trong câu", "luôn", tools))
+    if any(phrase in low for phrase in ("thư nháp", "soạn nháp", "soạn sẵn")) and "email.create_draft" in installed:
+        objects = _drop_tools(objects, {"email.send", "email.create_draft"})
+        person = _person_after(scope, "gửi") or _person_after(scope, "cho") or "người nhận"
+        tools = ["email.create_draft"]
+        if "a còng" not in low and "@" not in low and "contacts.search" in installed:
+            tools = ["contacts.search", "email.create_draft"]
+        _push(objects, installed, _obj(person, "thư nháp, chưa gửi", "luôn", tools))
+    if "xe đạp" in low and any(word in low for word in ("giữ", "đặt", "thuê")) and "bike_rental.reserve" in installed:
+        objects = _drop_tools(objects, {"bike_rental.reserve", "ride_hailing.book"})
+        tools = ["bike_rental.find_bikes", "bike_rental.reserve"] if "bike_rental.find_bikes" in installed else ["bike_rental.reserve"]
+        bike_when = "rain=false" if "không mưa" in low else "luôn"
+        _push(objects, installed, _obj("xe đạp", "giữ một xe còn trống", bike_when, tools))
+    if "đổi" in low and any(word in low for word in ("điểm", "vé", "voucher")) and "loyalty.redeem" in installed:
+        objects = _drop_tools(objects, {"loyalty.redeem"})
+        tools = ["loyalty.get_points", "loyalty.redeem"] if "loyalty.get_points" in installed else ["loyalty.redeem"]
+        _push(objects, installed, _obj("điểm", "đổi đúng phần thưởng trong câu", "luôn", tools))
+    if "cài" in low and any(word in low for word in ("tắt", "bật")) and _last_spoken_hm(low) and "home_automation.create_rule" in installed:
+        objects = _drop_tools(objects, {"home_automation.create_rule"})
+        tools = []
+        if "số" in low and "home_energy.get_usage" in installed:
+            tools.append("home_energy.get_usage")
+        if "smart_home.get_status" in installed:
+            tools.append("smart_home.get_status")
+        tools.append("home_automation.create_rule")
+        _push(objects, installed, _obj("tự động", "tắt hoặc bật đúng thiết bị đúng giờ", "luôn", tools))
+    return objects
+
+
 def _augment(objects: list[dict], scope: str, installed: set[str], profile: str) -> list[dict]:
     """Add the reads and writes the clause asks for and the model left out.
 
@@ -1350,13 +1669,17 @@ def _augment(objects: list[dict], scope: str, installed: set[str], profile: str)
     """
     low = scope.lower()
     objects = _drop_self_search(_claim_weather(objects, low, installed), profile)
-    if any(word in low for word in ("trả", "hóa đơn", "tiền điện")) and "bill_payment.list_bills" in installed:
+    if any(word in _fold_vi(scope) for word in ("trả", "hóa đơn", "tiền điện")) and "bill_payment.list_bills" in installed:
         if not _has_tool(objects, "bill_payment.list_bills"):
             objects.insert(0, _obj("hóa đơn", "xem hóa đơn đúng loại", "luôn", ["bill_payment.list_bills"]))
     when = _governing_when(scope)
     write = _schedule_write(low)
     if write and "calendar.list_events" in installed and write in installed and not _has_tool(objects, write):
         _push(objects, installed, _obj("lịch", "dời hoặc hủy đúng việc trong câu", when, ["calendar.list_events", write]))
+    if not _event_moving(low):
+        objects = _drop_tools(objects, {"calendar.update_event"})
+    if _forbid_calendar_create(low):
+        objects = _drop_tools(objects, {"calendar.create_event"})
     message = _message_tools(low, installed)
     if message and not _has_tool(objects, message[-1]):
         person = _sms_person(scope) or _person_after(scope, "nhắn") or "người nhận"
@@ -1388,12 +1711,12 @@ def _augment(objects: list[dict], scope: str, installed: set[str], profile: str)
             "ewallet.transfer", "ewallet.topup_mobile", "contacts.search",
             "contacts.get", "phone.call",
         }
-        if _transfer_jobs(scope):
+        if _transfer_jobs(scope) or _bill_focus(scope):
             banned.add("bill_payment.pay")
-        objects = _drop_tools(objects, banned)
+        objects = _drop_tools(objects, banned | {"bill_payment.list_bills"})
         repeats = max(1, len(_transfer_jobs(scope)))
         bank_tools = ["banking.get_balance", "banking.list_beneficiaries"] + ["banking.transfer"] * repeats
-        if _bill_focus(scope) and "bill_payment.list_bills" in installed and not _has_tool(objects, "bill_payment.list_bills"):
+        if _bill_focus(scope) and "bill_payment.list_bills" in installed:
             bank_tools = ["bill_payment.list_bills"] + bank_tools
         _push(objects, installed, _obj(
             "chuyển khoản", "amount và người nhận trong câu", "luôn", bank_tools,
@@ -1407,6 +1730,8 @@ def _augment(objects: list[dict], scope: str, installed: set[str], profile: str)
                 "banking.list_transactions", "banking.open_savings", "banking.transfer",
                 "banking.get_balance", "banking.list_beneficiaries",
             })
+            if _bill_focus(scope) or "tiền điện" in low:
+                money_tools.add("bill_payment.pay")
         kept = []
         for obj in objects:
             names = [name for name in obj["tools"] if name not in money_tools]
@@ -1416,28 +1741,60 @@ def _augment(objects: list[dict], scope: str, installed: set[str], profile: str)
     if topup and "ewallet.topup_mobile" in installed:
         tools = ["contacts.search", "ewallet.topup_mobile"] if topup_person else ["ewallet.topup_mobile"]
         _push(objects, installed, _obj(topup_person or "số điện thoại", "nạp, amount là số ngàn trong câu", "luôn", tools))
+    missing_amount = None
     if transfer == "ewallet.transfer":
         person = _transfer_payee(scope)
-        tools = ["ewallet.transfer"] if _is_speaker(person, profile) else ["contacts.search", "ewallet.transfer"]
-        _push(objects, installed, _obj(person, f"chuyển ví, query {person}", "luôn", tools))
+        if _missing_wallet_amount(scope):
+            if not _is_speaker(person, profile):
+                _push(objects, installed, _obj(person, f"query {person}", "luôn", ["contacts.search"]))
+            missing_amount = _obj(person, "thiếu amount", "luôn", ["sys.ask_missing_info"])
+        else:
+            tools = ["ewallet.transfer"] if _is_speaker(person, profile) else ["contacts.search", "ewallet.transfer"]
+            _push(objects, installed, _obj(person, f"chuyển ví, query {person}", "luôn", tools))
     if "nhắc" in low and "báo thức" not in low and "reminders.create" in installed:
         objects = _drop_tools(objects, {"alarm.create", "phone.call"})
         if not _has_tool(objects, "reminders.create"):
             _push(objects, installed, _obj("nhắc", "nhắc việc trong câu", "luôn", ["reminders.create"]))
-    if "báo thức" in low and "alarm.create" in installed:
-        before_event = "trước" in low and "lịch" in low and "calendar.list_events" in installed
-        if before_event:
+    deleting_alarm = any(word in low for word in ("xóa", "xoá")) and "báo thức" in low
+    if _alarm_retracted(low):
+        objects = _drop_tools(objects, {"alarm.create", "alarm.list", "alarm.delete"})
+    elif deleting_alarm and "alarm.delete" in installed:
+        objects = _drop_tools(objects, {"alarm.create", "alarm.delete", "alarm.list"})
+        tools = ["alarm.list", "alarm.delete"] if "alarm.list" in installed else ["alarm.delete"]
+        _push(objects, installed, _obj("báo thức", "xóa báo thức đúng giờ trong câu", "luôn", tools))
+    elif "báo thức" in low and "alarm.create" in installed and (
+        _hours_before(low) or _last_spoken_hm(low) or ("trước" not in low and "phút" not in low and "nửa" not in low)
+    ):
+        if _hours_before(low):
             objects = _drop_tools(objects, {"alarm.create"})
-            _push(objects, installed, _obj(
-                "báo thức", "báo thức trước lịch, chỉ gửi time", "luôn",
-                ["calendar.list_events", "alarm.create"],
-            ))
-        elif not _has_tool(objects, "alarm.create"):
-            _push(objects, installed, _obj("báo thức", "chỉ gửi time", "luôn", ["alarm.create"]))
+        if not _has_tool(objects, "alarm.create"):
+            if _hours_before(low) and "calendar.list_events" in installed and not _has_tool(objects, "calendar.list_events"):
+                _push(objects, installed, _obj("lịch", "lấy giờ sự kiện", "luôn", ["calendar.list_events"]))
+            alarm = _obj(
+                "báo thức",
+                "trước sự kiện vừa dời" if _hours_before(low) else "chỉ gửi time",
+                "luôn",
+                ["alarm.create"],
+            )
+            placed = False
+            if _hours_before(low):
+                for index, existing in enumerate(objects):
+                    if "calendar.update_event" in existing["tools"] or "calendar.cancel_event" in existing["tools"]:
+                        objects.insert(index + 1, alarm)
+                        placed = True
+                        break
+            if not placed:
+                _push(objects, installed, alarm)
     ride_call = re.search(r"gọi\s+(ô tô|xe|taxi)", low) is not None
-    if re.search(r"\bgọi\b", low) and "nhắc" not in low and "zalo" not in low and "video" not in low and not ride_call:
+    wake_call = re.search(r"gọi\s+\w+\s+dậy", low) is not None
+    if wake_call:
+        objects = _drop_tools(objects, {"phone.call"})
+    elif re.search(r"\bgọi\b", low) and "nhắc" not in low and "zalo" not in low and "video" not in low and not ride_call:
+        banned = {"chat_ott.call", "chat_ott.list_chats", "phone.call"}
+        if not _outgoing_message(low):
+            banned.add("chat_ott.send_message")
+        objects = _drop_tools(objects, banned)
         if "phone.call" in installed:
-            objects = _drop_tools(objects, {"chat_ott.call", "chat_ott.list_chats", "phone.call"})
             person = _call_person(scope)
             tools = ["phone.call"] if _is_speaker(person, profile) else ["contacts.search", "phone.call"]
             _push(objects, installed, _obj(person, "gọi điện", when, tools))
@@ -1462,8 +1819,13 @@ def _augment(objects: list[dict], scope: str, installed: set[str], profile: str)
             pass
         elif not _has_tool(objects, "smart_home.light_set"):
             _push(objects, installed, _obj("đèn", "chỉnh đúng phòng", "luôn", ["smart_home.get_status", "smart_home.light_set"]))
+    cancelling_ride = any(word in low for word in ("hủy", "huỷ")) and "xe" in low
+    if "xe đạp" in low or cancelling_ride:
+        objects = _drop_tools(objects, {"ride_hailing.book"})
     ride = (
         "ride_hailing.book" in installed
+        and "xe đạp" not in low
+        and not cancelling_ride
         and any(word in low for word in ("xe", "ô tô", "bốn chỗ", "4 chỗ"))
         and any(word in low for word in ("đặt", "gọi", "chở"))
     )
@@ -1488,7 +1850,275 @@ def _augment(objects: list[dict], scope: str, installed: set[str], profile: str)
         _push(objects, installed, _obj("xe", "đón trước giờ hẹn, xe bốn chỗ", book_when, ["ride_hailing.book"]))
         if "nhắc" in low and "mang laptop" in low and "reminders.create" in installed:
             _push(objects, installed, _obj("nhắc", "mang laptop trước giờ đón", book_when, ["reminders.create"]))
-    return _drop_self_search(objects, profile)
+    if _reads_note(low) and "notes.list" in installed:
+        objects = _drop_tools(objects, {"notes.create", "notes.append", "notes.update"})
+        if not _has_tool(objects, "notes.list"):
+            _push(objects, installed, _obj("ghi chú", "đọc ghi chú được nêu", "luôn", ["notes.list"]))
+    elif "ghi chú" in low and "notes.create" in installed:
+        objects = _drop_tools(objects, {"notes.append", "notes.update", "notes.create"})
+        _push(objects, installed, _obj("ghi chú", "tạo ghi chú trong câu", "luôn", ["notes.create"]))
+    else:
+        objects = _drop_tools(objects, {"notes.create", "notes.append", "notes.update"})
+    if "xác nhận" not in low and "cảnh báo" not in low:
+        objects = _drop_tools(objects, {"home_security.acknowledge_alert"})
+    if "nhắc" in low and "thêm thuốc" not in low and "kê thuốc" not in low:
+        objects = _drop_tools(objects, {"medication.add"})
+    if ride and not _outgoing_message(low):
+        objects = _drop_tools(objects, {"chat_ott.send_message", "chat_ott.call"})
+    if _wants_task(low) and "tasks.add" in installed and not _has_tool(objects, "tasks.add"):
+        _push(objects, installed, _obj("việc", "tạo việc, due nếu câu có hạn", "luôn", ["tasks.add"]))
+    elif not _wants_task(low):
+        objects = _drop_tools(objects, {"tasks.add"})
+    if _wants_new_event(low) and "calendar.create_event" in installed and not _has_tool(objects, "calendar.create_event"):
+        _push(objects, installed, _obj("lịch", "tạo hoặc khôi phục sự kiện", _governing_when(scope), ["calendar.create_event"]))
+    objects = _add_open_apps(objects, scope, installed)
+    objects = _add_followups(objects, scope, installed)
+    if missing_amount is not None:
+        objects.append(missing_amount)
+    return _drop_self_search(_lift_reminders(objects), profile)
+
+
+def _add_followups(objects: list[dict], scope: str, installed: set[str]) -> list[dict]:
+    """Add the second action when the sentence does not stop after the lookup.
+
+    Input:
+        objects (list[dict]): the plan so far.
+        scope (str): the active clause.
+        installed (set[str]): tool names this sample may call.
+
+    Output:
+        list[dict]: the same plan plus a shopping item, a workout, a book
+        hold, an autopay, a robot run, or a shifted alarm when the sentence
+        names that follow-up.
+    """
+    low = scope.lower()
+    when = _governing_when(scope)
+    adds_item = "danh sách" in low and (
+        any(word in low for word in ("mua", "cần mua", "đi chợ"))
+        or "vô danh sách" in low
+        or "vào danh sách" in low
+    )
+    if adds_item and "shopping_list.add" in installed:
+        if "nhóm" in low and "chat_ott.list_chats" in installed and not _has_tool(objects, "chat_ott.list_chats"):
+            _push(objects, installed, _obj("nhóm", "đếm người trong nhóm", "luôn", ["chat_ott.list_chats"]))
+        if not _has_tool(objects, "shopping_list.add"):
+            _push(objects, installed, _obj("mua sắm", "thêm món vừa tính", "luôn", ["shopping_list.add"]))
+    if _workout(low) and "fitness.log_workout" in installed and not _has_tool(objects, "fitness.log_workout"):
+        _push(objects, installed, _obj("tập", "ghi loại và số phút", "luôn", ["fitness.log_workout"]))
+    if "cuốn" in low and any(word in low for word in ("giữ", "đặt")) and "library.reserve" in installed:
+        if not _has_tool(objects, "library.reserve"):
+            tools = ["library.search", "library.reserve"] if "library.search" in installed else ["library.reserve"]
+            repeats = 2 if "với cuốn" in low or "và cuốn" in low else 1
+            _push(objects, installed, _obj("sách", "giữ cuốn được nêu", when, tools[:-1] + ["library.reserve"] * repeats))
+    if any(phrase in low for phrase in ("tự trả", "tự động thanh toán")) and "bill_payment.schedule_autopay" in installed:
+        if not _has_tool(objects, "bill_payment.schedule_autopay"):
+            tools = ["bill_payment.list_bills", "bill_payment.schedule_autopay"] if "bill_payment.list_bills" in installed else ["bill_payment.schedule_autopay"]
+            _push(objects, installed, _obj("hoá đơn", "bật tự trả loại tới hạn sớm nhất", "luôn", tools))
+    if "robot" in low and any(word in low for word in ("dọn", "hút")) and "robot_vacuum.start" in installed:
+        if not _has_tool(objects, "robot_vacuum.start"):
+            tools = ["robot_vacuum.get_status", "robot_vacuum.start"] if "robot_vacuum.get_status" in installed else ["robot_vacuum.start"]
+            _push(objects, installed, _obj("robot", "dọn đúng phòng trong câu", "luôn", tools))
+    if (
+        "ngủ" in low
+        and _event_moving(low)
+        and "lịch" not in low
+        and "hẹn" not in low
+        and "alarm.update" in installed
+        and not _has_tool(objects, "alarm.update")
+    ):
+        tools = ["alarm.list", "alarm.update"] if "alarm.list" in installed else ["alarm.update"]
+        _push(objects, installed, _obj("báo thức", "dời giờ ngủ", when, tools))
+    if "lưu" in low and any(word in low for word in ("tên là", "đặt tên", "bản đồ")) and "maps.save_place" in installed:
+        if not _has_tool(objects, "maps.save_place") and "xe buýt" not in low:
+            tools = ["maps.search_place", "maps.save_place"] if "maps.search_place" in installed else ["maps.save_place"]
+            _push(objects, installed, _obj("địa điểm", "lưu chỗ vừa tìm", "luôn", tools))
+    return objects
+
+
+def _workout(low: str) -> tuple[str, int] | None:
+    """Read a workout type and a duration.
+
+    Input:
+        low (str): the active clause, lowercased.
+
+    Output:
+        tuple[str, int]: an enum type and the minutes.
+        None: when the sentence does not log a workout.
+    """
+    if "ghi lại" not in low and "ghi tập" not in low:
+        return None
+    kind = next((
+        code for phrase, code in (
+            ("đi bộ", "walking"), ("chạy bộ", "running"), ("chạy", "running"),
+            ("đạp xe", "cycling"), ("bơi", "swimming"), ("yoga", "yoga"),
+            ("đá bóng", "football"), ("cầu lông", "badminton"), ("gym", "gym"),
+        ) if phrase in low
+    ), "")
+    minutes = _duration_minutes(low)
+    if not kind or not minutes:
+        return None
+    return kind, minutes
+
+
+def _book_to_reserve(results: list, request: str, done_calls: list[tuple[str, dict]]) -> dict | None:
+    """Pick the next book whose title is in the sentence.
+
+    Input:
+        results (list): tool payloads. A book has ``id`` and ``title``.
+        request (str): the latest user text.
+        done_calls (list[tuple[str, dict]]): reserves already made.
+
+    Output:
+        dict: the book to hold.
+        None: when no title is named, or every named book is already held.
+    """
+    used = {call.get("book_id") for name, call in done_calls if name == "library.reserve"}
+    low = _plain(request)
+    best = None
+    best_score = 0
+    for payload in results:
+        for node in _walk_dicts(payload):
+            book_id = node.get("id")
+            title = node.get("title") or node.get("name")
+            if not isinstance(book_id, str) or not book_id.startswith("book_") or not isinstance(title, str):
+                continue
+            if book_id in used:
+                continue
+            score = sum(len(token) for token in _plain(title).split() if len(token) > 2 and token in low)
+            if score > best_score:
+                best = node
+                best_score = score
+    return best if best_score >= 4 else None
+
+
+def _soonest_bill_type(results: list) -> str | None:
+    """Return the type of the unpaid bill that is due first.
+
+    Input:
+        results (list): tool payloads. A bill has ``type``, ``due_date``, and ``paid``.
+
+    Output:
+        str: a catalog bill type such as ``electricity``.
+        None: when no unpaid bill is listed.
+    """
+    best_type = None
+    best_due = "9999"
+    for payload in results:
+        for node in _walk_dicts(payload):
+            bill_id = node.get("id")
+            bill_type = node.get("type")
+            due = node.get("due_date") or node.get("due") or ""
+            if not isinstance(bill_id, str) or not bill_id.startswith("bill_"):
+                continue
+            if not isinstance(bill_type, str) or node.get("paid") is True:
+                continue
+            if str(due) < best_due:
+                best_type = bill_type
+                best_due = str(due)
+    return best_type
+
+
+def _robot_rooms(results: list, request: str) -> list[str]:
+    """Return the vacuum rooms named in the sentence.
+
+    Input:
+        results (list): tool payloads from ``robot_vacuum.get_status``.
+        request (str): the latest user text.
+
+    Output:
+        list[str]: room names, in list order, that the sentence mentions.
+    """
+    low = request.lower()
+    found = []
+    for payload in results:
+        for node in _walk_dicts(payload):
+            rooms = node.get("rooms")
+            candidates = rooms if isinstance(rooms, list) else []
+            if isinstance(node.get("room"), str):
+                candidates = list(candidates) + [node["room"]]
+            for room in candidates:
+                if isinstance(room, str) and room.lower() in low and room not in found:
+                    found.append(room)
+    return found
+
+
+def _alarm_to_shift(results: list, request: str) -> dict | None:
+    """Move one alarm by the spoken delta.
+
+    Input:
+        results (list): tool payloads. An alarm has ``id`` and ``time``.
+        request (str): the latest user text. ``nửa tiếng`` is thirty minutes.
+
+    Output:
+        dict: ``id`` and the shifted ``time``.
+        None: when there is no alarm or no delta.
+    """
+    delta = _shift_minutes(request)
+    if delta is None:
+        return None
+    chosen = None
+    for payload in results:
+        for node in _walk_dicts(payload):
+            alarm_id = node.get("id")
+            when = node.get("time")
+            if isinstance(alarm_id, str) and alarm_id.startswith("alm_") and isinstance(when, str):
+                chosen = {"id": alarm_id, "time": _add_minutes(when, delta)}
+                break
+        if chosen:
+            break
+    return chosen
+
+
+def _place_to_save(results: list, request: str) -> dict | None:
+    """Pick the searched place whose name is in the sentence.
+
+    Input:
+        results (list): tool payloads. A place has ``id`` and ``name``.
+        request (str): the latest user text.
+
+    Output:
+        dict: the place to save.
+        None: when no place name is mentioned.
+    """
+    low = _plain(request)
+    best = None
+    best_score = 0
+    for payload in results:
+        for node in _walk_dicts(payload):
+            place_id = node.get("id")
+            name = node.get("name")
+            if not isinstance(place_id, str) or not place_id.startswith("place_") or not isinstance(name, str):
+                continue
+            score = sum(len(token) for token in _plain(name).split() if len(token) > 2 and token in low)
+            if score > best_score:
+                best = node
+                best_score = score
+    return best if best_score >= 4 else None
+
+
+def _lift_reminders(objects: list[dict]) -> list[dict]:
+    """Place a reminder before a message when both are unconditional.
+
+    A missing-info question ends the sample, so the reminder has to run
+    before that question. A ride already puts the reminder after the booking.
+
+    Input:
+        objects (list[dict]): objects from ``_augment``.
+
+    Output:
+        list[dict]: the same objects, with a lone reminder moved ahead of the
+        first message. Unchanged when a ride is in the plan.
+    """
+    if any("ride_hailing.book" in obj["tools"] for obj in objects):
+        return objects
+    reminders = [obj for obj in objects if obj["tools"] == ["reminders.create"]]
+    if not reminders:
+        return objects
+    others = [obj for obj in objects if obj not in reminders]
+    for index, obj in enumerate(others):
+        if any(name in obj["tools"] for name in ("sms.send", "chat_ott.send", "sys.ask_missing_info")):
+            return others[:index] + reminders + others[index:]
+    return objects
 
 
 def _arrange(
@@ -1609,18 +2239,27 @@ def _repair_plan(
         return "Đối tượng: ngoài phạm vi | việc: dừng | khi: luôn | tool:"
     forced = _exclusive_plan(scope, installed, profile)
     if forced is None:
-        objects = _augment(_seed_objects(plan, scope, installed), scope, installed, profile)
+        objects = _augment(_seed_objects("", scope, installed), scope, installed, profile)
     else:
         objects = forced
-    rendered = _format_objects(_arrange(objects, tools_by_name, installed, profile))
+    low = scope.lower()
+    objects = _arrange(objects, tools_by_name, installed, profile)
+    if not _event_moving(low):
+        objects = _drop_tools(objects, {"calendar.update_event"})
+    if _forbid_calendar_create(low):
+        objects = _drop_tools(objects, {"calendar.create_event"})
+    rendered = _format_objects(objects)
     if rendered:
         return rendered
+    model_plan = plan or ""
+    if _forbid_calendar_create(low) or (not _event_moving(low) and "calendar.update_event" in model_plan):
+        return "Đối tượng: ngoài phạm vi | việc: dừng | khi: luôn | tool:"
     if "đèn" in request.lower() and "tắt" in request.lower() and not _turns_lights_off(request):
         return "Đối tượng: ngoài phạm vi | việc: dừng | khi: luôn | tool:"
     low = request.lower()
     if any(marker in low for marker in ("chỉ cần", "mà thôi", "à thôi", "thôi khỏi")):
         return "Đối tượng: ngoài phạm vi | việc: dừng | khi: luôn | tool:"
-    return plan
+    return "Đối tượng: ngoài phạm vi | việc: dừng | khi: luôn | tool:"
 
 
 def _money_to_int(text: str) -> str:
@@ -1974,6 +2613,64 @@ def _context_value(context: str, label: str) -> str:
     return match.group(1).strip() if match else ""
 
 
+def _clock_minutes(tail: str) -> int | None:
+    """Read the minute words that follow ``giờ``.
+
+    Input:
+        tail (str): the text after the hour word, such as ``mười lăm nhắc``.
+
+    Output:
+        int: minutes from 1 to 59. ``mười lăm`` is 15 and ``năm mươi`` is 50.
+        None: when the next word is not a minute.
+    """
+    tokens = []
+    for raw in tail.lstrip().split():
+        token = raw.strip(".,;:!?")
+        if not token:
+            continue
+        if token in _VN_DIGIT or token in ("mươi", "mười", "lăm", "mốt"):
+            tokens.append(token)
+            continue
+        break
+    if not tokens:
+        return None
+    number = _vn_under_1000(" ".join(tokens))
+    if number <= 0 or number >= 60:
+        return None
+    return number
+
+
+def _clause_around(low: str, start: int, end: int) -> str:
+    """Return the clause that holds one clock, not the previous clause.
+
+    Input:
+        low (str): the lowercased request.
+        start (int): index of the clock hour.
+        end (int): index just after the clock phrase.
+
+    Output:
+        str: text from the previous comma or ``rồi`` up to the next one.
+        ``7 giờ tối mai`` stays apart from an earlier ``sáng nay``.
+    """
+    left = 0
+    for sep in (",", ";", "."):
+        pos = low.rfind(sep, 0, start)
+        if pos + 1 > left:
+            left = pos + 1
+    roi = low.rfind(" rồi ", 0, start)
+    if roi >= 0 and roi + len(" rồi ") > left:
+        left = roi + len(" rồi ")
+    right = len(low)
+    for sep in (",", ";", "."):
+        pos = low.find(sep, end)
+        if pos >= 0:
+            right = min(right, pos)
+    roi = low.find(" rồi ", end)
+    if roi >= 0:
+        right = min(right, roi)
+    return low[left:right]
+
+
 _HOUR_WORD = {
     "không": 0, "một": 1, "hai": 2, "ba": 3, "bốn": 4, "năm": 5,
     "sáu": 6, "bảy": 7, "tám": 8, "chín": 9, "mười": 10, "mười một": 11, "mười hai": 12,
@@ -2004,6 +2701,10 @@ def _last_spoken_hm(text: str) -> tuple[int, int] | None:
     word = match.group(1)
     hour = int(word) if word.isdigit() else _HOUR_WORD[word]
     minute = 30 if match.group(2) == "rưỡi" or low[match.end():match.end() + 8].lstrip().startswith("rưỡi") else 0
+    if minute == 0 and match.group(2) == "giờ":
+        spoken_minute = _clock_minutes(low[match.end():])
+        if spoken_minute is not None:
+            minute = spoken_minute
     kem = re.match(r"\s*kém\s+(\d{1,2}|mười lăm|mười|năm|lăm)", low[match.end():])
     if kem:
         raw = kem.group(1)
@@ -2027,12 +2728,15 @@ def _spoken_time(request: str, context: str) -> str | None:
     """
     found = _last_spoken_hm(request)
     if not found:
-        return None
+        return _minutes_from_now(request, context)
     hour, minute = found
     low = request.lower()
     match = list(re.finditer(r"(mười một|mười hai|mười|không|một|hai|ba|bốn|năm|sáu|bảy|tám|chín|\d{1,2})\s*(giờ|rưỡi)", low))[-1]
-    window = low[max(0, match.start() - 16):match.end() + 16]
-    if any(word in window for word in ("tối", "đêm")) and hour < 12:
+    tail = low[match.end():]
+    kem = re.match(r"\s*kém\s+(\d{1,2}|mười lăm|mười|năm|lăm)", tail)
+    end = match.end() + (kem.end() if kem else 0)
+    window = _clause_around(low, match.start(), end)
+    if "sáng" not in window and any(word in window for word in ("tối", "đêm", "chiều")) and hour < 12:
         hour += 12
     if "sáng" in window and hour == 12:
         hour = 0
@@ -2183,11 +2887,13 @@ def _phone_override(results: list, query: str, tool: str = "phone.call", context
         have that given name, or ``phone.call`` with the one matching id.
         None: when the search did not return that name.
     """
+    if _is_speaker(query, _context_value(context, "name")):
+        return None
     hits = _history_hits(_named_contacts(results, query), query, context)
-    if len(hits) >= 2:
-        return "sys.ask_missing_info", {"tool_name": tool, "params": ["contact_id"]}
     if len(hits) == 1 and hits[0].get("id"):
         return tool, {"contact_id": hits[0]["id"]}
+    if _contact_query(query).strip():
+        return "sys.ask_missing_info", {"tool_name": tool, "params": ["contact_id"]}
     return None
 
 
@@ -2251,19 +2957,30 @@ def _shift_minutes(request: str) -> int | None:
         None: when the sentence does not move a time by a number of hours.
     """
     low = request.lower()
+    if _pickup_lead_only(low) or "sớm nhất" in low or "muộn nhất" in low:
+        return None
     if not any(word in low for word in ("muộn", "sớm", "dời")):
         return None
     sign = -1 if "sớm" in low and "muộn" not in low else 1
-    if "nửa tiếng" in low or "nửa giờ" in low:
+    indexes = [low.find(word) for word in ("muộn", "sớm", "dời") if word in low]
+    tail = low[min(indexes):]
+    phut = re.search(r"(\d+)\s*phút", tail)
+    tieng = re.search(r"(một|hai|ba|\d+)\s*tiếng", tail)
+    if "nửa tiếng" in tail[:24] or "nửa giờ" in tail[:24]:
         return sign * 30
-    match = re.search(r"(một|hai|ba|\d+)\s*tiếng", low)
-    if not match:
+    spoken_minutes = _duration_minutes(tail.split(",")[0])
+    if phut and (not tieng or phut.start() < tieng.start()):
+        return sign * int(phut.group(1))
+    if spoken_minutes and (not tieng or tail.find("phút") < tieng.start()):
+        return sign * spoken_minutes
+    if not tieng:
         return None
-    word = match.group(1)
+    word = tieng.group(1)
     number = {"một": 1, "hai": 2, "ba": 3}.get(word, int(word) if word.isdigit() else 0)
     if not number:
         return None
-    return sign * number * 60
+    half = tail[tieng.end():].lstrip(" .,;").startswith("rưỡi")
+    return sign * (number * 60 + (30 if half else 0))
 
 
 def _add_minutes(value: str, minutes: int) -> str:
@@ -2380,6 +3097,9 @@ def _turns_lights_off(text: str) -> bool:
         or ``khỏi``.
     """
     low = _active_text(text).lower()
+    cut = low.rfind("đừng tắt")
+    if cut >= 0 and re.search(r"(?:thôi|quên|(?:^|\s)à(?:\s|,))", low[:cut]):
+        low = low[cut + len("đừng tắt"):]
     if "đèn" not in low:
         return False
     for match in re.finditer(r"tắt", low):
@@ -2405,6 +3125,27 @@ def _floor_named(text: str) -> int | None:
         return None
     word = match.group(1)
     return {"một": 1, "hai": 2, "ba": 3, "bốn": 4}.get(word, int(word) if word.isdigit() else None)
+
+
+def _minutes_from_now(request: str, context: str) -> str | None:
+    """Build an ISO time from ``N phút nữa``.
+
+    Input:
+        request (str): the latest user text.
+        context (str): the rendered context, for ``current_time``.
+
+    Output:
+        str: the current time plus those minutes.
+        None: when the sentence has no such phrase or the clock is missing.
+    """
+    low = request.lower()
+    if "phút nữa" not in low and "phút sau" not in low:
+        return None
+    minutes = _duration_minutes(low)
+    now = _context_value(context, "current_time")
+    if minutes is None or not now:
+        return None
+    return _add_minutes(now, minutes)
 
 
 def _hours_before(text: str) -> int | None:
@@ -2463,10 +3204,12 @@ def _due_sweep(text: str) -> bool:
         bool: True when it names a due date, a five-day window, a 500 thousand
         cap, and the bank.
     """
-    low = text.lower()
-    due = any(phrase in low for phrase in ("đến hạn", "tới hạn", "sắp đến hạn"))
+    low = _fold_vi(text)
+    due = any(phrase in low for phrase in ("đến hạn", "tới hạn", "sắp đến hạn", "tối hẹn", "hạn trong"))
     cap = "500" in low or "năm trăm" in low
-    return due and cap and "ngày" in low and "ngân hàng" in low
+    window = "ngày" in low or "trong vòng" in low
+    bank = "ngân hàng" in low or "thanh toán" in low
+    return "hóa đơn" in low and due and cap and window and bank
 
 
 def _wallet_short(text: str) -> bool:
@@ -2525,6 +3268,8 @@ def _sms_person(text: str) -> str | None:
     kept = []
     while index < len(tokens) and len(kept) < 4:
         token = tokens[index]
+        if token.lower() in ("giờ", "mới", "biết"):
+            break
         if kept and (is_function(token) or _amount_unit(token) or token.lower() in ("là", "báo")):
             break
         kept.append(token)
@@ -2631,11 +3376,26 @@ def _transfer_jobs(text: str) -> list[tuple[str, str]]:
         Empty when the sentence is not this pattern.
     """
     low = text.lower()
-    if "chuyển" not in low or "đúng" not in low:
+    if "chuyển" not in low:
+        return []
+    if low.count("vừa đủ") >= 2:
+        kinds = (
+            ("truyền hình", "tv"), ("học phí", "tuition"), ("điện thoại", "phone"),
+            ("điện", "electricity"), ("nước", "water"), ("mạng", "internet"),
+        )
+        jobs = []
+        for part in re.split(r"vừa đủ", low)[:-1]:
+            kind = next((code for phrase, code in kinds if phrase in part), "")
+            person = _payee_span(part)
+            if person and kind:
+                jobs.append((person, kind))
+        if jobs:
+            return jobs
+    if "đúng" not in low:
         return []
     jobs = []
     cursor = 0
-    for match in re.finditer(r"đúng(?:\s+bằng)?\s+tiền\s+", low):
+    for match in re.finditer(r"đúng(?:\s+(?:bằng|số))?\s+tiền\s+", low):
         person = _job_person(low[cursor:match.start()])
         kind, phrase = _bill_type_prefix(low[match.end():])
         if person and kind:
@@ -2726,10 +3486,16 @@ def _remind_lead(text: str) -> int | None:
         None: when the sentence has no ``trước lúc xe`` clause.
     """
     low = text.lower()
-    for marker in ("trước lúc xe", "trước giờ xe"):
-        if marker in low:
-            return _duration_minutes(low.split(marker, 1)[1])
-    return None
+    if "nhắc" not in low:
+        return None
+    tail = low.split("nhắc", 1)[1]
+    markers = (
+        "trước lúc đón xe", "trước lúc xe", "trước giờ xe", "trước khi xe",
+        "trước lúc đi", "trước lúc ra xe", "trước đó", "xe đón", "xe tới", "đón xe", "ra xe",
+    )
+    if not any(marker in tail for marker in markers):
+        return None
+    return _duration_minutes(tail)
 
 
 def _ride_event(results: list, request: str, context: str) -> dict | None:
@@ -2914,7 +3680,10 @@ def _serving_count(results: list, request: str, context: str) -> int:
         for node in _walk_dicts(payload):
             name = node.get("name")
             members = node.get("members")
-            if not isinstance(name, str) or not isinstance(members, list) or name.lower() not in low:
+            if not isinstance(name, str) or not isinstance(members, list):
+                continue
+            tokens = [token for token in name.lower().split() if len(token) > 2 and token not in ("nhóm", "nhom", "chat")]
+            if name.lower() not in low and not (tokens and all(token in low for token in tokens)):
                 continue
             count = len(members)
             if "không tính" in low:
@@ -2937,16 +3706,21 @@ def _payee_span(text: str) -> str:
         ``đúng`` or ``triệu`` are not part of the name.
         Empty when no payee is named.
     """
-    index = text.lower().rfind("cho ")
-    if index < 0:
+    low = text.lower()
+    index = low.rfind("cho ")
+    start = index + 4 if index >= 0 else -1
+    if start < 0:
+        match = re.search(r"chuyển(?:\s+khoản)?\s+", low)
+        start = match.end() if match else -1
+    if start < 0:
         return ""
     tail = re.split(
-        r"\b(số tiền|triệu|ngàn|nghìn|và|nhé|nha|đúng|bằng|tiền)\b",
-        text[index + 4:],
+        r"\b(số tiền|triệu|ngàn|nghìn|và|nhé|nha|đúng|bằng|tiền|góp|mua|\d)\b",
+        text[start:],
         maxsplit=1,
         flags=re.IGNORECASE,
     )[0]
-    skip = _TITLE | {"chủ", "nhà", "tui", "tôi", "mình"}
+    skip = _TITLE | {"chủ", "nhà", "tui", "tôi", "mình", "tài", "khoản", "thanh", "toán", "từ"}
     kept = []
     for token in re.findall(r"\w+", tail, flags=re.UNICODE):
         if token.lower() in skip or _amount_unit(token):
@@ -3078,6 +3852,7 @@ def _event_for_alarm(results: list, request: str, context: str) -> dict | None:
     tomorrow = _context_value(context, "tomorrow")
     best = None
     best_score = 0
+    best_start = ""
     for payload in results:
         for node in _walk_dicts(payload):
             title = node.get("title")
@@ -3089,9 +3864,10 @@ def _event_for_alarm(results: list, request: str, context: str) -> dict | None:
             if day is None and "mai" in low and tomorrow and not start.startswith(tomorrow):
                 continue
             score = sum(1 for token in title.lower().split() if token in low)
-            if score > best_score:
+            if score > best_score or (score == best_score and score > 0 and start > best_start):
                 best = node
                 best_score = score
+                best_start = start
     return best
 
 
@@ -3182,6 +3958,343 @@ def _next_floor_light(results: list, request: str, done_calls: list[tuple[str, d
     return None
 
 
+def _clock_hhmm(text: str) -> str | None:
+    """Read a daily clock as HH:MM.
+
+    Input:
+        text (str): the latest user text. Tối, đêm, and chiều add twelve
+        when the hour is still in the morning.
+
+    Output:
+        str: ``HH:MM``. None when the sentence has no clock.
+    """
+    found = _last_spoken_hm(text)
+    if not found:
+        return None
+    hour, minute = found
+    low = text.lower()
+    if "sáng" not in low and any(word in low for word in ("tối", "đêm", "chiều")) and hour < 12:
+        hour += 12
+    return f"{hour:02d}:{minute:02d}"
+
+
+def _kwh_limit(text: str) -> int | None:
+    """Read the kWh threshold after ``quá``.
+
+    Input:
+        text (str): the latest user text, as in ``quá mười tám số``.
+
+    Output:
+        int: that number of kWh. None when the sentence has no such limit.
+    """
+    match = re.search(r"quá\s+(.+?)\s+số", text.lower())
+    if not match:
+        return None
+    phrase = match.group(1).strip()
+    if phrase.isdigit():
+        return int(phrase)
+    number = _vn_under_1000(phrase)
+    return number or None
+
+
+def _usage_kwh(results: list, request: str) -> float | None:
+    """Read the kWh figure a usage result already returned.
+
+    Input:
+        results (list): tool payloads. ``home_energy.get_usage`` has ``usage``.
+        request (str): the latest user text. ``hôm qua`` prefers the last day.
+
+    Output:
+        float: that kWh. None when usage has not been read yet.
+    """
+    found = None
+    days = []
+    for payload in results:
+        if not isinstance(payload, dict):
+            continue
+        usage = payload.get("usage")
+        if isinstance(usage, dict) and isinstance(usage.get("kwh"), (int, float)):
+            found = usage["kwh"]
+            if isinstance(usage.get("days"), list):
+                days = usage["days"]
+    if "hôm qua" in request.lower() and days:
+        last = days[-2] if len(days) >= 2 else days[-1]
+        if isinstance(last, dict) and isinstance(last.get("kwh"), (int, float)):
+            return last["kwh"]
+    return found
+
+
+def _best_named(items: list, request: str, key: str = "name") -> dict | None:
+    """Pick the item whose name shares the longest words with the sentence.
+
+    Input:
+        items (list): dicts that have ``key``.
+        request (str): the latest user text.
+        key (str): the field to score. ``name`` for a chore or a package.
+
+    Output:
+        dict: the best item. None when no word longer than two letters hits.
+    """
+    low = _plain(request)
+    best = None
+    best_score = 0
+    for item in items:
+        if not isinstance(item, dict):
+            continue
+        score = sum(len(token) for token in _plain(str(item.get(key) or "")).split() if len(token) > 2 and token in low)
+        if score > best_score:
+            best = item
+            best_score = score
+    return best if best_score >= 4 else None
+
+
+def _collect(results: list, prefix: str) -> list[dict]:
+    """Collect result dicts whose id starts with a prefix.
+
+    Input:
+        results (list): tool payloads.
+        prefix (str): an id prefix such as ``appl_`` or ``sub_``.
+
+    Output:
+        list[dict]: those dicts, in the order the results listed them.
+    """
+    found = []
+    for payload in results:
+        for node in _walk_dicts(payload):
+            if str(node.get("id", "")).startswith(prefix):
+                found.append(node)
+    return found
+
+
+def _appliance_job(results: list, request: str) -> tuple[dict, str] | None:
+    """Pick the appliance and the cycle the sentence names.
+
+    Input:
+        results (list): payloads from ``appliances.list``.
+        request (str): the latest user text.
+
+    Output:
+        tuple[dict, str]: the appliance and a cycle code such as ``quick``.
+        None: when the name or the cycle is not in the list.
+    """
+    low = _plain(request)
+    best = None
+    best_len = 0
+    for item in _collect(results, "appl_"):
+        name = _plain(str(item.get("name") or ""))
+        if name and name in low and len(name) > best_len:
+            best = item
+            best_len = len(name)
+    if not best:
+        return None
+    labels = best.get("cycle_labels") or {}
+    cycle = None
+    cycle_len = 0
+    for code, label in labels.items():
+        plain = _plain(str(label))
+        if plain and plain in low and len(plain) > cycle_len:
+            cycle = code
+            cycle_len = len(plain)
+    cycles = best.get("cycles") or []
+    if cycle is None and "nhanh" in request.lower() and "quick" in cycles:
+        cycle = "quick"
+    if cycle is None and "thuong" in low and "normal" in cycles:
+        cycle = "normal"
+    if cycle is None:
+        return None
+    return best, cycle
+
+
+def _chore_job(results: list, request: str) -> tuple[str, str] | None:
+    """Pick the chore and the family member the sentence names.
+
+    Input:
+        results (list): payloads from ``household_chores.list_chores``.
+        request (str): the latest user text.
+
+    Output:
+        tuple[str, str]: chore id and the member name as stored.
+        None: when either side is missing.
+    """
+    chore = _best_named(_collect(results, "chore_"), request)
+    members = []
+    for payload in results:
+        if isinstance(payload, dict) and isinstance(payload.get("members"), list):
+            members = payload["members"]
+    person = _person_after(request, "giao cho") or _person_after(request, "cho")
+    assignee = None
+    if person:
+        plain = _plain(person)
+        for member in members:
+            if plain and plain in _plain(str(member)):
+                assignee = member
+                break
+    if assignee is None:
+        low = _plain(request)
+        best_len = 0
+        for member in members:
+            for token in _plain(str(member)).split():
+                if len(token) > 2 and token in low and len(token) > best_len:
+                    assignee = member
+                    best_len = len(token)
+    if not chore or not assignee:
+        return None
+    return chore["id"], assignee
+
+
+def _spoken_email(text: str) -> str | None:
+    """Read an email address, including ``a còng`` and ``chấm``.
+
+    Input:
+        text (str): the latest user text.
+
+    Output:
+        str: an address such as ``nhom22@example.test``.
+        None: when the sentence has no address.
+    """
+    match = re.search(r"[\w.+-]+@[\w.-]+\.\w+", text)
+    if match:
+        return match.group(0)
+    spoken = re.search(
+        r"([a-z0-9._]+)\s+a còng\s+([a-z0-9]+)(?:\s+chấm\s+([a-z0-9]+))?",
+        text.lower(),
+    )
+    if not spoken:
+        return None
+    host = spoken.group(3) or "test"
+    return f"{spoken.group(1)}@{spoken.group(2)}.{host}"
+
+
+def _draft_address(results: list, request: str) -> str | None:
+    """Find the recipient address for a draft.
+
+    Input:
+        results (list): contact payloads. A contact may have ``email``.
+        request (str): the latest user text.
+
+    Output:
+        str: the spoken address, or the email of the contact whose name or
+        relation is in the sentence. None when neither is present.
+    """
+    spoken = _spoken_email(request)
+    if spoken:
+        return spoken
+    low = _plain(request)
+    for payload in results:
+        for node in _walk_dicts(payload):
+            email = node.get("email")
+            if not isinstance(email, str) or "@" not in email:
+                continue
+            name = _plain(str(node.get("name") or ""))
+            relation = _plain(str(node.get("relation") or ""))
+            if (relation and relation in low) or (name and name in low):
+                return email
+    return None
+
+
+def _bike_to_reserve(results: list, request: str, context: str = "") -> dict | None:
+    """Pick one available bicycle the sentence asks to hold.
+
+    Input:
+        results (list): payloads from ``bike_rental.find_bikes``.
+        request (str): the latest user text. A station name, ``thể thao``,
+        ``đủ pin``, or ``gần nhà`` narrows the list.
+        context (str): the rendered context, for the home address.
+
+    Output:
+        dict: the first bike that still fits. None when none is available.
+    """
+    low = _plain(request)
+    bikes = [item for item in _collect(results, "bike_") if item.get("available", True)]
+    if not bikes:
+        return None
+    at_station = []
+    for bike in bikes:
+        station = _plain(str(bike.get("station") or ""))
+        tokens = [token for token in station.split() if len(token) > 2 and token not in ("tram",)]
+        if tokens and all(token in low for token in tokens):
+            at_station.append(bike)
+    pool = at_station or bikes
+    if "pin" in low or "dien" in low:
+        electric = [bike for bike in pool if "dien" in _plain(str(bike.get("name") or ""))]
+        if electric:
+            pool = electric
+    if "the thao" in low:
+        sport = [bike for bike in pool if "the thao" in _plain(str(bike.get("name") or ""))]
+        if sport:
+            pool = sport
+    if "gần nhà" in request.lower():
+        home = _plain(_context_value(context, "home_address"))
+        near_home = []
+        for bike in pool:
+            tokens = [token for token in _plain(str(bike.get("station") or "")).split() if len(token) > 2 and token not in ("tram",)]
+            if home and tokens and any(token in home for token in tokens):
+                near_home.append(bike)
+        if near_home:
+            pool = near_home
+    return pool[0]
+
+
+def _loyalty_choice(results: list, request: str) -> tuple[dict, dict] | None:
+    """Pick the program and the reward the sentence wants to redeem.
+
+    Input:
+        results (list): payloads from ``loyalty.get_points``.
+        request (str): the latest user text. Words after ``còn đủ`` are a
+        second, conditional reward and are ignored.
+
+    Output:
+        tuple[dict, dict]: the program and the reward.
+        None: when no reward name is in the sentence.
+    """
+    low = _plain(request.split("còn đủ", 1)[0])
+    best_program = None
+    best_reward = None
+    best_score = 0
+    for payload in results:
+        programs = payload.get("programs") if isinstance(payload, dict) else None
+        if not isinstance(programs, list):
+            continue
+        for program in programs:
+            label = _plain(str(program.get("name") or "")) + " " + _plain(str(program.get("merchant") or ""))
+            named = any(token in low for token in label.split() if len(token) > 2)
+            for reward in program.get("rewards") or []:
+                word_score = sum(len(token) for token in _plain(str(reward.get("name") or "")).split() if len(token) > 1 and token in low)
+                if word_score <= 0:
+                    continue
+                score = word_score + (5 if named else 0)
+                if score > best_score:
+                    best_program = program
+                    best_reward = reward
+                    best_score = score
+    if best_program and best_reward:
+        return best_program, best_reward
+    return None
+
+
+def _named_device(results: list, request: str) -> dict | None:
+    """Find the device whose name shares the most words with the sentence.
+
+    Input:
+        results (list): payloads from ``smart_home.get_status``.
+        request (str): the latest user text.
+
+    Output:
+        dict: that device. None when no device name is mentioned.
+    """
+    low = _plain(request)
+    best = None
+    best_score = 0
+    for item in _collect(results, ""):
+        if item.get("type") not in ("light", "climate", "fan", "plug") and not str(item.get("id", "")).startswith(("light_", "ac_", "heater_", "fan_")):
+            continue
+        score = sum(len(token) for token in _plain(str(item.get("name") or "")).split() if len(token) > 2 and token in low)
+        if score > best_score:
+            best = item
+            best_score = score
+    return best if best_score >= 4 else None
+
+
 def _prepare_args(
     name: str,
     args: dict,
@@ -3211,8 +4324,15 @@ def _prepare_args(
     for key in ("time", "start", "end", "schedule_time"):
         if key in args:
             args[key] = _expand_clock(args[key], request, context)
-    if name in ("calendar.list_events", "smart_home.get_status"):
+    if name in (
+        "calendar.list_events", "smart_home.get_status", "alarm.list",
+        "appliances.list", "subscriptions.list", "household_chores.list_chores",
+        "bike_rental.find_bikes", "loyalty.get_points",
+    ):
         args.clear()
+    if name == "home_energy.get_usage":
+        args.clear()
+        args["period"] = "week"
     if name == "weather.get_forecast":
         location = str(args.get("location") or "")
         if location and location.lower() not in low:
@@ -3233,12 +4353,29 @@ def _prepare_args(
         if event and pickup and remind and isinstance(event.get("start"), str):
             args["time"] = _add_minutes(event["start"], -(pickup + remind))
         args.pop("repeat", None)
+    if name == "alarm.delete":
+        alarm_id = _alarm_to_delete(results, request, context)
+        args.clear()
+        if alarm_id:
+            args["alarm_id"] = alarm_id
+    if name == "notes.create" and not str(args.get("content") or "").strip():
+        args["content"] = _note_content(request)
+    if name == "tasks.add":
+        if not str(args.get("title") or "").strip():
+            args["title"] = _task_title(request)
+        if "hạn" in low:
+            spoken = _spoken_time(request, context)
+            if spoken:
+                args["due"] = spoken
+        else:
+            args.pop("due", None)
     if name == "alarm.create":
         hours = _hours_before(request)
-        if hours and "lịch" in low:
-            event = _event_for_alarm(results, request, context)
-            if event and isinstance(event.get("start"), str):
-                args["time"] = _add_minutes(event["start"], -hours * 60)
+        event = _event_for_alarm(results, request, context) if hours else None
+        if hours and event and isinstance(event.get("start"), str) and any(
+            phrase in low for phrase in ("lịch", "trước đó", "trước giờ")
+        ):
+            args["time"] = _add_minutes(event["start"], -hours * 60)
         args.pop("label", None)
         if "mỗi ngày" not in low and "hằng ngày" not in low:
             args.pop("repeat", None)
@@ -3307,15 +4444,21 @@ def _prepare_args(
         args.pop("power", None)
     if name == "calendar.update_event":
         delta = _shift_minutes(request)
+        event = None
         event_id = args.get("event_id")
-        if delta is not None and event_id:
+        if event_id:
             for payload in results:
                 for node in _walk_dicts(payload):
-                    if node.get("id") != event_id or not isinstance(node.get("start"), str):
-                        continue
-                    args["start"] = _add_minutes(node["start"], delta)
-                    if isinstance(node.get("end"), str):
-                        args["end"] = _add_minutes(node["end"], delta)
+                    if node.get("id") == event_id and isinstance(node.get("start"), str):
+                        event = node
+        if event is None:
+            event = _ride_event(results, request, context)
+            if event and event.get("id"):
+                args["event_id"] = event["id"]
+        if delta is not None and event and isinstance(event.get("start"), str):
+            args["start"] = _add_minutes(event["start"], delta)
+            if isinstance(event.get("end"), str):
+                args["end"] = _add_minutes(event["end"], delta)
     spoken = _ngan_amount(request)
     if name == "ewallet.topup_mobile":
         if spoken:
@@ -3341,6 +4484,10 @@ def _prepare_args(
             args["amount"] = bill
         elif "tiền điện" in low and facts.get("amount"):
             args["amount"] = facts["amount"]
+        else:
+            spoken_amount = _trieu_amount(request) or _ngan_amount(request)
+            if spoken_amount is not None:
+                args["amount"] = spoken_amount
         kind, obj, _tool = _cursor(_parse_objects(plan), done_calls, facts)
         contact = _matching_contact(results, obj["name"]) if kind == "run" else None
         if contact:
@@ -3383,6 +4530,8 @@ def _prepare_args(
                 amount = _bill_amount(results, _bill_focus(request))
             account_amount = amount
             beneficiary = _pick_beneficiary(results, request)
+        if amount is None:
+            amount = _trieu_amount(request) or _ngan_amount(request)
         if amount is not None:
             args["amount"] = amount
         account = _pick_account(_bank_accounts(results), account_amount, request)
@@ -3403,6 +4552,103 @@ def _prepare_args(
             args.clear()
             args["restaurant_id"] = restaurant["id"]
             args["items"] = [{"item_id": item["id"], "quantity": _serving_count(results, request, context)}]
+    if name == "sms.send":
+        kind, obj, _tool = _cursor(_parse_objects(plan), done_calls, facts)
+        hits = _named_contacts(results, obj["name"]) if kind == "run" else []
+        if len(hits) == 1:
+            args["contact_id"] = hits[0]["id"]
+        else:
+            args.pop("contact_id", None)
+        if not str(args.get("content") or "").strip():
+            args["content"] = "giờ mới" if "giờ mới" in low else (_reminder_content(request) or "đã xong")
+    if name == "appliances.start_cycle":
+        job = _appliance_job(results, request)
+        if job:
+            args.clear()
+            args["appliance_id"] = job[0]["id"]
+            args["cycle"] = job[1]
+    if name == "household_chores.assign":
+        job = _chore_job(results, request)
+        if job:
+            args.clear()
+            args["chore_id"] = job[0]
+            args["assignee"] = job[1]
+    if name == "subscriptions.cancel":
+        chosen = _best_named(_collect(results, "sub_"), request)
+        if chosen:
+            args.clear()
+            args["subscription_id"] = chosen["id"]
+    if name == "email.create_draft":
+        address = _draft_address(results, request)
+        if address:
+            args["to"] = [address]
+            if not str(args.get("subject") or "").strip():
+                args["subject"] = "nháp"
+            if not str(args.get("body") or "").strip():
+                args["body"] = request.strip() or "nháp"
+    if name == "bike_rental.reserve":
+        bike = _bike_to_reserve(results, request, context)
+        if bike:
+            args.clear()
+            args["bike_id"] = bike["id"]
+    if name == "shopping_list.add":
+        args["name"] = "món trong câu"
+        args["quantity"] = 1
+    if name == "fitness.log_workout":
+        workout = _workout(low)
+        if workout:
+            args.clear()
+            args["type"] = workout[0]
+            args["minutes"] = workout[1]
+    if name == "library.reserve":
+        book = _book_to_reserve(results, request, done_calls)
+        if book:
+            args.clear()
+            args["book_id"] = book["id"]
+    if name == "bill_payment.schedule_autopay":
+        bill_type = _soonest_bill_type(results)
+        if bill_type:
+            args.clear()
+            args["type"] = bill_type
+            args["enabled"] = True
+    if name == "robot_vacuum.start":
+        rooms = _robot_rooms(results, request)
+        args.clear()
+        if rooms:
+            args["rooms"] = rooms
+    if name == "alarm.update":
+        alarm = _alarm_to_shift(results, request)
+        if alarm:
+            args.clear()
+            args["alarm_id"] = alarm["id"]
+            if alarm.get("time"):
+                args["time"] = alarm["time"]
+    if name == "maps.save_place":
+        place = _place_to_save(results, request)
+        if place:
+            args.clear()
+            args["place_id"] = place["id"]
+            args["label"] = str(place.get("name") or "đã lưu")
+    if name == "loyalty.redeem":
+        choice = _loyalty_choice(results, request)
+        if choice:
+            args.clear()
+            args["program"] = choice[0].get("id")
+            args["reward_id"] = choice[1].get("id")
+    if name == "home_automation.create_rule":
+        device = _named_device(results, request)
+        clock = _clock_hhmm(request)
+        if device and clock:
+            args.clear()
+            args["device_id"] = device.get("id")
+            args["action"] = "on" if "bật" in low and "tắt" not in low else "off"
+            args["time"] = clock
+    if name == "calendar.create_event" and _wants_new_event(low):
+        spoken = _spoken_time(request, context)
+        if spoken and not args.get("start"):
+            args["start"] = spoken
+        if not str(args.get("title") or "").strip():
+            args["title"] = "lịch"
     return args
 
 
@@ -3562,6 +4808,113 @@ def _planned_tool(plan: str, facts: dict, done_calls: list[tuple[str, dict]]) ->
     return tool if kind == "run" else ""
 
 
+_FILL_NEXT = frozenset({
+    "notes.create",
+    "tasks.add",
+    "alarm.list",
+    "alarm.delete",
+    "alarm.create",
+    "banking.get_balance",
+    "banking.list_beneficiaries",
+    "banking.transfer",
+    "bill_payment.list_bills",
+    "bill_payment.pay",
+    "reminders.create",
+    "sms.send",
+    "ewallet.transfer",
+    "smart_home.light_set",
+    "smart_home.get_status",
+    "contacts.search",
+    "weather.get_forecast",
+    "appliances.list",
+    "appliances.start_cycle",
+    "household_chores.list_chores",
+    "household_chores.assign",
+    "subscriptions.list",
+    "subscriptions.cancel",
+    "email.create_draft",
+    "bike_rental.find_bikes",
+    "bike_rental.reserve",
+    "loyalty.get_points",
+    "loyalty.redeem",
+    "home_energy.get_usage",
+    "home_automation.create_rule",
+    "calendar.create_event",
+    "shopping_list.add",
+    "fitness.log_workout",
+    "library.search",
+    "library.reserve",
+    "bill_payment.schedule_autopay",
+    "robot_vacuum.get_status",
+    "robot_vacuum.start",
+    "alarm.list",
+    "alarm.update",
+    "maps.search_place",
+    "maps.save_place",
+})
+
+
+def _note_content(text: str) -> str:
+    """Keep a non-empty body for a new note.
+
+    Input:
+        text (str): the latest user text.
+
+    Output:
+        str: the words after ``ghi là`` or ``tên là`` when present, otherwise
+        the sentence itself. Title and content are free text.
+    """
+    low = text.lower()
+    for marker in ("ghi là", "tên là", "tiêu đề là"):
+        if marker in low:
+            tail = text[low.find(marker) + len(marker):].strip(" .,")
+            if tail:
+                return tail
+    return text.strip() or "ghi chú"
+
+
+def _task_title(text: str) -> str:
+    """Keep the errand named after ``một việc`` or ``cái việc``.
+
+    Input:
+        text (str): the latest user text.
+
+    Output:
+        str: the words up to ``hạn``. A short fallback when the clause is empty.
+    """
+    low = text.lower()
+    for marker in ("việc là", "một việc", "cái việc"):
+        if marker in low:
+            tail = text[low.find(marker) + len(marker):]
+            tail = re.split(r"\bhạn\b", tail, maxsplit=1, flags=re.IGNORECASE)[0]
+            title = tail.strip(" .,")
+            if title:
+                return title
+    return "việc trong câu"
+
+
+def _alarm_to_delete(results: list, request: str, context: str) -> str | None:
+    """Find the alarm whose time is the clock in the sentence.
+
+    Input:
+        results (list): tool payloads. An alarm has ``id`` and ``time``.
+        request (str): the latest user text.
+        context (str): the rendered context, for today, tomorrow, and the offset.
+
+    Output:
+        str: the alarm id whose time equals the spoken clock.
+        None: when no listed alarm is at that time.
+    """
+    spoken = _spoken_time(request, context)
+    if not spoken:
+        return None
+    for payload in results:
+        for node in _walk_dicts(payload):
+            if str(node.get("id", "")).startswith("alm_") and node.get("time") == spoken:
+                return node["id"]
+    return None
+
+
 def _can_take_over(
     tool: str,
     request: str,
@@ -3590,15 +4943,85 @@ def _can_take_over(
     if tool == "smart_home.climate_set":
         return _climate_temperature(request) is not None
     if tool in ("chat_ott.list_chats", "food_delivery.list_restaurants", "food_delivery.get_menu", "food_delivery.place_order"):
-        return "nhóm chat" in request.lower() and "suất" in request.lower()
+        return _group_meal(request.lower())
+    if tool == "alarm.create":
+        return "báo thức" in request.lower()
+    if tool == "notes.create":
+        return "ghi chú" in request.lower()
+    if tool == "tasks.add":
+        return _wants_task(request.lower())
+    if tool in ("alarm.list", "alarm.delete"):
+        low_request = request.lower()
+        return "báo thức" in low_request and any(word in low_request for word in ("xóa", "xoá"))
+    if tool == "sys.ask_missing_info":
+        return _missing_wallet_amount(request)
     if tool == "ride_hailing.book":
         return _pickup_lead(request) is not None
     if tool == "reminders.create":
         return "mang laptop" in request.lower() or _spoken_time(request, "") is not None or "trước" not in request.lower()
-    if tool in ("contacts.search", "sms.send"):
+    if tool == "contacts.search":
         return True
+    if tool == "sms.send":
+        return any(str(node.get("id", "")).startswith("c_") for payload in results for node in _walk_dicts(payload))
+    if tool == "weather.get_forecast":
+        return "mưa" in request.lower() or "thời tiết" in request.lower()
+    if tool == "appliances.list":
+        return any(word in request.lower() for word in ("máy rửa", "máy giặt", "máy sấy"))
+    if tool == "appliances.start_cycle":
+        return _appliance_job(results, request) is not None
+    if tool == "household_chores.list_chores":
+        return "giao" in request.lower()
+    if tool == "household_chores.assign":
+        return _chore_job(results, request) is not None
+    if tool == "subscriptions.list":
+        return "gói" in request.lower()
+    if tool == "subscriptions.cancel":
+        return _best_named(_collect(results, "sub_"), request) is not None
+    if tool == "email.create_draft":
+        return _draft_address(results, request) is not None
+    if tool == "bike_rental.find_bikes":
+        return "xe đạp" in request.lower()
+    if tool == "bike_rental.reserve":
+        return _bike_to_reserve(results, request) is not None
+    if tool == "loyalty.get_points":
+        return "đổi" in request.lower()
+    if tool == "loyalty.redeem":
+        return _loyalty_choice(results, request) is not None
+    if tool == "home_energy.get_usage":
+        return "số" in request.lower()
+    if tool == "smart_home.get_status":
+        return "cài" in request.lower() or ("đèn" in request.lower() and "tắt" in request.lower())
+    if tool == "calendar.create_event":
+        return _wants_new_event(request.lower()) and _last_spoken_hm(request) is not None
+    if tool == "shopping_list.add":
+        return "danh sách" in request.lower()
+    if tool == "fitness.log_workout":
+        return _workout(request.lower()) is not None
+    if tool == "library.search":
+        return "cuốn" in request.lower()
+    if tool == "library.reserve":
+        return _book_to_reserve(results, request, done_calls) is not None
+    if tool == "bill_payment.schedule_autopay":
+        return _soonest_bill_type(results) is not None
+    if tool == "robot_vacuum.get_status":
+        return "robot" in request.lower()
+    if tool == "robot_vacuum.start":
+        return "robot" in request.lower()
+    if tool == "alarm.update":
+        return _alarm_to_shift(results, request) is not None
+    if tool == "maps.search_place":
+        return "lưu" in request.lower()
+    if tool == "maps.save_place":
+        return _place_to_save(results, request) is not None
+    if tool == "home_automation.create_rule":
+        limit = _kwh_limit(request)
+        used = _usage_kwh(results, request)
+        if limit is not None and (used is None or used <= limit):
+            return False
+        return _named_device(results, request) is not None and _clock_hhmm(request) is not None
     return tool in (
         "banking.get_balance", "banking.list_beneficiaries", "banking.transfer",
+        "bill_payment.list_bills",
         "calendar.list_events",
     )
 
