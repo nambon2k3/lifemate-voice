@@ -8,7 +8,7 @@ __MACOSX/
 # Local weights and generated artifacts. See STRUCTURE.md.
 models/*
 !models/.gitkeep
-cache/transcripts/*
+cache/*
 !cache/transcripts/.gitkeep
 outputs/*
 !outputs/.gitkeep
