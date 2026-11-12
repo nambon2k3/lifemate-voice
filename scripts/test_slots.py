@@ -40,9 +40,11 @@ def _stub_langchain() -> None:
 try:
     from agent import (  # noqa: E402
         _contact_query,
+        _cursor,
         _is_speaker,
         _matching_contact,
         _ngan_amount,
+        _parse_objects,
         _person_after,
         _phone_override,
         _prepare_args,
@@ -55,9 +57,11 @@ except ModuleNotFoundError:
     _stub_langchain()
     from agent import (  # noqa: E402
         _contact_query,
+        _cursor,
         _is_speaker,
         _matching_contact,
         _ngan_amount,
+        _parse_objects,
         _person_after,
         _phone_override,
         _prepare_args,
@@ -728,6 +732,507 @@ class SlotTests(unittest.TestCase):
             "sms.send",
         )
         self.assertEqual(asked, ("sys.ask_missing_info", {"tool_name": "sms.send", "params": ["contact_id"]}))
+
+
+class ArgumentFixes(unittest.TestCase):
+    """The 28 rows that called the right tool with the wrong arguments."""
+
+    def test_wallet_transfer_uses_the_bill_and_the_payee(self) -> None:
+        import agent
+
+        text = "Lấy ví nạp 50 nghìn tiền điện thoại cho Sếp Dũng, còn Cô giáo Mai thì chuyển ví đúng bằng tiền mạng tháng này nha."
+        self.assertEqual(agent._transfer_payee(text), "Cô Giáo Mai")
+        bills = {"bills": [
+            {"id": "bill_phone", "type": "phone", "amount": 50000, "paid": False},
+            {"id": "bill_net", "type": "internet", "amount": 219000, "paid": False},
+        ]}
+        plan = "Đối tượng: Cô Giáo Mai | việc: chuyển ví | khi: luôn | tool: contacts.search, ewallet.transfer"
+        amount = _prepare_args(
+            "ewallet.transfer", {}, text, "", [bills, {"contacts": [{"id": "c_07", "name": "Cô giáo Mai"}]}],
+            {}, plan, [("contacts.search", {"query": "Cô Giáo Mai"})],
+        )
+        self.assertEqual(amount["amount"], 219000)
+        self.assertEqual(amount["contact_id"], "c_07")
+        accounts = [
+            {"id": "acc_01", "name": "Tài khoản thanh toán", "balance": 77780},
+            {"id": "acc_02", "name": "Tài khoản tiết kiệm", "balance": 50000000},
+        ]
+        self.assertEqual(
+            agent._pick_account(accounts, 215000, "thiếu thì dùng tiết kiệm"),
+            "acc_02",
+        )
+
+    def test_relative_clocks_and_promised_due(self) -> None:
+        import agent
+
+        move = "Mai em bị muộn, cho lịch khám răng lùi lại nửa tiếng nhé, báo thức thì đặt trước giờ mới một tiếng."
+        self.assertEqual(agent._shift_minutes(move), 30)
+        context = (
+            "today: 2026-10-01\ntomorrow: 2026-10-02\ncurrent_time: 2026-10-01T09:00:00+07:00\n"
+            "history:\nuser: Hẹn rồi, chậm nhất năm giờ chiều thứ hai tuần sau, tức là mùng năm tháng mười.\n"
+            "latest_request:\n"
+        )
+        self.assertEqual(
+            _spoken_time("Dạ thế thêm cho em một việc, hạn năm giờ chiều ngày mười chín tháng mười.", context),
+            "2026-10-19T17:00:00+07:00",
+        )
+        self.assertEqual(agent._due_from_history(context), "2026-10-05T17:00:00+07:00")
+        afternoon = (
+            "today: 2026-10-13\ncurrent_time: 2026-10-13T15:10:00+07:00\n"
+            "history:\nassistant: Chiều nay có một nhắc lúc năm giờ: đón Minh ở bể bơi Láng Hạ.\n"
+            "latest_request:\n"
+        )
+        self.assertEqual(_spoken_time("Năm giờ nhắc chị gọi Minh nhé.", afternoon), "2026-10-13T17:00:00+07:00")
+        tuesday = "today: 2026-11-01\ntomorrow: 2026-11-02\ncurrent_time: 2026-11-01T14:30:00+07:00\n"
+        self.assertEqual(
+            _spoken_time("tám giờ tối thứ ba nhắc anh share thời tiết.", tuesday),
+            "2026-11-03T20:00:00+07:00",
+        )
+        self.assertEqual(_prepare_args(
+            "home_automation.create_rule",
+            {"time": "2026-09-25T22:00:00+07:00"},
+            "Cài tự động đi, cứ mười giờ tối là cho nó bật lên.",
+            "history:\nuser: Tối nào tôi cũng phải bật cái quạt phòng ngủ.\nlatest_request:\n",
+            [{"devices": [{"id": "fan_bedroom", "type": "fan", "name": "quạt phòng ngủ", "room": "phòng ngủ"}]}],
+            {}, "", [],
+        )["time"], "22:00")
+
+    def test_ids_rooms_and_parents(self) -> None:
+        import agent
+
+        subs = {"subscriptions": [
+            {"id": "sub_422", "name": "ViTube Premium", "next_billing": "2026-11-26"},
+            {"id": "sub_3432", "name": "Gym Sunrise Fitness", "next_billing": "2026-11-27"},
+        ]}
+        self.assertEqual(
+            agent._subscription_to_cancel([subs], "gói mô gia hạn vô thứ Sáu tới thì hủy", "today: 2026-11-22\n")["id"],
+            "sub_3432",
+        )
+        bikes = {"bikes": [
+            {"id": "bike_476", "name": "Xe đạp điện 112", "station": "Trạm Hàng Bạc", "available": True, "price_per_hour": 25000},
+            {"id": "bike_7305", "name": "Xe đạp thường 112", "station": "Trạm Hàng Bạc", "available": True, "price_per_hour": 10000},
+            {"id": "bike_9038", "name": "Xe đạp thường 121", "station": "Trạm Hàng Bạc", "available": True, "price_per_hour": 10000},
+        ]}
+        held = agent._bike_to_reserve(
+            [bikes],
+            "Giữ cho tôi cái xe đạp thường số một trăm mười hai ở trạm ngay phố nhà tôi nhé.",
+            "home_address: 31 Hàng Bạc, Hoàn Kiếm, Hà Nội\n",
+        )
+        self.assertEqual(held["id"], "bike_7305")
+        station = {"bikes": [
+            {"id": "bike_3158", "name": "Xe đạp thường 315", "station": "Trạm Mỹ Đình", "available": False, "price_per_hour": 12000},
+            {"id": "bike_3182", "name": "Xe đạp điện 318", "station": "Trạm Mỹ Đình", "available": True, "price_per_hour": 30000},
+            {"id": "bike_3114", "name": "Xe đạp điện 311", "station": "Trạm Mỹ Đình", "available": True, "price_per_hour": 25000},
+        ]}
+        cheap = agent._bike_to_reserve(
+            [station],
+            "Giữ giùm em một chiếc xe đạp thường ở trạm Mỹ Đình, hết thì lấy chiếc rẻ nhất nha.",
+            "",
+        )
+        self.assertEqual(cheap["id"], "bike_3114")
+        rooms = agent._robot_rooms(
+            [{"rooms": [
+                {"name": "bếp"}, {"name": "phòng ngủ"}, {"name": "phòng khách"},
+            ]}],
+            "Cho robot vừa hút vừa lau phòng khách với bếp giùm anh, phòng ngủ khỏi nha.",
+        )
+        self.assertEqual(rooms, ["phòng khách", "bếp"])
+        book = agent._book_to_reserve(
+            [{"books": [
+                {"id": "book_7730", "title": "Phối màu căn hộ nhỏ", "author": "Amber Interiors"},
+                {"id": "book_2914", "title": "Nhà gỗ tối giản", "author": "Amber Interiors"},
+            ]}],
+            "giữ chỗ cuốn của Amber Interiors mà Trang nhờ mượn",
+            [],
+            "history:\nuser: Trang gửi tiền mượn hộ cuốn Nhà gỗ tối giản\nlatest_request:\n",
+        )
+        self.assertEqual(book["id"], "book_2914")
+        item = agent._shopping_item(
+            "Ừ, thêm đúng loại đó vào danh sách đi chợ cho em, hai hộp nha.",
+            "history:\nuser: Rồi, lấy sữa yến mạch không đường hiệu Oat Farm nha.\nlatest_request:\n",
+        )
+        self.assertEqual(item, ("sữa yến mạch không đường Oat Farm", 2))
+        draft = _prepare_args(
+            "email.create_draft", {},
+            "Huỷ cái gói Kho Ảnh Gia Đình giúp em với, xong soạn sẵn một thư nháp gửi bố mẹ em.",
+            "",
+            [{"contacts": [
+                {"id": "c_03", "name": "Mẹ", "relation": "mẹ", "email": "mai.pham@example.test"},
+                {"id": "c_04", "name": "Bố", "relation": "bố", "email": "hung.pham@example.test"},
+            ]}],
+            {}, "", [],
+        )
+        self.assertEqual(draft["to"], ["mai.pham@example.test", "hung.pham@example.test"])
+        self.assertEqual(draft["subject"], "Gói Kho Ảnh Gia Đình không gia hạn nữa")
+
+
+class ExtraReads(unittest.TestCase):
+    """A sentence that points at history does not read that list again."""
+
+    def test_known_package_and_false_calendar_writes(self) -> None:
+        context = (
+            "today: 2026-09-24\ntomorrow: 2026-09-25\n"
+            "current_time: 2026-09-24T09:00:00+07:00\n"
+            "history:\n"
+            "assistant: Mùng 1 tháng 10 có gói Podcast Plus.\n"
+            "tool_calls: "
+            + json.dumps([{"name": "subscriptions.list", "arguments": {}}], ensure_ascii=False)
+            + "\ntool_results: "
+            + json.dumps([{
+                "subscriptions": [
+                    {"id": "sub_04", "name": "Xemflix gói Tiêu chuẩn", "price": 220000, "status": "paused"},
+                    {"id": "sub_05", "name": "Podcast Plus", "price": 49000, "status": "active"},
+                ],
+            }], ensure_ascii=False)
+            + "\nlatest_request:\n"
+        )
+        text = "Thế thì hủy luôn gói đấy cho anh, dạo này anh có nghe mấy đâu."
+        plan = _repair_plan("", text, {"subscriptions.list", "subscriptions.cancel", "calendar.list_events", "calendar.cancel_event"}, {}, "", context)
+        self.assertIn("subscriptions.cancel", plan)
+        self.assertNotIn("subscriptions.list", plan)
+        self.assertNotIn("calendar.cancel_event", plan)
+        chosen = _prepare_args("subscriptions.cancel", {}, text, context, [], {}, "", [])
+        self.assertEqual(chosen["subscription_id"], "sub_05")
+
+    def test_early_without_a_duration_is_not_a_move(self) -> None:
+        text = "Báo mọi người là gói lưu trữ hủy rồi, ai cần thì tải dữ liệu về sớm nhé."
+        self.assertNotIn("calendar.update_event", _repair_plan(
+            "", text,
+            {"calendar.list_events", "calendar.update_event", "subscriptions.cancel", "email.create_draft"},
+            {},
+        ))
+
+    def test_paid_bill_and_returned_chore_do_not_list_bills(self) -> None:
+        paid = "Thêm cho anh một việc đối soát hóa đơn nước vừa trả, hạn năm giờ chiều ngày mười một tháng mười."
+        self.assertNotIn("bill_payment.list_bills", _repair_plan(
+            "", paid, {"bill_payment.list_bills", "tasks.add"}, {},
+        ))
+        chore = "Việc voucher đặt hoa mới là của Na, còn bánh kem thì trả lại cho ba."
+        self.assertNotIn("bill_payment.list_bills", _repair_plan(
+            "", chore, {"bill_payment.list_bills", "household_chores.assign", "household_chores.list_chores"}, {},
+        ))
+
+    def test_morning_tomorrow_ignores_an_earlier_today(self) -> None:
+        context = "today: 2026-11-11\ntomorrow: 2026-11-12\ncurrent_time: 2026-11-11T10:15:00+07:00\n"
+        text = "Nếu giá vàng SJC mua vào hôm nay dưới 119 triệu thì nhắc chị 9 giờ sáng mai đi mua vàng nhé."
+        self.assertEqual(_spoken_time(text, context), "2026-11-12T09:00:00+07:00")
+
+    def test_airport_ride_does_not_read_the_calendar(self) -> None:
+        text = "Sáng hôm đó em gọi sẵn xe bốn chỗ từ nhà ra sân bay Nội Bài, đón lúc bốn giờ bốn lăm."
+        plan = _repair_plan("", text, {"ride_hailing.book", "calendar.list_events"}, {}, "")
+        self.assertIn("ride_hailing.book", plan)
+        self.assertNotIn("calendar.list_events", plan)
+
+    def test_two_chats_ask_instead_of_sending(self) -> None:
+        import agent
+        text = "Nhắn cho Nam giúp em là họp xong em gọi lại nhé."
+        plan = _repair_plan("", text, {"chat_ott.list_chats", "chat_ott.send_message", "phone.call", "contacts.search"}, {}, "")
+        self.assertIn("chat_ott.list_chats", plan)
+        self.assertNotIn("phone.call", plan)
+        self.assertNotIn("contacts.search", plan)
+        self.assertTrue(agent._ambiguous_chat(
+            [{"chats": [{"id": "chat_01", "name": "Nam"}, {"id": "chat_02", "name": "Nam"}]}],
+            text,
+            "",
+        ))
+
+    def test_each_card_except_one_redeems_the_cheapest(self) -> None:
+        import agent
+        payload = {"programs": [
+            {"id": "prog_183", "name": "Cao Nguyên Rewards", "points": 650, "rewards": [
+                {"id": "rw_02_1", "name": "Ly cà phê", "cost": 300},
+                {"id": "rw_02_2", "name": "Voucher", "cost": 500},
+            ]},
+            {"id": "prog_4471", "name": "JetXanh Club", "points": 3100, "rewards": [
+                {"id": "rw_05_1", "name": "Vé", "cost": 1500},
+            ]},
+            {"id": "prog_5520", "name": "CineViệt Membership", "points": 350, "rewards": [
+                {"id": "rw_04_2", "name": "Combo", "cost": 400},
+            ]},
+        ]}
+        text = "Thẻ nào đủ điểm thì đổi phần quà rẻ nhất, mỗi thẻ một phần, trừ thẻ JetXanh ra."
+        queue = agent._loyalty_queue([payload], text, "")
+        self.assertEqual([(item[0]["id"], item[1]["id"]) for item in queue], [("prog_183", "rw_02_1")])
+
+    def test_the_object_of_the_verb_decides_the_tool(self) -> None:
+        calendar = {"calendar.list_events", "calendar.cancel_event", "calendar.create_event", "calendar.update_event"}
+        cancel = _repair_plan("", "Hủy giúp cho tôi cái lịch đi chơi nhé.", calendar, {})
+        self.assertIn("calendar.cancel_event", cancel)
+        later = _repair_plan("", "Hủy đi. Rồi ghi vào lịch ngày gói hết hạn.", calendar, {})
+        self.assertNotIn("calendar.cancel_event", later)
+        package = {"subscriptions.list", "subscriptions.cancel"}
+        asked = _repair_plan("", "Hủy cho tôi cái gói xem phim này.", package, {})
+        self.assertIn("subscriptions.cancel", asked)
+        told = _repair_plan("", "Gói lưu trữ hủy rồi.", package, {})
+        self.assertNotIn("subscriptions.cancel", told)
+        moved = _repair_plan("", "Dời lịch sớm một chút giúp tôi.", calendar, {})
+        self.assertIn("calendar.update_event", moved)
+        early = _repair_plan("", "Ai cần thì tải về sớm nhé.", calendar, {})
+        self.assertNotIn("calendar.update_event", early)
+        bills = {"bill_payment.list_bills"}
+        self.assertIn("bill_payment.list_bills", _repair_plan("", "Trả hộ tiền điện tháng này.", bills, {}))
+        self.assertNotIn("bill_payment.list_bills", _repair_plan("", "Việc này trả lại cho anh.", bills, {}))
+        self.assertNotIn("bill_payment.list_bills", _repair_plan("", "Trả về đúng chỗ cũ giúp tôi.", bills, {}))
+        phone = {"phone.call", "contacts.search", "chat_ott.send_message", "chat_ott.list_chats"}
+        note = _repair_plan("", "Nhắn cho Nam là chiều nay gọi lại cho Nam nhé.", phone, {})
+        self.assertNotIn("phone.call", note)
+        call = _repair_plan("", "Gọi cho Nam giúp tôi.", phone, {})
+        self.assertIn("phone.call", call)
+        ride = {"ride_hailing.book", "calendar.list_events", "subscriptions.cancel"}
+        kept = _repair_plan("", "Hủy cho tôi cái gói, rồi gọi xe ra bệnh viện.", ride, {})
+        self.assertIn("ride_hailing.book", kept)
+        self.assertNotIn("calendar.list_events", kept)
+        dropped = _repair_plan("", "Hủy xe hộ tôi, khỏi gọi nữa.", ride, {})
+        self.assertNotIn("ride_hailing.book", dropped)
+        airport = _repair_plan("", "Gọi xe ra sân bay Nội Bài sáng nay.", {"ride_hailing.book", "calendar.list_events"}, {})
+        self.assertNotIn("calendar.list_events", airport)
+
+    def test_a_name_runs_until_the_spoken_boundary(self) -> None:
+        import agent
+
+        self.assertEqual(agent._transfer_payee("Cô Mai Hoa thì chuyển ví giúp tôi."), "Cô Mai Hoa")
+        self.assertEqual(_contact_query(agent._transfer_payee("Cô Mai Hoa thì chuyển ví giúp tôi.")), "Mai Hoa")
+        self.assertEqual(
+            agent._transfer_payee("không thì chuyển 2 triệu từ tài khoản thanh toán"),
+            "người nhận",
+        )
+        self.assertEqual(
+            agent._transfer_payee(
+                "ví mà không đủ thì chuyển qua ngân hàng, rồi nhắn SMS cho sếp Dũng báo tôi đóng xong rồi."
+            ),
+            "người nhận",
+        )
+        woke = _repair_plan("", "Gọi giúp mẹ dậy lúc sáu giờ.", {"phone.call", "contacts.search", "alarm.create"}, {})
+        self.assertNotIn("phone.call", woke)
+        plain = _repair_plan("", "Gọi mẹ dậy giúp tôi.", {"phone.call", "contacts.search"}, {})
+        self.assertNotIn("phone.call", plain)
+        self.assertIn("phone.call", _repair_plan("", "Gọi cho Nam giúp tôi.", {"phone.call", "contacts.search"}, {}))
+        self.assertEqual(agent._spoken_dropoff("Gọi xe sân bay Tân Sơn Nhất nhé."), "sân bay Tân Sơn Nhất")
+        self.assertEqual(
+            agent._spoken_dropoff("từ nhà ra sân bay Nội Bài, đón lúc bốn giờ."),
+            "sân bay Nội Bài",
+        )
+        rooms = agent._robot_rooms(
+            [{"rooms": [{"name": "bếp"}, {"name": "phòng ngủ"}, {"name": "phòng khách"}]}],
+            "phòng khách phòng ngủ của bé thì khỏi",
+        )
+        self.assertEqual(rooms, ["phòng khách"])
+
+    def test_an_empty_label_does_not_keep_a_write(self) -> None:
+        gold = (
+            "history:\nassistant: Vàng SJC hôm nay mua vào 130.8 triệu.\n"
+            "tool_calls: " + json.dumps([{"name": "gold_price.get_price", "arguments": {"type": "sjc"}}]) + "\n"
+            "tool_results: [{}]\nlatest_request:\n"
+        )
+        high = _repair_plan(
+            "",
+            "Nếu giá mua vào vàng SJC hôm nay dưới 129 triệu thì nhắc mình 9 giờ sáng mai đi mua vàng nhé.",
+            {"gold_price.get_price", "reminders.create"},
+            {},
+            "",
+            gold,
+        )
+        self.assertNotIn("reminders.create", high)
+        low_price = gold.replace("130.8", "120")
+        under = _repair_plan(
+            "",
+            "Nếu giá mua vào vàng SJC hôm nay dưới 129 triệu thì nhắc mình 9 giờ sáng mai đi mua vàng nhé.",
+            {"gold_price.get_price", "reminders.create"},
+            {},
+            "",
+            low_price,
+        )
+        self.assertIn("reminders.create", under)
+        self.assertNotIn("ewallet.transfer", _repair_plan(
+            "", "À khoan, thôi khỏi chuyển cho Minh nữa nhé.",
+            {"contacts.search", "ewallet.transfer"}, {},
+        ))
+        self.assertNotIn("ride_hailing.book", _repair_plan(
+            "", "Ơ thôi bạn ơi, khỏi đặt xe nữa nha.",
+            {"ride_hailing.book"}, {},
+        ))
+        self.assertNotIn("shopping_list.add", _repair_plan(
+            "", "Khoan khoan, đừng thêm gì vào danh sách đi chợ nữa nha.",
+            {"shopping_list.add"}, {},
+        ))
+        self.assertIn("shopping_list.add", _repair_plan(
+            "", "Thêm sữa vào danh sách đi chợ giúp em.",
+            {"shopping_list.add"}, {},
+        ))
+        self.assertNotIn("shopping_list.add", _repair_plan(
+            "", "Thêm tập hai bộ phim vào danh sách xem giúp chị.",
+            {"shopping_list.add", "tv.guide"}, {},
+        ))
+        self.assertNotIn("light_set", _repair_plan(
+            "", "Ơ, đặt độ sáng cái đèn bàn thành âm mười phần trăm giúp em với.",
+            {"smart_home.get_status", "smart_home.light_set"}, {},
+        ))
+        self.assertIn("light_set", _repair_plan(
+            "", "Đặt độ sáng cái đèn bàn thành mười phần trăm giúp em.",
+            {"smart_home.get_status", "smart_home.light_set"}, {},
+        ))
+        self.assertNotIn("chat_ott.send_message", _repair_plan(
+            "", "Ờ coi tin Zalo của Ba à không, tin nhắn SMS Ba mới gửi á, đọc em nghe coi.",
+            {"chat_ott.list_chats", "chat_ott.send_message"}, {},
+        ))
+        done = (
+            "history:\nassistant: Mình đã chuyển một trăm tám mươi nghìn cho Đỗ Thu Trang, nội dung tiền điện tháng này.\n"
+            "latest_request:\n"
+        )
+        self.assertNotIn("banking.transfer", _repair_plan(
+            "", "Ủa tiền điện cho Trang tớ chuyển chưa nhỉ? Chưa thì chuyển luôn đi nhé.",
+            {"banking.get_balance", "banking.list_beneficiaries", "banking.transfer"},
+            {}, "", done,
+        ))
+        rainy = _repair_plan(
+            "", "Mai mà mưa thì dời lịch chạy bộ, còn không mưa thì thôi.",
+            {"weather.get_forecast", "calendar.list_events", "calendar.update_event"}, {},
+        )
+        self.assertIn("calendar.update_event", rainy)
+
+    def test_a_finished_gold_step_does_not_keep_a_later_write(self) -> None:
+        high = (
+            "history:\nassistant: Vàng SJC hôm nay mua vào 124.7 triệu.\n"
+            "tool_calls: " + json.dumps([{"name": "gold_price.get_price", "arguments": {"type": "sjc"}}]) + "\n"
+            "tool_results: [{}]\nlatest_request:\n"
+        )
+        sentence = "Nếu giá mua vào vàng SJC hôm nay dưới 123 triệu thì 9 giờ sáng mai nhắc tôi đi mua nhé."
+        installed = {"gold_price.get_price", "reminders.create"}
+        self.assertNotIn("reminders.create", _repair_plan("", sentence, installed, {}, "", high))
+        under = _repair_plan("", sentence, installed, {}, "", high.replace("124.7", "118"))
+        self.assertIn("reminders.create", under)
+        args = _prepare_args("gold_price.get_price", {}, sentence, "", [], {}, "", [])
+        self.assertEqual(args.get("type"), "sjc")
+        robot = "Con robot còn đang chạy dở hả em? Nếu xong rồi thì cô nhờ cho nó hút cả nhà, chưa xong thì cứ kệ nó."
+        plan = _repair_plan("", robot, {"robot_vacuum.get_status", "robot_vacuum.start"}, {})
+        self.assertIn("status!=cleaning", plan)
+        objects = _parse_objects(plan)
+        kind, _obj, tool = _cursor(objects, [("robot_vacuum.get_status", {})], {"status": "cleaning"})
+        self.assertEqual(kind, "done")
+        self.assertNotEqual(tool, "robot_vacuum.start")
+        _kind, _obj, tool = _cursor(objects, [("robot_vacuum.get_status", {})], {"status": "docked"})
+        self.assertEqual(tool, "robot_vacuum.start")
+        follow = _repair_plan(
+            "", "Xong cho con robot dọn phòng ngủ luôn.",
+            {"robot_vacuum.get_status", "robot_vacuum.start"}, {},
+        )
+        self.assertIn("robot_vacuum.start", follow)
+        self.assertNotIn("status!=cleaning", follow)
+        self.assertNotIn("chat_ott.send_message", _repair_plan(
+            "", "Tối ni có ai nhắn Zalo cho anh không rứa?",
+            {"chat_ott.list_chats", "chat_ott.send_message"}, {},
+        ))
+        self.assertNotIn("library.reserve", _repair_plan(
+            "", "Thế còn cuốn tiếng Anh Tuấn dặn, xem còn thì giữ nốt cho tôi, không thì thôi.",
+            {"library.search", "library.reserve"}, {},
+        ))
+        self.assertIn("library.reserve", _repair_plan(
+            "", "Thằng Bi cần cuốn tám mươi ngày, coi thư viện còn thì giữ, bị mượn rồi thì giữ cuốn khác cùng tác giả.",
+            {"library.search", "library.reserve"}, {},
+        ))
+        balance = _repair_plan(
+            "", "Em coi nhanh tài khoản ngân hàng còn bao nhiêu giùm chị, lát chị chuyển cọc cho Laura Costa.",
+            {"banking.get_balance", "banking.list_beneficiaries", "banking.transfer"}, {},
+        )
+        self.assertNotIn("banking.transfer", balance)
+        self.assertIn("banking.get_balance", balance)
+
+    def test_a_second_action_stays_on_the_plan(self) -> None:
+        climate = _repair_plan(
+            "", "Bật đèn phòng khách lên năm mươi phần trăm, điều hoà hai mươi sáu độ.",
+            {"smart_home.get_status", "smart_home.light_set", "smart_home.climate_set"}, {},
+        )
+        self.assertIn("smart_home.climate_set", climate)
+        transfers = _repair_plan(
+            "", "Lấy tài khoản thanh toán trả Nguyễn Thị Lan đúng tiền nước, Phạm Hùng đúng tiền truyền hình.",
+            {"bill_payment.list_bills", "banking.get_balance", "banking.list_beneficiaries", "banking.transfer"},
+            {},
+        )
+        self.assertEqual(transfers.count("banking.transfer"), 2)
+        phone = _repair_plan(
+            "", "Nhắc tôi uống thuốc, xong gọi luôn số không chín không hai không không không không hai bảy không.",
+            {"reminders.create", "phone.call", "contacts.search"}, {},
+        )
+        self.assertIn("reminders.create", phone)
+        self.assertIn("phone.call", phone)
+        workout = _repair_plan(
+            "", "Hôm nay anh tập yoga được bốn lăm phút, ghi vào luôn hộ anh.",
+            {"fitness.log_workout", "reminders.create"}, {},
+        )
+        self.assertIn("fitness.log_workout", workout)
+
+    def test_a_remaining_alarm_uses_history_and_not_a_new_list(self) -> None:
+        from agent import _history_invocations
+        from context import render
+        from utils import _fill_history_text
+
+        context = "\n".join([
+            "today: 2026-11-13",
+            "tomorrow: 2026-11-14",
+            "history:",
+            "user: Mai tôi có những báo thức nào vậy?",
+            "assistant: Mai có 2 báo thức: 06:15 và 07:00.",
+            'tool_calls: [{"name": "alarm.list", "arguments": {}}]',
+            'tool_results: [{"ok": true, "alarms": ['
+            '{"id": "alm_01", "time": "2026-11-14T06:15:00+07:00"}, '
+            '{"id": "alm_02", "time": "2026-11-14T07:00:00+07:00"}]}]',
+            "user: Xóa cái sớm nhất giúp tôi nhé.",
+            "assistant: Đã xoá báo thức 06:15.",
+            'tool_calls: [{"name": "alarm.delete", "arguments": {"alarm_id": "alm_01"}}]',
+            'tool_results: [{"ok": true}]',
+            "latest_request:",
+            "",
+        ])
+        request = "Cái còn lại nếu mai mưa thì dời muộn nửa tiếng, không mưa giữ nguyên."
+        installed = {
+            "weather.get_forecast", "alarm.list", "alarm.delete", "alarm.update",
+            "calendar.list_events", "calendar.update_event",
+        }
+        catalog = {
+            "alarm.update": {
+                "kind": "write",
+                "parameters": {"properties": {"alarm_id": {"type": "string", "x-ref": "alarm.alarms"}}},
+            },
+            "alarm.list": {"kind": "read", "parameters": {"properties": {}}},
+            "calendar.update_event": {
+                "kind": "write",
+                "parameters": {"properties": {"event_id": {"type": "string", "x-ref": "calendar.events"}}},
+            },
+            "calendar.list_events": {"kind": "read", "parameters": {"properties": {}}},
+        }
+        plan = _repair_plan("", request, installed, catalog, "", context)
+        self.assertIn("weather.get_forecast", plan)
+        self.assertIn("alarm.update", plan)
+        self.assertIn("rain=true", plan)
+        self.assertNotIn("alarm.list", plan)
+        self.assertNotIn("calendar.update_event", plan)
+        forecast = _prepare_args("weather.get_forecast", {}, request, context, [], {}, plan, [])
+        self.assertEqual(forecast.get("date"), "2026-11-14")
+        shifted = _prepare_args("alarm.update", {}, request, context, [], {}, plan, [])
+        self.assertEqual(shifted.get("alarm_id"), "alm_02")
+        self.assertEqual(shifted.get("time"), "2026-11-14T07:30:00+07:00")
+
+        public = ROOT / "train+public_test" / "public_test" / "public_test.jsonl"
+        with public.open(encoding="utf-8") as handle:
+            sample = next(json.loads(line) for line in handle if '"id": "public_0006"' in line)
+        settings = {
+            "cache_dir": str(ROOT / "cache" / "gold" / "transcripts"),
+            "kit_root": str(ROOT / "train+public_test"),
+            "split": "public_test",
+        }
+        filled = _fill_history_text(sample, settings)
+        rendered = render(filled, "Cái còn lại nếu mai mưa thì dời muộn nửa tiếng, không mưa thì giữ nguyên.")
+        self.assertIn("user: Mai mình có những báo thức nào thế?", rendered)
+        self.assertIn("user: Xoá cái sớm nhắc giúp tôi nhé.", rendered)
+        self.assertNotIn("public_0006_u1.wav", rendered)
+        names = [name for name, _args, _payload in _history_invocations(rendered)]
+        self.assertEqual(names, ["alarm.list", "alarm.delete"])
+        public_plan = _repair_plan("", rendered.split("latest_request:", 1)[1], installed, catalog, "", rendered)
+        public_shift = _prepare_args(
+            "alarm.update", {}, rendered.split("latest_request:", 1)[1], rendered, [], {}, public_plan, [],
+        )
+        self.assertEqual(public_shift.get("alarm_id"), "alm_01")
+        self.assertEqual(public_shift.get("time"), "2026-11-04T08:30:00+07:00")
 
 
 if __name__ == "__main__":

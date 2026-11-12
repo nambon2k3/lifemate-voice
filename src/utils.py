@@ -149,6 +149,40 @@ def write_tool_results(sample_id: str, env, output: Path) -> Path:
     return path
 
 
+def _fill_history_text(sample: dict, settings: dict) -> dict:
+    """Transcribe history user turns that only have a wav path.
+
+    Train rows already store ``audio_text``. Public rows store ``audio``.
+    Each missing sentence goes through ``transcribe``, the same path as the
+    latest request: the JSON transcript is the ASR ground truth while testing,
+    and a cache miss calls the ASR server. Assistant tool calls stay as they
+    are. The kit file is not written.
+
+    Input:
+        sample (dict): one JSONL row. ``history`` may mix user wavs and
+        assistant tool results.
+        settings (dict): ``cache_dir`` and the ASR settings ``transcribe`` reads.
+
+    Output:
+        dict: ``sample`` when every user turn already has text. A shallow copy
+        with ``audio_text`` filled on the user turns that only had ``audio``.
+    """
+    history = sample.get("history") or []
+    if not any(
+        turn.get("role") == "user" and not turn.get("audio_text") and turn.get("audio")
+        for turn in history
+    ):
+        return sample
+    filled = []
+    for turn in history:
+        if turn.get("role") == "user" and not turn.get("audio_text") and turn.get("audio"):
+            text = transcribe(sample, turn["audio"], settings)
+            filled.append({**turn, "audio_text": text})
+        else:
+            filled.append(turn)
+    return {**sample, "history": filled}
+
+
 def _using_gold(settings: dict, sample: dict, transcript: str) -> bool:
     """Return whether this transcript is the train gold sentence.
 
@@ -195,6 +229,7 @@ def run_split(
 
     An ASR transcript is passed through ``correct_slots`` before ``render``.
     A gold sentence selected with ``use_gold_transcript`` is left unchanged.
+    User turns in ``history`` that only have a wav are transcribed first.
     ``begin`` and ``end`` count rows in the split file, starting at 1.
 
     Input:
@@ -233,6 +268,7 @@ def run_split(
     count = 0
     with output.open("w", encoding="utf-8") as handle:
         for sample in rows:
+            sample = _fill_history_text(sample, settings)
             transcript = transcribe(sample, sample["audio"], settings)
             if not _using_gold(settings, sample, transcript):
                 transcript = correct_slots(transcript, sample)
